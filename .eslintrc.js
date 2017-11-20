@@ -4,6 +4,7 @@ module.exports = {
       "jest": true
     },
     "rules": {
-      "comma-dangle": ["error", "never"]
+      "comma-dangle": ["error", "never"],
+      "no-console": ["error", {"allow": ["warn", "error"]} ]
     }
 };
