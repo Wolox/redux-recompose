@@ -29,6 +29,7 @@
     "jest": "^21.2.1"
   },
   "dependencies": {
-    "eslint": "^4.11.0"
+    "eslint": "^4.11.0",
+    "seamless-immutable": "^7.1.2"
   }
 }
