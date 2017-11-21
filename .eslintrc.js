@@ -5,6 +5,6 @@ module.exports = {
     },
     "rules": {
       "comma-dangle": ["error", "never"],
-      "no-console": ["error", {"allow": ["warn", "error"]} ]
+      "no-console": ["error", {"allow": ["warn", "error"]}]
     }
 };
