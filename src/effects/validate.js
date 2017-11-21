@@ -6,7 +6,7 @@ function validateEffect(effect) {
     if (state[effect.realTarget(action)] === undefined) {
       console.warn(`Missing field declaration for ${effect.realTarget(action)}.`);
     }
-    return effect.do(state, action);
+    return state.merge({ [effect.realTarget(action)]: effect.do(action, state) });
   };
 }
 

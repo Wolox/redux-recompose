@@ -1,11 +1,11 @@
 import validate from '../validate';
 
-function onLoading(condition = () => true) {
+function onLoaded(condition = () => false) {
   return validate({
-    name: 'onLoading',
+    name: 'onLoaded',
     realTarget: action => `${action.target}Loading`,
     do: condition
   });
 }
 
-export default onLoading;
+export default onLoaded;
