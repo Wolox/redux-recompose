@@ -34,4 +34,13 @@ describe('completeState', () => {
       otherTarget: 2
     });
   });
+  it('Throws if an initial state is not provided', () => {
+    expect(() => completeState(null)).toThrow(Error, 'Expected an object as a state to complete.');
+  });
+  it('Throws if ignored targets is not a list', () => {
+    expect(() => completeState({}, {})).toThrow(Error, 'Expected an array of strings as ignored targets');
+  });
+  it('Throws if ignored targets is not a pure string array', () => {
+    expect(() => completeState({}, ['1', {}])).toThrow(Error, 'Expected an array of strings as ignored targets');
+  });
 });
