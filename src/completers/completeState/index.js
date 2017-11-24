@@ -1,13 +1,11 @@
+import isStringArray from '../validate';
+
 // Given a defaultState, it populates that state with ${key}Loading and ${key}Error
 function completeState(defaultState, ignoredTargets = []) {
   if (!defaultState || defaultState.constructor !== Object) {
     throw new Error('Expected an object as a state to complete.');
   }
-  if (
-    !ignoredTargets ||
-    ignoredTargets.constructor !== Array ||
-    ignoredTargets.some(actionName => !actionName || typeof actionName !== 'string')
-  ) {
+  if (!isStringArray(ignoredTargets)) {
     throw new Error('Expected an array of strings as ignored targets');
   }
 

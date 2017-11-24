@@ -1,17 +1,14 @@
 import onLoading from '../../effects/onLoading';
 import onSuccess from '../../effects/onSuccess';
 import onFailure from '../../effects/onFailure';
+import isStringArray from '../validate';
 
 // Given a reducer description, it returns a reducerHandler with all success and failure cases
 function completeReducer(reducerDescription) {
   if (!reducerDescription || !reducerDescription.primaryActions) {
     throw new Error('Reducer description is incomplete, should contain at least a primaryActions field');
   }
-  if (
-    !reducerDescription.primaryActions ||
-    reducerDescription.primaryActions.constructor !== Array ||
-    reducerDescription.primaryActions.some(actionName => !actionName || typeof actionName !== 'string')
-  ) {
+  if (!isStringArray(reducerDescription.primaryActions)) {
     throw new Error('Primary actions must be a string array');
   }
   let reducerHandler = {};
