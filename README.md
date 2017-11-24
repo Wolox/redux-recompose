@@ -121,8 +121,8 @@ Since state handling is decoupled from its state, we could create some more comp
 an effect with an action type to create families of actions.  
 More crazy and useful ideas are welcome too !  
 
-## Completors [WIP]
-You could use completors to reduce your code size.  
+## Completers [WIP]
+You could use completers to reduce your code size.  
 
 *completeState*: Receives a state description and a list of target exceptions.  
   Example:  
@@ -162,7 +162,7 @@ For those actions in `primaryActions`, it will add `onLoading`, `onSuccess` and 
   const reducer = createReducer(completeReducer(reducerDescription));
   ```
 
-We are working to introduce other completors like:  
+We are working to introduce other completers like:  
 ```
 completeActionTypes
 completeFromProps
