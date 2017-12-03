@@ -29,7 +29,7 @@ actions.js
 
 // Define an action. It will place the result on state.counter
 function increment(anAmount) {
-  createAction('INCREMENT', 'counter', anAmount);
+  return { type: 'INCREMENT', target: 'counter', payload: anAmount };
 }
 
 
@@ -89,7 +89,7 @@ composeEffects
 New effects are welcome ! Feel free to open an issue or even a PR.  
 
 ## Creators [WIP]  
-There are a few creators that also ease writing Redux reducers and actions.  
+There are a few creators that also ease writing Redux reducers and async actions.  
 
 *createReducer*: Receives an initialState and a reducer description. It replaces the traditional switch.  
   Example:  
@@ -101,9 +101,9 @@ There are a few creators that also ease writing Redux reducers and actions.
   const initialState = { aTarget: null };
   const reducer = createReducer(initialState, reducerDescription);
   ...
-  dispatch({ type: 'ACTION_NAME' }); // state.aTarget = ':)'
+  dispatch({ type: 'ACTION_NAME' }); // state.aTarget === ':)'
   ```
-*createAction*: Receives a type, a target and optionally a payload. Returns a new action.  
+
 *createTypes*: Receives a string list and another string to prepend a namespace.  
   Example:  
   ```
@@ -117,14 +117,23 @@ createThunkAction
 createMultiTargetAction
 createPollingAction
 ```
-Since state handling is decoupled from its state, we could create some more complex async actions, or even map
-an effect with an action type to create families of actions.  
+Since state handling is decoupled from its state, we could create some more complex async actions, or even map an effect with an action type to create families of actions.  
 More crazy and useful ideas are welcome too !  
 
 ## Completers [WIP]
-You could use completers to reduce your code size.  
+You could use completers to reduce your code size. Completers are functions that take
+partial definitions (i.e. descriptors) and help to construct the whole definition.
 
-*completeState*: Receives a state description and a list of target exceptions.  
+Completers in general looks like this:
+- A pattern is being repeated in an element.  
+- Identify that pattern and try to apply to every element similar to those who use this pattern, although they apply it or not.  
+- Add some exceptions for elements who don't use this pattern.  
+- Compress your code size by applying that pattern to all elements but not for exception cases.  
+
+*completeState*: This completer can extend a state description, helping to reduce its code size.  
+A common pattern is to have a field associated with its Error and its Loading, so this completer adds `Loading` and `Error` extensions to the state for every field that is not an exception.  
+
+Receives a state description and a list of target exceptions.  
   Example:  
   ```
   const initialLongState = {
@@ -147,27 +156,72 @@ You could use completers to reduce your code size.
 
   initialState and initialLongState are equivalent.
   ```
-*completeReducer*: Receives an object with `primaryActions` that is a string list of action names, and optionally a `override`.
-For those actions in `primaryActions`, it will add `onLoading`, `onSuccess` and `onFailure` for `action.type`, `${action.type}_SUCCESS` and `${action.type}_FAILURE` respectively.  
+
+*completeReducer*: This completer can shrink a reducer description if handlers of these reducers are part of an object.  
+Receives an object with `primaryActions` that is a string list of action names, and optionally a `override`.
+For those actions in `primaryActions`, it will add `onLoading`, `onSuccess` and `onFailure` effects for `action.type`, `${action.type}_SUCCESS` and `${action.type}_FAILURE` respectively.  
   Example:  
   ```
-  const actions = createActions(['FETCH', 'FETCH_SUCCESS', 'FETCH_FAILURE', 'OTHER'], '@@API');
+  const actions = createTypes(['FETCH', 'FETCH_SUCCESS', 'FETCH_FAILURE', 'OTHER'], '@@API');
   const reducerDescription = {
     primaryActions: [actions.FETCH],
     override: {
-      [actions.OTHER]: () => console.log('Completing the reducer description')
+      [actions.OTHER]: (state, action) => ({ ...state, count: action.payload })
     }
   }
 
   const reducer = createReducer(completeReducer(reducerDescription));
-  ```
+```
+  reducer handlers will be equivalent to:
+```
+  {
+    [actions.FETCH]: onLoading(),
+    [actions.FETCH_SUCCESS]: onSuccess(),
+    [actions.FETCH_FAILURE]: onFailure(),
+    [actions.OTHER]: (state, action) => ({ ...state, count: action.payload })
+  }
+```
+And the reducer created will behave like:
+```
+const reducer(state = initialState, action) {
+  switch (action.type) {
+    case actions.FETCH:
+      return { ...state, [`${action.target}Loading`]: true };
+    case actions.FETCH_SUCCESS:
+      return {
+        ...state,
+        [`${action.target}Loading`]: false,
+        [`${action.target}Error`]: null,
+        [`${action.target}`]: action.payload,
+      };
+    case actions.FETCH_FAILURE:
+      return {
+        ...state,
+        [`${action.target}Loading`]: false,
+        [`${action.target}Error`]: action.payload
+      };
+    case actions.OTHER:
+      return { ...state, count: action.payload };
+    default:
+      return state;
+  }
+}
+```
+
+This way, we avoid writting `SUCCESS` and `FAILURE` effects every time.
 
 We are working to introduce other completers like:  
 ```
-completeActionTypes
-completeFromProps
+completeActionTypes: Helps to write less action names
+completeFromProps: Helps to write a state from propTypes definition
 ```
-Just to write less code.  
+
+And to introduce completers that support custom patterns:
+```
+const initialStateDescription = { msg: '' };
+const initialState = completeCustomState(initialStateDescription, ['Info', 'Warn', 'Error']);
+// initialState.toEqual({ msg: '', msgInfo: '', msgWarn: '', msgError: '' });
+```
 
 ## Decorators [WIP]
 Decorators are meant to customize your thunk action behavior. We are working on these:  
