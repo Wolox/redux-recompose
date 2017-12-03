@@ -246,6 +246,8 @@ Soon, this will be able to be configured for using `immutable.js` by example or 
 
 Stay tuned !  
 
+## Thanks to  
+This library was inspired by acdlite/recompose. Let's keep creating tools for ease development.  
 
 ## Contributing
 
