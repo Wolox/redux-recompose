@@ -1,7 +1,6 @@
 machine:
   node:
-    version: 6
+    version: 8
 test:
   override:
-    - npm run lint
-    - npm run coverage
+    - npm run test
