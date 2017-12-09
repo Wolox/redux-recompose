@@ -3,6 +3,7 @@ import Immutable from 'seamless-immutable';
 import createReducer from '../../creators/createReducer';
 
 import onLoaded from '.';
+import onLoading from '../onLoading';
 
 const initialState = {
   target: null,
@@ -21,9 +22,12 @@ beforeEach(() => {
 describe('onLoaded', () => {
   it('Sets correctly loading target', () => {
     const reducer = createReducer(setUp.state, {
-      '@@ACTION/TYPE': onLoaded()
+      '@@ACTION/TYPE_LOADED': onLoaded(),
+      '@@ACTION/TYPE_LOADING': onLoading()
     });
-    const newState = reducer(setUp.state, { type: '@@ACTION/TYPE', target: 'target' });
+    let newState = reducer(setUp.state, { type: '@@ACTION/TYPE_LOADING', target: 'target' });
+    expect(newState.targetLoading).toBe(true);
+    newState = reducer(setUp.state, { type: '@@ACTION/TYPE_LOADED', target: 'target' });
     expect(newState.targetLoading).toBe(false);
   });
   it('Does not modify other targets', () => {
