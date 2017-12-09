@@ -5,7 +5,7 @@ import isStringArray from '../validate';
 
 // Given a reducer description, it returns a reducerHandler with all success and failure cases
 function completeReducer(reducerDescription) {
-  if (!reducerDescription || !reducerDescription.primaryActions) {
+  if (!reducerDescription || !reducerDescription.primaryActions || !reducerDescription.primaryActions.length) {
     throw new Error('Reducer description is incomplete, should contain at least a primaryActions field');
   }
   if (!isStringArray(reducerDescription.primaryActions)) {
