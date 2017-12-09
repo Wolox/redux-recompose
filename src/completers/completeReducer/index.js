@@ -1,7 +1,7 @@
 import onLoading from '../../effects/onLoading';
 import onSuccess from '../../effects/onSuccess';
 import onFailure from '../../effects/onFailure';
-import isStringArray from '../validate';
+import { isStringArray, isValidObject } from '../../utils/typeUtils';
 
 // Given a reducer description, it returns a reducerHandler with all success and failure cases
 function completeReducer(reducerDescription) {
@@ -23,6 +23,9 @@ function completeReducer(reducerDescription) {
   });
 
   if (reducerDescription.override) {
+    if (!isValidObject(reducerDescription.override)) {
+      throw new Error('Reducer description containing a override is not an object');
+    }
     reducerHandler = { ...reducerHandler, ...reducerDescription.override };
   }
   return reducerHandler;

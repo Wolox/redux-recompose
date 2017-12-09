@@ -1,7 +1,9 @@
-const isStringArray = array => !(
+export const isStringArray = array => !(
   !array ||
   array.constructor !== Array ||
   array.some(actionName => !actionName || typeof actionName !== 'string')
 );
 
-export default isStringArray;
+export const isValidObject = obj => !(
+  !obj || obj.constructor !== Object
+);

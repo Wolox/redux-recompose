@@ -1,8 +1,8 @@
-import isStringArray from '../validate';
+import { isStringArray, isValidObject } from '../../utils/typeUtils';
 
 // Given a defaultState, it populates that state with ${key}Loading and ${key}Error
 function completeState(defaultState, ignoredTargets = []) {
-  if (!defaultState || defaultState.constructor !== Object) {
+  if (!isValidObject(defaultState)) {
     throw new Error('Expected an object as a state to complete.');
   }
   if (!isStringArray(ignoredTargets)) {
