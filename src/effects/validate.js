@@ -1,3 +1,9 @@
+// Common validator for single target effects
+// Effects using this validator should be wrapped into an object with the shape:
+// {
+//   realTarget: the target being modified. Notice that it may be different of action.target,
+//   do: the effect itself
+// }
 function validateEffect(effect) {
   return (state, action) => {
     if (!action.target) {
