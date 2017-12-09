@@ -25,7 +25,7 @@ describe('onLoading', () => {
       '@@ACTION/TYPE': onLoading()
     });
     const newState = reducer(setUp.state, createAction('@@ACTION/TYPE', 'target'));
-    expect(newState.targetLoading).toBeTruthy();
+    expect(newState.targetLoading).toBe(true);
   });
   it('Does not modify other targets', () => {
     const reducer = createReducer(setUp.state, {
@@ -36,11 +36,11 @@ describe('onLoading', () => {
   });
   it('Sets loading conditionally', () => {
     const reducer = createReducer(setUp.state, {
-      '@@ACTION/TYPE': onLoading((action, state) => action.payload || state.count > 0)
+      '@@ACTION/TYPE': onLoading((action, state) => !!action.payload || state.count > 0)
     });
     let newState = reducer(setUp.state, createAction('@@ACTION/TYPE', 'target'));
-    expect(newState.targetLoading).toBeFalsy();
+    expect(newState.targetLoading).toBe(false);
     newState = reducer(setUp.state, createAction('@@ACTION/TYPE', 'target', 'payload'));
-    expect(newState.targetLoading).toBeTruthy();
+    expect(newState.targetLoading).toBe(true);
   });
 });

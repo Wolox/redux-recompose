@@ -21,7 +21,7 @@ beforeEach(() => {
 });
 
 describe('completeReducer', () => {
-  it('Throws if a reducer description is not given', () => {
+  it('Throws if a reducer description is not present', () => {
     expect(() => completeReducer(null)).toThrow(Error, 'Reducer description is incomplete, should contain at least a primaryActions field');
   });
   it('Throws if a reducer description has not a primaryActions field', () => {
@@ -40,25 +40,25 @@ describe('completeReducer', () => {
     const reducer = createReducer(setUp.state, completeReducer(reducerDescription));
     // onLoading for common action
     setUp.state = reducer(setUp.state, createAction('@NAMESPACE/ACTION', 'target'));
-    expect(setUp.state.targetLoading).toBeTruthy();
+    expect(setUp.state.targetLoading).toBe(true);
     expect(setUp.state.targetError).toBeNull();
     expect(setUp.state.target).toBe(1);
 
     // onSuccess behavior
     setUp.state = reducer(setUp.state, createAction('@NAMESPACE/ACTION_SUCCESS', 'target', 42));
-    expect(setUp.state.targetLoading).toBeFalsy();
+    expect(setUp.state.targetLoading).toBe(false);
     expect(setUp.state.targetError).toBeNull();
     expect(setUp.state.target).toBe(42);
 
     // yet another onLoading
     setUp.state = reducer(setUp.state, createAction('@NAMESPACE/ACTION', 'target'));
-    expect(setUp.state.targetLoading).toBeTruthy();
+    expect(setUp.state.targetLoading).toBe(true);
     expect(setUp.state.targetError).toBeNull();
     expect(setUp.state.target).toBe(42);
 
     // onFailure behavior
     setUp.state = reducer(setUp.state, createAction('@NAMESPACE/ACTION_FAILURE', 'target', 'Oops !'));
-    expect(setUp.state.targetLoading).toBeFalsy();
+    expect(setUp.state.targetLoading).toBe(false);
     expect(setUp.state.targetError).toBe('Oops !');
     expect(setUp.state.target).toBe(42);
   });
