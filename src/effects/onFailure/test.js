@@ -1,6 +1,5 @@
 import Immutable from 'seamless-immutable';
 
-import createAction from '../../creators/createAction';
 import createReducer from '../../creators/createReducer';
 
 import onFailure from '.';
@@ -24,7 +23,7 @@ describe('onFailure', () => {
     const reducer = createReducer(setUp.state, {
       '@@ACTION/TYPE': onFailure()
     });
-    const newState = reducer(setUp.state, createAction('@@ACTION/TYPE', 'target', 'Oops !'));
+    const newState = reducer(setUp.state, { type: '@@ACTION/TYPE', target: 'target', payload: 'Oops !' });
     expect(newState).toEqual({
       target: 'Some content',
       targetLoading: false,
@@ -35,7 +34,7 @@ describe('onFailure', () => {
     const reducer = createReducer(setUp.state, {
       '@@ACTION/TYPE': onFailure(action => `Error: ${action.payload}`)
     });
-    const newState = reducer(setUp.state, createAction('@@ACTION/TYPE', 'target', 'Oops !'));
+    const newState = reducer(setUp.state, { type: '@@ACTION/TYPE', target: 'target', payload: 'Oops !' });
     expect(newState).toEqual({
       target: 'Some content',
       targetLoading: false,

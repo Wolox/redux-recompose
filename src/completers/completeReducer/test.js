@@ -1,7 +1,6 @@
 import Immutable from 'seamless-immutable';
 
 import createReducer from '../../creators/createReducer';
-import createAction from '../../creators/createAction';
 import onFailure from '../../effects/onFailure';
 
 import completeReducer from '.';
@@ -39,25 +38,25 @@ describe('completeReducer', () => {
     };
     const reducer = createReducer(setUp.state, completeReducer(reducerDescription));
     // onLoading for common action
-    setUp.state = reducer(setUp.state, createAction('@NAMESPACE/ACTION', 'target'));
+    setUp.state = reducer(setUp.state, { type: '@NAMESPACE/ACTION', target: 'target' });
     expect(setUp.state.targetLoading).toBe(true);
     expect(setUp.state.targetError).toBeNull();
     expect(setUp.state.target).toBe(1);
 
     // onSuccess behavior
-    setUp.state = reducer(setUp.state, createAction('@NAMESPACE/ACTION_SUCCESS', 'target', 42));
+    setUp.state = reducer(setUp.state, { type: '@NAMESPACE/ACTION_SUCCESS', target: 'target', payload: 42 });
     expect(setUp.state.targetLoading).toBe(false);
     expect(setUp.state.targetError).toBeNull();
     expect(setUp.state.target).toBe(42);
 
     // yet another onLoading
-    setUp.state = reducer(setUp.state, createAction('@NAMESPACE/ACTION', 'target'));
+    setUp.state = reducer(setUp.state, { type: '@NAMESPACE/ACTION', target: 'target' });
     expect(setUp.state.targetLoading).toBe(true);
     expect(setUp.state.targetError).toBeNull();
     expect(setUp.state.target).toBe(42);
 
     // onFailure behavior
-    setUp.state = reducer(setUp.state, createAction('@NAMESPACE/ACTION_FAILURE', 'target', 'Oops !'));
+    setUp.state = reducer(setUp.state, { type: '@NAMESPACE/ACTION_FAILURE', target: 'target', payload: 'Oops !' });
     expect(setUp.state.targetLoading).toBe(false);
     expect(setUp.state.targetError).toBe('Oops !');
     expect(setUp.state.target).toBe(42);
@@ -71,9 +70,9 @@ describe('completeReducer', () => {
       }
     };
     const reducer = createReducer(setUp.state, completeReducer(reducerDescription));
-    setUp.state = reducer(setUp.state, createAction('@NAMESPACE/ACTION_FAILURE', 'target', { message: 'ERror MACro' }));
+    setUp.state = reducer(setUp.state, { type: '@NAMESPACE/ACTION_FAILURE', target: 'target', payload: { message: 'ERror MACro' } });
     expect(setUp.state.targetError).toBe('ERror MACro');
-    setUp.state = reducer(setUp.state, createAction('@NAMESPACE/ANOTHER', 'target', 'Also known as Ermac'));
+    setUp.state = reducer(setUp.state, { type: '@NAMESPACE/ANOTHER', target: 'target', payload: 'Also known as Ermac' });
     expect(setUp.state.targetError).toBe('Also known as Ermac');
     // Flawless victory
   });
