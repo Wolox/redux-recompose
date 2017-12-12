@@ -5,7 +5,7 @@ function createThunkAction(type, target, serviceCall, selector = () => {}) {
     if (response.ok) {
       dispatch({ type: `${type}_SUCCESS`, payload: response.data, target });
     } else {
-      dispatch({ type: `${type}_FAILURE`, payload: response.problem, target: `${target}Error` });
+      dispatch({ type: `${type}_FAILURE`, payload: response.problem, target });
     }
   };
 }
