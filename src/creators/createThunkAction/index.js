@@ -1,13 +1,8 @@
+import composeInjections from '../../injections/composeInjections';
+import baseThunkAction from '../../injections/baseThunkAction';
+
 function createThunkAction(type, target, serviceCall, selector = () => {}) {
-  return async (dispatch, getState) => {
-    dispatch({ type, target: `${target}Loading` });
-    const response = await serviceCall(selector(getState()));
-    if (response.ok) {
-      dispatch({ type: `${type}_SUCCESS`, payload: response.data, target });
-    } else {
-      dispatch({ type: `${type}_FAILURE`, payload: response.problem, target });
-    }
-  };
+  return composeInjections(baseThunkAction(type, target, serviceCall, selector));
 }
 
 export default createThunkAction;
