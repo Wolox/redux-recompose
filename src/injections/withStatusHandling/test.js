@@ -21,18 +21,33 @@ const customThunkAction = serviceCall => composeInjections(
 describe('withStatusHandling', () => {
   it('Handles correctly status codes', async () => {
     const store = mockStore({});
-    await store.dispatch(customThunkAction(MockService.fetchSomething));
     await store.dispatch(customThunkAction(MockService.fetchFailureNotFound));
+    const actionsDispatched = store.getActions();
+    expect(actionsDispatched).toEqual([
+      { type: actions.FETCH, target: 'aTarget' },
+      { type: actions.NOT_FOUND },
+      { type: actions.FETCH_FAILURE, target: 'aTarget', payload: 'CLIENT_ERROR' }
+    ]);
+  });
+  it('If not encounters a status code handler, it dispatches FAILURE', async () => {
+    const store = mockStore({});
     await store.dispatch(customThunkAction(MockService.fetchFailureExpiredToken));
     const actionsDispatched = store.getActions();
     expect(actionsDispatched).toEqual([
       { type: actions.FETCH, target: 'aTarget' },
-      { type: actions.FETCH_SUCCESS, target: 'aTarget', payload: 42 },
-      { type: actions.FETCH, target: 'aTarget' },
-      { type: actions.NOT_FOUND },
-      { type: actions.FETCH_FAILURE, target: 'aTarget', payload: 'CLIENT_ERROR' },
-      { type: actions.FETCH, target: 'aTarget' },
       { type: actions.FETCH_FAILURE, target: 'aTarget', payload: 'CLIENT_ERROR' }
+    ]);
+  });
+
+  it('Does not dispatch a FAILURE if a handler returns false', async () => {
+    const store = mockStore({});
+    await store.dispatch(composeInjections(
+      baseThunkAction(actions.FETCH, 'aTarget', MockService.fetchFailureExpiredToken),
+      withStatusHandling({ 422: () => false })
+    ));
+    const actionsDispatched = store.getActions();
+    expect(actionsDispatched).toEqual([
+      { type: actions.FETCH, target: 'aTarget' }
     ]);
   });
 });
