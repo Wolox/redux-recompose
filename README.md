@@ -223,8 +223,8 @@ const initialState = completeCustomState(initialStateDescription, ['Info', 'Warn
 // initialState.toEqual({ msg: '', msgInfo: '', msgWarn: '', msgError: '' });
 ```
 
-## Decorators [WIP]
-Decorators are meant to customize your thunk action behavior. We are working on these:  
+## Injectors [WIP]
+Injectors are meant to customize your thunk action behavior. We are working on these:  
 
 ```
 withPreRequest
@@ -237,14 +237,8 @@ withDetermination
 withBaseThunkAction
 ```
 
-And a function `composeDecorators` to help crafting your own async action definitions.  
+And a function `composeInjections` to help crafting your own async action definitions.  
 
-## Configuration [WIP]
-
-Currently, this library is oriented to use `seamless-immutable` for immutability concerns and `apisauce` for doing http requests.  
-Soon, this will be able to be configured for using `immutable.js` by example or using another library for requests.  
-
-Stay tuned !  
 
 ## Thanks to  
 This library was inspired by acdlite/recompose. Let's keep creating tools for ease development.  
