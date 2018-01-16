@@ -3,7 +3,7 @@ import createTypes from '../../creators/createTypes';
 import composeInjections from '../composeInjections';
 import baseThunkAction from '../baseThunkAction';
 
-import withPrefetch from '.';
+import withPreFetch from '.';
 
 const MockService = {
   fetchSomething: async () => new Promise(resolve => resolve({ ok: true, data: 42 })),
@@ -12,12 +12,12 @@ const MockService = {
 
 const actions = createTypes(['FETCH', 'FETCH_SUCCESS', 'FETCH_FAILURE', 'FETCH_LOADING'], '@TEST');
 
-describe('withPrefetch', () => {
+describe('withPreFetch', () => {
   it('Handles correctly the prefetch behavior', async () => {
     const store = mockStore({});
     await store.dispatch(composeInjections(
       baseThunkAction(actions.FETCH, 'aTarget', MockService.fetchSomething),
-      withPrefetch(dispatch => dispatch({ type: actions.FETCH_LOADING }))
+      withPreFetch(dispatch => dispatch({ type: actions.FETCH_LOADING }))
     ));
     const actionsDispatched = store.getActions();
     expect(actionsDispatched).toEqual([

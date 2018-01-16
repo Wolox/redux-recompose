@@ -1,7 +1,7 @@
-function withPrefetch(behavior) {
+function withPreFetch(behavior) {
   return {
     prebehavior: behavior
   };
 }
 
-export default withPrefetch;
+export default withPreFetch;
