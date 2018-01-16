@@ -124,8 +124,8 @@ const initialState = completeCustomState(initialStateDescription, ['Info', 'Warn
 // initialState.toEqual({ msg: '', msgInfo: '', msgWarn: '', msgError: '' });
 ```
 
-## Decorators
-Decorators are meant to customize your thunk action behavior. We are working on these:  
+## Injectors [WIP]
+Injectors are meant to customize your thunk action behavior. We are working on these:  
 
 ```
 baseThunkAction
@@ -137,7 +137,7 @@ withFailure
 withFlowDetermination
 ```
 
-And a function `composeDecorators` to help crafting your own async action definitions.  
+And a function `composeInjections` to help crafting your own async action definitions.  
 
 
 ## Thanks to  
