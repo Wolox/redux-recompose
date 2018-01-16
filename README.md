@@ -2,6 +2,7 @@
 
 ## Why another Redux library ?  
 `redux-recompose` provide tools to write less reducers/actions code.  
+
 Here is a [blog post](https://medium.com/wolox-driving-innovation/932e746b0198) about it.  
 
 Usually, we are used to write:  
@@ -48,13 +49,21 @@ const reducer = createReducer(initialState, reducerDescription);
 
 ```
 
-## Effects
+## Effects  
+
+Effects are functions that describe _how_ the state changes, but are agnostic of _what part_
+of the state is being changed.  
+
 `redux-recompose` provides some effects to ease reducer definitions. These are:  
 
-* [onSuccess](./src/effects/onSuccess/docs.md)  
+* [onDelete](./src/effects/onDelete/docs.md)  
+* [onDeleteByIndex](./src/effects/onDeleteByIndex/docs.md)  
 * [onFailure](./src/effects/onFailure/docs.md)  
-* [onLoading](./src/effects/onLoading/docs.md)  
 * [onLoaded](./src/effects/onLoaded/docs.md)  
+* [onLoading](./src/effects/onLoading/docs.md)  
+* [onReadValue](./src/effects/onReadValue/docs.md)  
+* [onSetValue](./src/effects/onSetValue/docs.md)  
+* [onSuccess](./src/effects/onSuccess/docs.md)  
 
 
 We are currently writing some other effects:  
@@ -227,9 +236,7 @@ And a function `composeDecorators` to help crafting your own async action defini
 ## Configuration [WIP]
 
 Currently, this library is oriented to use `seamless-immutable` for immutability concerns and `apisauce` for doing http requests.  
-Soon, this will be able to be configured for using `immutable.js` by example or using another library for requests.  
 
-Stay tuned !  
 
 ## Thanks to  
 This library was inspired by acdlite/recompose. Let's keep creating tools for ease development.  
