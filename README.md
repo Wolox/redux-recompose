@@ -2,6 +2,7 @@
 
 ## Why another Redux library ?  
 `redux-recompose` provide tools to write less reducers/actions code.  
+Here is a [blog post](https://medium.com/wolox-driving-innovation/932e746b0198) about it.  
 
 Usually, we are used to write:  
 ```
@@ -47,34 +48,18 @@ const reducer = createReducer(initialState, reducerDescription);
 
 ```
 
-## Effects [WIP]
+## Effects
 `redux-recompose` provides some effects to ease reducer definitions. These are:  
 
-*onSuccess* It will:  
-  * Put `${action.target}Loading` in `false`  
-  * Put `${action.target}Error` in `null`  
-  * Fill `${action.target}` with your `action.payload` by default, or use a selector provided  
-  Examples:  
-    ```
-    const selector = (action, state) => action.payload || state[action.target];
-    const reducerDescription = {
-      'SUCCESS': onSuccess(),
-      'SUCCESS_AND_ADD': onSuccess(selector)
-    };
-    ```
-*onFailure*: It will:  
-  * Put `${action.target}Loading` in `false`  
-  * Put `${action.target}Error` with your `action.payload`. This also supports a selector.  
-*onLoading*: It will put `${action.target}Loading` in true. Also supports selectors.  
-*onLoaded*: It will put `${action.target}Loading` in false. Also supports selectors.  
+* [onSuccess](./src/effects/onSuccess/docs.md)  
+* [onFailure](./src/effects/onFailure/docs.md)  
+* [onLoading](./src/effects/onLoading/docs.md)  
+* [onLoaded](./src/effects/onLoaded/docs.md)  
 
-_Spoiler alert_: The last ones are useful to implement SUCCESS/FAILURE async actions pattern in thunk actions. Soon will be available this creator.  
 
-We are currently writting some other effects:  
+We are currently writing some other effects:  
 ```
-onSetValue
 onReset
-onDelete
 onToggle
 onAppend
 onCycle
