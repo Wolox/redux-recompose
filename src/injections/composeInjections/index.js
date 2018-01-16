@@ -6,6 +6,7 @@ function composeInjections(...decorators) {
     apiCall = () => {},
     determination = () => true,
     success = () => {},
+    postSuccess = () => {},
     postBehavior = () => {},
     failure = () => {},
     statusHandler = () => true
@@ -14,9 +15,10 @@ function composeInjections(...decorators) {
   return async (dispatch, getState) => {
     prebehavior(dispatch);
     const response = await apiCall(getState);
+    postBehavior(dispatch, response);
     if (determination(response)) {
       const shouldContinue = success(dispatch, response);
-      if (shouldContinue) postBehavior(dispatch, response);
+      if (shouldContinue) postSuccess(dispatch, response);
     } else {
       const shouldContinue = statusHandler(dispatch, response);
       if (shouldContinue) failure(dispatch, response);

@@ -1,6 +1,6 @@
 function withPostSuccess(behavior) {
   return {
-    postBehavior: behavior
+    postSuccess: behavior
   };
 }
 
