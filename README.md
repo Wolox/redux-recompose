@@ -106,7 +106,8 @@ Completers in general looks like this:
 - Identify that pattern and try to apply to every element similar to those who use this pattern, although they apply it or not.  
 - Add some exceptions for elements who don't use this pattern.  
 - Compress your code size by applying that pattern to all elements but not for exception cases.  
-
+  
+There are a few completers that can be used:  
 * [completeState](./src/completers/completeState/docs.md)
 * [completeReducer](./src/completers/completeReducer/docs.md)
 * [completeTypes](./src/completers/completeTypes/docs.md)
