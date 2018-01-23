@@ -1,3 +1,6 @@
+import 'babel-core/register';
+import 'babel-polyfill';
+
 import completeReducer from './completers/completeReducer';
 import completeState from './completers/completeState';
 import completeTypes from './completers/completeTypes';

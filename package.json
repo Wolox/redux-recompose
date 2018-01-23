@@ -1,6 +1,6 @@
 {
   "name": "redux-recompose",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Redux utility belt for reducers and actions. Inspired by acdlite/recompose.",
   "engines": {
     "node": ">=8.8.1"
@@ -29,6 +29,7 @@
     "babel-cli": "^6.26.0",
     "babel-jest": "^21.2.0",
     "babel-preset-es2015": "^6.24.1",
+    "babel-preset-es2017": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.8.0",
@@ -40,6 +41,8 @@
   },
   "dependencies": {
     "eslint": "^4.11.0",
-    "seamless-immutable": "^7.1.2"
+    "seamless-immutable": "^7.1.2",
+    "babel-core": "^6.26.0",
+    "babel-polyfill": "^6.26.0"
   }
 }
