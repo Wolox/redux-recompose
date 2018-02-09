@@ -24,7 +24,7 @@ import withFailure from './injections/withFailure';
 import withFlowDetermination from './injections/withFlowDetermination';
 import withPostFetch from './injections/withPostFetch';
 import withPostSuccess from './injections/withPostSuccess';
-import withPreFetch from './injections/withPreFetch';
+import withPrefetch from './injections/withPrefetch';
 import withStatusHandling from './injections/withStatusHandling';
 
 exports.completeReducer = completeReducer;
@@ -50,5 +50,5 @@ exports.withFailure = withFailure;
 exports.withFlowDetermination = withFlowDetermination;
 exports.withPostFetch = withPostFetch;
 exports.withPostSuccess = withPostSuccess;
-exports.withPreFetch = withPreFetch;
+exports.withPrefetch = withPrefetch;
 exports.withStatusHandling = withStatusHandling;
