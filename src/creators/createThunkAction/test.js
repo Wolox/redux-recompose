@@ -13,7 +13,7 @@ const actions = createTypes(['FETCH', 'FETCH_SUCCESS', 'FETCH_FAILURE'], '@TEST'
 describe('createThunkAction', () => {
   it('Dispatches SUCCESS correctly', async () => {
     const store = mockStore({});
-    await store.dispatch(createThunkAction(actions.FETCH, 'aTarget', MockService.fetchSomething));
+    await store.dispatch({ type: actions.FETCH, target: 'aTarget', service: MockService.fetchSomething });
     const actionsDispatched = store.getActions();
     expect(actionsDispatched).toEqual([
       { type: actions.FETCH, target: 'aTarget' },
