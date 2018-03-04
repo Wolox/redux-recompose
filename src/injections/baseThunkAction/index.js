@@ -1,4 +1,11 @@
-function baseThunkAction(type, target, service, selector = () => {}) {
+function baseThunkAction({
+  type,
+  target,
+  service,
+  payload = () => {}
+}) {
+  const selector = typeof payload === 'function' ? payload : () => payload;
+
   return {
     prebehavior: dispatch => dispatch({ type, target }),
     apiCall: async getState => service(selector(getState())),
