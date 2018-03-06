@@ -7,7 +7,7 @@ function composeInjections(...injections) {
     prebehavior = () => {},
     apiCall = () => {},
     determination = () => true,
-    success = () => {},
+    success = () => true,
     postSuccess = () => {},
     postBehavior = () => {},
     failure = () => {},

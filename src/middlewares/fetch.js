@@ -1,9 +1,10 @@
 import baseThunkAction from '../injections/baseThunkAction';
+import emptyThunkAction from '../injections/emptyThunkAction';
 import composeInjections from '../injections/composeInjections';
 import mergeInjections from '../injections/mergeInjections';
 
 const ensembleInjections = action => {
-  const base = baseThunkAction(action);
+  const base = action.target ? baseThunkAction(action) : emptyThunkAction(action);
   if (!action.injections) return base;
 
   const injections = action.injections.constructor === Array
