@@ -26,6 +26,7 @@ import withPostFetch from './injections/withPostFetch';
 import withPostSuccess from './injections/withPostSuccess';
 import withPrefetch from './injections/withPrefetch';
 import withStatusHandling from './injections/withStatusHandling';
+import withSuccess from './injections/withSuccess';
 
 import fetchMiddleware from './middlewares/fetch';
 
@@ -54,5 +55,6 @@ exports.withPostFetch = withPostFetch;
 exports.withPostSuccess = withPostSuccess;
 exports.withPrefetch = withPrefetch;
 exports.withStatusHandling = withStatusHandling;
+exports.withSuccess = withSuccess;
 
 exports.fetchMiddleware = fetchMiddleware;
