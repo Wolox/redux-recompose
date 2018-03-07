@@ -1,5 +1,7 @@
-function composeInjections(...decorators) {
-  const decoratorDescription = decorators.reduce((a, b) => ({ ...a, ...b }), {});
+import mergeInjections from '../mergeInjections';
+
+function composeInjections(...injections) {
+  const injectionsDescription = mergeInjections(injections);
 
   const {
     prebehavior = () => {},
@@ -10,7 +12,7 @@ function composeInjections(...decorators) {
     postBehavior = () => {},
     failure = () => {},
     statusHandler = () => true
-  } = decoratorDescription;
+  } = injectionsDescription;
 
   return async (dispatch, getState) => {
     prebehavior(dispatch);

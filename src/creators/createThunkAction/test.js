@@ -1,8 +1,6 @@
 import mockStore from '../../utils/asyncActionsUtils';
 import createTypes from '../createTypes';
 
-import createThunkAction from '.';
-
 const MockService = {
   fetchSomething: async () => new Promise(resolve => resolve({ ok: true, data: 42 })),
   fetchFailure: async () => new Promise(resolve => resolve({ ok: false, problem: 'CLIENT_ERROR' }))
@@ -13,7 +11,7 @@ const actions = createTypes(['FETCH', 'FETCH_SUCCESS', 'FETCH_FAILURE'], '@TEST'
 describe('createThunkAction', () => {
   it('Dispatches SUCCESS correctly', async () => {
     const store = mockStore({});
-    await store.dispatch(createThunkAction(actions.FETCH, 'aTarget', MockService.fetchSomething));
+    await store.dispatch({ type: actions.FETCH, target: 'aTarget', service: MockService.fetchSomething });
     const actionsDispatched = store.getActions();
     expect(actionsDispatched).toEqual([
       { type: actions.FETCH, target: 'aTarget' },
@@ -22,7 +20,7 @@ describe('createThunkAction', () => {
   });
   it('Dispatches FAILURE correctly', async () => {
     const store = mockStore({});
-    await store.dispatch(createThunkAction(actions.FETCH, 'aTarget', MockService.fetchFailure));
+    await store.dispatch({ type: actions.FETCH, target: 'aTarget', service: MockService.fetchFailure });
     const actionsDispatched = store.getActions();
     expect(actionsDispatched).toEqual([
       { type: actions.FETCH, target: 'aTarget' },

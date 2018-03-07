@@ -1,7 +1,5 @@
 import mockStore from '../../utils/asyncActionsUtils';
 import createTypes from '../../creators/createTypes';
-import composeInjections from '../composeInjections';
-import baseThunkAction from '../baseThunkAction';
 
 import withStatusHandling from '.';
 
@@ -13,10 +11,12 @@ const MockService = {
 
 const actions = createTypes(['FETCH', 'FETCH_SUCCESS', 'FETCH_FAILURE', 'NOT_FOUND', 'EXPIRED_TOKEN'], '@TEST');
 
-const customThunkAction = serviceCall => composeInjections(
-  baseThunkAction(actions.FETCH, 'aTarget', serviceCall),
-  withStatusHandling({ 404: dispatch => dispatch({ type: actions.NOT_FOUND }) })
-);
+const customThunkAction = serviceCall => ({
+  type: actions.FETCH,
+  target: 'aTarget',
+  service: serviceCall,
+  injections: withStatusHandling({ 404: dispatch => dispatch({ type: actions.NOT_FOUND }) })
+});
 
 describe('withStatusHandling', () => {
   it('Handles correctly status codes', async () => {
@@ -41,10 +41,12 @@ describe('withStatusHandling', () => {
 
   it('Does not dispatch a FAILURE if a handler returns false', async () => {
     const store = mockStore({});
-    await store.dispatch(composeInjections(
-      baseThunkAction(actions.FETCH, 'aTarget', MockService.fetchFailureExpiredToken),
-      withStatusHandling({ 422: () => false })
-    ));
+    await store.dispatch({
+      type: actions.FETCH,
+      target: 'aTarget',
+      service: MockService.fetchFailureExpiredToken,
+      injections: withStatusHandling({ 422: () => false })
+    });
     const actionsDispatched = store.getActions();
     expect(actionsDispatched).toEqual([
       { type: actions.FETCH, target: 'aTarget' }

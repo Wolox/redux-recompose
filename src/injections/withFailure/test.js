@@ -1,7 +1,5 @@
 import mockStore from '../../utils/asyncActionsUtils';
 import createTypes from '../../creators/createTypes';
-import composeInjections from '../composeInjections';
-import baseThunkAction from '../baseThunkAction';
 import withStatusHandling from '../withStatusHandling';
 
 import withFailure from '.';
@@ -16,14 +14,18 @@ const actions = createTypes(['FETCH', 'FETCH_SUCCESS', 'FETCH_FAILURE', 'OTHER_A
 describe('withFailure', () => {
   it('Handles correctly failure behavior', async () => {
     const store = mockStore({});
-    await store.dispatch(composeInjections(
-      baseThunkAction(actions.FETCH, 'aTarget', MockService.fetchSomething),
-      withFailure(dispatch => dispatch({ type: actions.OTHER_ACTION }))
-    ));
-    await store.dispatch(composeInjections(
-      baseThunkAction(actions.FETCH, 'aTarget', MockService.fetchFailureNotFound),
-      withFailure(dispatch => dispatch({ type: actions.OTHER_ACTION }))
-    ));
+    await store.dispatch({
+      type: actions.FETCH,
+      target: 'aTarget',
+      service: MockService.fetchSomething,
+      injections: withFailure(dispatch => dispatch({ type: actions.OTHER_ACTION }))
+    });
+    await store.dispatch({
+      type: actions.FETCH,
+      target: 'aTarget',
+      service: MockService.fetchFailureNotFound,
+      injections: withFailure(dispatch => dispatch({ type: actions.OTHER_ACTION }))
+    });
     const actionsDispatched = store.getActions();
     // Does not dispatch FAILURE action
     expect(actionsDispatched).toEqual([
@@ -36,23 +38,30 @@ describe('withFailure', () => {
   it('Does not execute depending on the status handler result', async () => {
     const store = mockStore({});
     // Does execute Failure handler
-    await store.dispatch(composeInjections(
-      baseThunkAction(actions.FETCH, 'aTarget', MockService.fetchFailureNotFound),
-      withStatusHandling({ 404: dispatch => dispatch({ type: actions.NOT_FOUND }) }),
-      withFailure(dispatch => dispatch({ type: actions.OTHER_ACTION }))
-    ));
+    await store.dispatch({
+      type: actions.FETCH,
+      target: 'aTarget',
+      service: MockService.fetchFailureNotFound,
+      injections: [
+        withStatusHandling({ 404: dispatch => dispatch({ type: actions.NOT_FOUND }) }),
+        withFailure(dispatch => dispatch({ type: actions.OTHER_ACTION }))
+      ]
+    });
 
     // Does not execute Failure handler
-    await store.dispatch(composeInjections(
-      baseThunkAction(actions.FETCH, 'aTarget', MockService.fetchFailureNotFound),
-      withStatusHandling({
-        404: dispatch => {
-          dispatch({ type: actions.NOT_FOUND });
-          return false;
-        }
-      }),
-      withFailure(dispatch => dispatch({ type: actions.OTHER_ACTION }))
-    ));
+    await store.dispatch({
+      type: actions.FETCH,
+      target: 'aTarget',
+      service: MockService.fetchFailureNotFound,
+      injections: [
+        withStatusHandling({
+          404: dispatch => {
+            dispatch({ type: actions.NOT_FOUND });
+            return false;
+          }
+        }),
+        withFailure(dispatch => dispatch({ type: actions.OTHER_ACTION }))]
+    });
 
     const actionsDispatched = store.getActions();
     // Does not dispatch FAILURE action

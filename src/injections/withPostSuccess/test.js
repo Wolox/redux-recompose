@@ -1,7 +1,5 @@
 import mockStore from '../../utils/asyncActionsUtils';
 import createTypes from '../../creators/createTypes';
-import composeInjections from '../composeInjections';
-import baseThunkAction from '../baseThunkAction';
 
 import withPostSuccess from '.';
 
@@ -15,10 +13,13 @@ const actions = createTypes(['FETCH', 'FETCH_SUCCESS', 'FETCH_FAILURE', 'OTHER_A
 describe('withPostSuccess', () => {
   it('Handles correctly post success', async () => {
     const store = mockStore({});
-    await store.dispatch(composeInjections(
-      baseThunkAction(actions.FETCH, 'aTarget', MockService.fetchSomething),
-      withPostSuccess(dispatch => dispatch({ type: actions.OTHER_ACTION }))
-    ));
+    await store.dispatch({
+      type: actions.FETCH,
+      target: 'aTarget',
+      service: MockService.fetchSomething,
+      injections: withPostSuccess(dispatch => dispatch({ type: actions.OTHER_ACTION }))
+    });
+
     const actionsDispatched = store.getActions();
     expect(actionsDispatched).toEqual([
       { type: actions.FETCH, target: 'aTarget' },

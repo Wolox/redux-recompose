@@ -1,7 +1,5 @@
 import mockStore from '../../utils/asyncActionsUtils';
 import createTypes from '../../creators/createTypes';
-import composeInjections from '../composeInjections';
-import baseThunkAction from '../baseThunkAction';
 
 import withFlowDetermination from '.';
 
@@ -21,20 +19,26 @@ const actions = createTypes(['FETCH', 'FETCH_SUCCESS', 'FETCH_FAILURE', 'OTHER_A
 describe('withFlowDetermination', () => {
   it('Handles correctly the flow determination', async () => {
     const store = mockStore({});
-    await store.dispatch(composeInjections(
-      baseThunkAction(actions.FETCH, 'aTarget', MockService.fetchSomething),
-      withFlowDetermination(response => response.ok)
-    ));
+    await store.dispatch({
+      type: actions.FETCH,
+      target: 'aTarget',
+      service: MockService.fetchSomething,
+      injections: withFlowDetermination(response => response.ok)
+    });
 
-    await store.dispatch(composeInjections(
-      baseThunkAction(actions.FETCH, 'aTarget', MockService.fetchFailureNotFound),
-      withFlowDetermination(response => response.ok)
-    ));
+    await store.dispatch({
+      type: actions.FETCH,
+      target: 'aTarget',
+      service: MockService.fetchFailureNotFound,
+      injections: [withFlowDetermination(response => response.ok)]
+    });
 
-    await store.dispatch(composeInjections(
-      baseThunkAction(actions.FETCH, 'aTarget', MockService.fetchFailureNotFound),
-      withFlowDetermination(response => response.status === 404)
-    ));
+    await store.dispatch({
+      type: actions.FETCH,
+      target: 'aTarget',
+      service: MockService.fetchFailureNotFound,
+      injections: withFlowDetermination(response => response.status === 404)
+    });
 
     const actionsDispatched = store.getActions();
     expect(actionsDispatched).toEqual([
