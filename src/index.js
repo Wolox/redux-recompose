@@ -1,5 +1,6 @@
-import 'babel-core/register';
-import 'babel-polyfill';
+try {
+  require('babel-polyfill');
+} catch (e) {};
 
 import completeReducer from './completers/completeReducer';
 import completeState from './completers/completeState';

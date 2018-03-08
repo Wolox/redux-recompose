@@ -1,6 +1,6 @@
 {
   "name": "redux-recompose",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A Redux utility belt for reducers and actions. Inspired by acdlite/recompose.",
   "engines": {
     "node": ">=6.0.0"
@@ -9,7 +9,7 @@
   "scripts": {
     "test": "jest",
     "compile": "babel -d lib/ src/",
-    "prepublish": "npm run compile"
+    "prepublishOnlynp": "npm run compile"
   },
   "repository": {
     "type": "git",
