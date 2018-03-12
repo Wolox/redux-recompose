@@ -1,6 +1,6 @@
 {
   "name": "redux-recompose",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A Redux utility belt for reducers and actions. Inspired by acdlite/recompose.",
   "engines": {
     "node": ">=6.0.0"
