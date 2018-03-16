@@ -9,7 +9,7 @@
   "scripts": {
     "test": "jest",
     "compile": "babel -d lib/ src/",
-    "prepublishOnlynp": "npm run compile"
+    "prepublishOnly": "npm run compile"
   },
   "repository": {
     "type": "git",
