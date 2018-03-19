@@ -19,11 +19,11 @@ function composeInjections(...injections) {
     const response = await apiCall(getState);
     postBehavior(dispatch, response);
     if (determination(response)) {
-      const shouldContinue = success(dispatch, response);
-      if (shouldContinue) postSuccess(dispatch, response);
+      const shouldContinue = success(dispatch, response, getState());
+      if (shouldContinue) postSuccess(dispatch, response, getState());
     } else {
-      const shouldContinue = statusHandler(dispatch, response);
-      if (shouldContinue) failure(dispatch, response);
+      const shouldContinue = statusHandler(dispatch, response, getState());
+      if (shouldContinue) failure(dispatch, response, getState());
     }
   };
 }
