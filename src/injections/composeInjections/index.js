@@ -10,6 +10,7 @@ function composeInjections(...injections) {
     success = () => true,
     postSuccess = () => {},
     postBehavior = () => {},
+    postFailure = () => {},
     failure = () => {},
     statusHandler = () => true
   } = injectionsDescription;
@@ -23,7 +24,10 @@ function composeInjections(...injections) {
       if (shouldContinue) postSuccess(dispatch, response, getState());
     } else {
       const shouldContinue = statusHandler(dispatch, response, getState());
-      if (shouldContinue) failure(dispatch, response, getState());
+      if (shouldContinue) {
+        failure(dispatch, response, getState());
+        postFailure(dispatch, response, getState());
+      }
     }
   };
 }
