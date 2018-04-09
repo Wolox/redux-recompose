@@ -24,6 +24,7 @@ import withFailure from './injections/withFailure';
 import withFlowDetermination from './injections/withFlowDetermination';
 import withPostFetch from './injections/withPostFetch';
 import withPostSuccess from './injections/withPostSuccess';
+import withPostFailure from './injections/withPostFailure';
 import withPrefetch from './injections/withPrefetch';
 import withStatusHandling from './injections/withStatusHandling';
 import withSuccess from './injections/withSuccess';
