@@ -2,7 +2,9 @@ function baseThunkAction({
   type,
   target,
   service,
-  payload = () => {}
+  payload = () => {},
+  successSelector = response => response.data,
+  failureSelector = response => response.problem
 }) {
   const selector = typeof payload === 'function' ? payload : () => payload;
 
@@ -10,8 +12,8 @@ function baseThunkAction({
     prebehavior: dispatch => dispatch({ type, target }),
     apiCall: async getState => service(selector(getState())),
     determination: response => response.ok,
-    success: (dispatch, response) => dispatch({ type: `${type}_SUCCESS`, target, payload: response.data }),
-    failure: (dispatch, response) => dispatch({ type: `${type}_FAILURE`, target, payload: response.problem })
+    success: (dispatch, response) => dispatch({ type: `${type}_SUCCESS`, target, payload: successSelector(response) }),
+    failure: (dispatch, response) => dispatch({ type: `${type}_FAILURE`, target, payload: failureSelector(response) })
   };
 }
 
