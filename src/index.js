@@ -16,6 +16,7 @@ import onReadValue from './effects/onReadValue';
 import onSetValue from './effects/onSetValue';
 import onSuccess from './effects/onSuccess';
 import onSubscribe from './effects/onSubscribe';
+import onToggle from './effects/onToggle';
 import onUnsubscribe from './effects/onUnsubscribe';
 
 import baseThunkAction from './injections/baseThunkAction';
@@ -49,6 +50,7 @@ exports.onReadValue = onReadValue;
 exports.onSetValue = onSetValue;
 exports.onSuccess = onSuccess;
 exports.onSubscribe = onSubscribe;
+exports.onToggle = onToggle;
 exports.onUnsubscribe = onUnsubscribe;
 
 exports.baseThunkAction = baseThunkAction;
