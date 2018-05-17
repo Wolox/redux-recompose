@@ -59,6 +59,7 @@ exports.withFailure = withFailure;
 exports.withFlowDetermination = withFlowDetermination;
 exports.withPostFetch = withPostFetch;
 exports.withPostSuccess = withPostSuccess;
+exports.withPostFailure = withPostFailure;
 exports.withPrefetch = withPrefetch;
 exports.withStatusHandling = withStatusHandling;
 exports.withSuccess = withSuccess;
