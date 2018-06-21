@@ -1,3 +1,5 @@
+import { mergeState } from '../configuration';
+
 // Common validator for single target effects
 // Effects using this validator should be wrapped into an object with the shape:
 // {
@@ -12,7 +14,7 @@ function validateEffect(effect) {
     if (state[effect.realTarget(action)] === undefined) {
       console.warn(`Missing field declaration for ${effect.realTarget(action)}.`);
     }
-    return state.merge({ [effect.realTarget(action)]: effect.do(action, state) });
+    return mergeState(state, { [effect.realTarget(action)]: effect.do(action, state) });
   };
 }
 

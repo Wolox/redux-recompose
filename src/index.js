@@ -1,3 +1,5 @@
+import configureMergeState from './configuration';
+
 import completeReducer from './completers/completeReducer';
 import completeState from './completers/completeState';
 import completeTypes from './completers/completeTypes';
@@ -31,6 +33,8 @@ import withStatusHandling from './injections/withStatusHandling';
 import withSuccess from './injections/withSuccess';
 
 import fetchMiddleware from './middlewares/fetch';
+
+exports.configureMergeState = configureMergeState;
 
 exports.completeReducer = completeReducer;
 exports.completeState = completeState;
