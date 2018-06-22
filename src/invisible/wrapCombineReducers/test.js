@@ -9,7 +9,10 @@ const setUp = {
 };
 
 const configureStore = invisibleReducer => {
-  const reducersObject = { foo: (state = { NSLoading: false }) => state };
+  const reducersObject = {
+    foo: (state = { NSLoading: false }) => state,
+    dummy: (state = {}) => state
+  };
   const ownCombineReducers = wrapCombineReducers(combineReducers, invisibleReducer);
   return createStore(ownCombineReducers(reducersObject));
 };
@@ -22,7 +25,7 @@ describe('wrapCombineReducers', () => {
   it('Wrap reducers can combine reducers and provide an invisible reducer', async () => {
     const $ = createExternalActions('foo');
     await setUp.store.dispatch({ type: $.LOADING, target: 'NS' });
-    expect(setUp.store.getState()).toEqual({ foo: { NSLoading: true } });
+    expect(setUp.store.getState()).toEqual({ foo: { NSLoading: true }, dummy: {} });
   });
   it('Allow to customize the invisible reducer', () => {
     const invisibleReducer = createReducer(
@@ -32,6 +35,13 @@ describe('wrapCombineReducers', () => {
     const store = configureStore(invisibleReducer);
     const $ = createExternalActions('foo', ['INCREMENT']);
     store.dispatch({ type: $.INCREMENT });
-    expect(store.getState()).toEqual({ foo: { NSLoading: false, counter: 1 } });
+
+    const $$ = createExternalActions('dummy', ['INCREMENT']);
+    store.dispatch({ type: $$.INCREMENT });
+
+    expect(store.getState()).toEqual({
+      foo: { NSLoading: false, counter: 1 },
+      dummy: { counter: 1 }
+    });
   });
 });
