@@ -27,6 +27,7 @@ describe('wrapCombineReducers', () => {
     await setUp.store.dispatch({ type: $.LOADING, target: 'NS' });
     expect(setUp.store.getState()).toEqual({ foo: { NSLoading: true }, dummy: {} });
   });
+
   it('Allow to customize the invisible reducer', () => {
     const invisibleReducer = createReducer(
       {},

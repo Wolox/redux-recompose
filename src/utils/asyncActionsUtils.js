@@ -3,7 +3,7 @@ import configureMockStore from 'redux-mock-store';
 
 import fetchMiddleware from '../middlewares/fetch';
 
-const thunk = ({ dispatch, getState }) => next => action => (
+export const thunk = ({ dispatch, getState }) => next => action => (
   typeof action === 'function' ?
     action(dispatch, getState) :
     next(action)
