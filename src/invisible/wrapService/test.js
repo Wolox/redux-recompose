@@ -51,15 +51,15 @@ describe('wrapService', () => {
   it('Does allow custom injections', async () => {
     MockService.fetchSomethingForSelector.injections =
       [withPostSuccess((_, response) => expect(response).toEqual({ ok: true, data: 40 }))];
-    const ServiceActions = wrapService(MockService, 'foo');
+    const ServiceActions = wrapService(MockService, 'foo', { fetchSomethingForSelector: 'fetchSomething' });
     await setUp.store.dispatch(ServiceActions.fetchSomethingForSelector());
     expect(setUp.store.getState()).toEqual({
       dummy: {},
       foo: {
         NSLoading: false,
-        fetchSomethingForSelector: 40,
-        fetchSomethingForSelectorLoading: false,
-        fetchSomethingForSelectorError: null
+        fetchSomething: 40,
+        fetchSomethingLoading: false,
+        fetchSomethingError: null
       }
     });
   });
