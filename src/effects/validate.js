@@ -12,7 +12,8 @@ function validateEffect(effect) {
       console.warn(`There is no target specified for ${effect.name}.`);
     }
     if (state[effect.realTarget(action)] === undefined) {
-      console.warn(`Missing field declaration for ${effect.realTarget(action)}.`);
+      // TODO: RESTORE THIS WARNING
+      // console.warn(`Missing field declaration for ${effect.realTarget(action)}.`);
     }
     return mergeState(state, { [effect.realTarget(action)]: effect.do(action, state) });
   };

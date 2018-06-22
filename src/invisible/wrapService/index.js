@@ -8,7 +8,8 @@ export default (Service, reducerName) => {
       external: $,
       target: serviceName,
       service: Service[serviceName],
-      payload: args
+      payload: args,
+      ...Service[serviceName]
     });
   });
   return dispatchableServices;
