@@ -15,7 +15,7 @@ function validateEffect(effect) {
       }
       return state.merge({ [effect.realTarget(action)]: effect.do(action, state) });
     }
-    return state.merge({ ...action.payload });
+    return state.merge({ ...effect.do(action) });
   };
 }
 

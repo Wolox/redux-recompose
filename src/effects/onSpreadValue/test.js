@@ -18,12 +18,23 @@ beforeEach(() => {
 });
 
 describe('onSpreadValue', () => {
-  it('Sets a value from the selector', () => {
+  it('Spread the payload in the state', () => {
     const payload = { key1: '2', key2: 42 };
     const reducer = createReducer(setUp.state, {
-      '@@ACTION/TYPE': onSpreadValue(payload)
+      '@@ACTION/TYPE': onSpreadValue()
     });
     const newState = reducer(setUp.state, { type: '@@ACTION/TYPE', payload });
+    Object.keys(payload).forEach(key => {
+      expect(newState[key]).toBe(payload[key]);
+    });
+  });
+
+  it('Spread the payload in the state using selector', () => {
+    const payload = { key1: '2', key2: 42 };
+    const reducer = createReducer(setUp.state, {
+      '@@ACTION/TYPE': onSpreadValue(action => action.data)
+    });
+    const newState = reducer(setUp.state, { type: '@@ACTION/TYPE', data: payload });
     Object.keys(payload).forEach(key => {
       expect(newState[key]).toBe(payload[key]);
     });
