@@ -1,11 +1,7 @@
-import validate from '../validate';
+// import { mergeState } from '../../configuration';
 
 function onSpreadValue(selector = action => action.payload) {
-  return validate({
-    name: 'onSpreadValue',
-    do: selector,
-    spread: true
-  });
+  // return (state, action) => mergeState(state, selector(action));
 }
 
 export default onSpreadValue;
