@@ -1,7 +1,5 @@
-// import { mergeState } from '../../configuration';
-
 function onSpreadValue(selector = action => action.payload) {
-  // return (state, action) => mergeState(state, selector(action));
+  return (state, action) => state.merge({ ...selector(action) });
 }
 
 export default onSpreadValue;
