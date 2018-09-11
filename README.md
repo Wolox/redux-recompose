@@ -139,6 +139,13 @@ withFlowDetermination
 
 And a function `composeInjections` to help crafting your own async action definitions.  
 
+## Middlewares
+Middlewares allow to inject logic between dispatching the action and the actual desired change in the store. Middlewares are particularly helpful when handling asynchronous actions.
+
+The following are currently available:
+
+* [fetchMiddleware](./src/middlewares/docs.md)
+
 
 ## Thanks to  
 This library was inspired by acdlite/recompose. Let's keep creating tools for ease development.  
