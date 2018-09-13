@@ -15,5 +15,5 @@ const service = {
   getCards
 };
 
-// Export your service by also specifying the reducer name and the target for each actions.
+// Export your service by also specifying the reducer name and the target for each action.
 export default wrapService(service, 'hearthstone', { getCards: 'cards' });
