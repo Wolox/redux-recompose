@@ -1,3 +1,8 @@
+import configureMergeState from './configuration';
+
+import wrapCombineReducers, { createExternalActions } from './invisible/wrapCombineReducers';
+import wrapService from './invisible/wrapService';
+
 import completeReducer from './completers/completeReducer';
 import completeState from './completers/completeState';
 import completeTypes from './completers/completeTypes';
@@ -31,6 +36,12 @@ import withStatusHandling from './injections/withStatusHandling';
 import withSuccess from './injections/withSuccess';
 
 import fetchMiddleware from './middlewares/fetch';
+
+exports.configureMergeState = configureMergeState;
+
+exports.wrapCombineReducers = wrapCombineReducers;
+exports.createExternalActions = createExternalActions;
+exports.wrapService = wrapService;
 
 exports.completeReducer = completeReducer;
 exports.completeState = completeState;
