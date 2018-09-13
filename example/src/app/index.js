@@ -1,27 +1,28 @@
 import React, { Component } from 'react';
-import { Provider } from 'react-redux';
+import { connect } from 'react-redux';
+import './styles.css';
 
-import { apiSetup } from '../config/api';
-import store from '../redux/store';
+import hearthstoneActions from '../redux/hearthstone/actions';
 
-import Routes from './components/Routes';
+import HearthstoneCardList from './components/HearthstoneCardList';
 
 class App extends Component {
   componentDidMount() {
-    apiSetup(store.dispatch);
+    setInterval(() => this.props.dispatch(hearthstoneActions.otherAction()), 500);
   }
 
   render() {
     return (
-      <Provider store={store}>
-        <Routes />
-      </Provider>
+      <div className="App">
+        <h3>{`Tick Count: ${this.props.tickCount}`}</h3>
+        <HearthstoneCardList />
+      </div>
     );
   }
 }
 
-App.defaultProps = {
-  loading: false
-};
+const mapStateToProps = store => ({
+  tickCount: store.hearthstone.count
+});
 
-export default App;
+export default connect(mapStateToProps)(App);
