@@ -9,6 +9,7 @@ import './styles.css';
 class HearthStoneCardList extends Component {
   componentDidMount() {
     const { dispatch } = this.props;
+    // Dispatches a service method ! Wtf ?
     dispatch(HearthstoneService.getCards());
   }
 
@@ -23,6 +24,7 @@ class HearthStoneCardList extends Component {
 }
 
 HearthStoneCardList.defaultProps = {
+  // Initial state won't be declared so we use them with defaultProps
   cardList: []
 };
 

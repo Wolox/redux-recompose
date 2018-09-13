@@ -7,6 +7,7 @@ const defaultState = {
   count: 0
 };
 
+// No handling of reducer.hearthstone.cards
 const reducerDescription = {
   [actions.OTHER_ACTION]: state => state.merge({ count: state.count + 1 })
 };
