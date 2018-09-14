@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import './styles.css';
 
@@ -8,13 +9,15 @@ import HearthstoneCardList from './components/HearthstoneCardList';
 
 class App extends Component {
   componentDidMount() {
-    setInterval(() => this.props.dispatch(hearthstoneActions.otherAction()), 500);
+    const { dispatch } = this.props;
+    setInterval(() => dispatch(hearthstoneActions.otherAction()), 500);
   }
 
   render() {
+    const { tickCount } = this.props;
     return (
       <div className="App">
-        <h3>{`Tick Count: ${this.props.tickCount}`}</h3>
+        <h3>{`Tick Count: ${tickCount}`}</h3>
         <HearthstoneCardList />
       </div>
     );
@@ -24,5 +27,9 @@ class App extends Component {
 const mapStateToProps = store => ({
   tickCount: store.hearthstone.count
 });
+
+App.propTypes = {
+  tickCount: PropTypes.number
+};
 
 export default connect(mapStateToProps)(App);

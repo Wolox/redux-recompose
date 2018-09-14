@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import HearthstoneService from '../../../services/HearthstoneService';
@@ -32,5 +33,10 @@ const mapStateToProps = store => ({
   cardList: store.hearthstone.cards,
   loading: store.hearthstone.cardsLoading
 });
+
+HearthStoneCardList.propTypes = {
+  loading: PropTypes.bool,
+  cardList: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string, source: PropTypes.string }))
+};
 
 export default connect(mapStateToProps)(HearthStoneCardList);
