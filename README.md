@@ -1,11 +1,13 @@
-# redux-recompose  
+# redux-recompose
 
-## Why another Redux library ?  
-`redux-recompose` provide tools to write less reducers/actions code.  
+## Why another Redux library ?
 
-Here is a [blog post](https://medium.com/wolox-driving-innovation/932e746b0198) about it.  
+`redux-recompose` provide tools to write less reducers/actions code.
 
-Usually, we are used to write:  
+Here is a [blog post](https://medium.com/wolox-driving-innovation/932e746b0198) about it.
+
+Usually, we are used to write:
+
 ```
 actions.js
 
@@ -24,7 +26,8 @@ function reducer(state = initialState, action) {
   }
 }
 ```
-With the new concept of _target_ of an action, we could write something like:  
+
+With the new concept of _target_ of an action, we could write something like:
 
 ```
 actions.js
@@ -46,27 +49,26 @@ const reducerDescription = {
 
 // Create it !
 const reducer = createReducer(initialState, reducerDescription);
-
 ```
 
-## Effects  
+## Effects
 
 Effects are functions that describe _how_ the state changes, but are agnostic of _what part_
-of the state is being changed.  
+of the state is being changed.
 
-`redux-recompose` provides some effects to ease reducer definitions. These are:  
+`redux-recompose` provides some effects to ease reducer definitions. These are:
 
-* [onDelete](./src/effects/onDelete/docs.md)  
-* [onDeleteByIndex](./src/effects/onDeleteByIndex/docs.md)  
-* [onFailure](./src/effects/onFailure/docs.md)  
-* [onLoaded](./src/effects/onLoaded/docs.md)  
-* [onLoading](./src/effects/onLoading/docs.md)  
-* [onReadValue](./src/effects/onReadValue/docs.md)  
-* [onSetValue](./src/effects/onSetValue/docs.md)  
-* [onSuccess](./src/effects/onSuccess/docs.md)  
+- [onDelete](./src/effects/onDelete/docs.md)
+- [onDeleteByIndex](./src/effects/onDeleteByIndex/docs.md)
+- [onFailure](./src/effects/onFailure/docs.md)
+- [onLoaded](./src/effects/onLoaded/docs.md)
+- [onLoading](./src/effects/onLoading/docs.md)
+- [onReadValue](./src/effects/onReadValue/docs.md)
+- [onSetValue](./src/effects/onSetValue/docs.md)
+- [onSuccess](./src/effects/onSuccess/docs.md)
 
+We are currently writing some other effects:
 
-We are currently writing some other effects:  
 ```
 onReset
 onToggle
@@ -75,49 +77,58 @@ onCycle
 onMap
 ```
 
-And other utilities like  
+And other utilities like
+
 ```
 composeEffects
 ```
 
-New effects are welcome ! Feel free to open an issue or even a PR.  
+New effects are welcome ! Feel free to open an issue or even a PR.
 
-## Creators  
-There are a few creators that also ease writing Redux reducers and async actions.  
+## Creators
 
-  * [createReducer](./src/creators/createReducer/docs.md)
-  * [createTypes](./src/creators/createTypes/docs.md)
-  * [createThunkAction](./src/creators/createThunkAction/docs.md)
+There are a few creators that also ease writing Redux reducers and async actions.
 
-We are currently working on these creators:  
+- [createReducer](./src/creators/createReducer/docs.md)
+- [createTypes](./src/creators/createTypes/docs.md)
+- [createThunkAction](./src/creators/createThunkAction/docs.md)
+
+We are currently working on these creators:
+
 ```
 createMultiTargetedAction
 createPollingAction
 ```
+
 Since state handling is decoupled from its state, we could create some more complex async actions, or even map an effect with an action type to create families of actions.  
-More crazy and useful ideas are welcome too !  
+More crazy and useful ideas are welcome too !
 
-## Completers  
+## Completers
+
 You could use completers to reduce your code size. Completers are functions that take
-partial definitions (i.e. descriptors) and help to construct the whole definition.  
+partial definitions (i.e. descriptors) and help to construct the whole definition.
 
-Completers in general looks like this:  
-- A pattern is being repeated in an element.  
-- Identify that pattern and try to apply to every element similar to those who use this pattern, although they apply it or not.  
-- Add some exceptions for elements who don't use this pattern.  
-- Compress your code size by applying that pattern to all elements but not for exception cases.  
-  
-There are a few completers that can be used:  
-* [completeState](./src/completers/completeState/docs.md)
-* [completeReducer](./src/completers/completeReducer/docs.md)
-* [completeTypes](./src/completers/completeTypes/docs.md)
+Completers in general looks like this:
 
-We are working to introduce other completers like:  
+- A pattern is being repeated in an element.
+- Identify that pattern and try to apply to every element similar to those who use this pattern, although they apply it or not.
+- Add some exceptions for elements who don't use this pattern.
+- Compress your code size by applying that pattern to all elements but not for exception cases.
+
+There are a few completers that can be used:
+
+- [completeState](./src/completers/completeState/docs.md)
+- [completeReducer](./src/completers/completeReducer/docs.md)
+- [completeTypes](./src/completers/completeTypes/docs.md)
+
+We are working to introduce other completers like:
+
 ```
 completeFromProps: Helps to write a state from propTypes definition
 ```
 
 And to introduce completers that support custom patterns:
+
 ```
 const initialStateDescription = { msg: '' };
 const initialState = completeCustomState(initialStateDescription, ['Info', 'Warn', 'Error']);
@@ -125,7 +136,8 @@ const initialState = completeCustomState(initialStateDescription, ['Info', 'Warn
 ```
 
 ## Injectors [WIP]
-Injectors are meant to customize your thunk action behavior. We are working on these:  
+
+Injectors are meant to customize your thunk action behavior. We are working on these:
 
 ```
 baseThunkAction
@@ -137,18 +149,23 @@ withFailure
 withFlowDetermination
 ```
 
-And a function `composeInjections` to help crafting your own async action definitions.  
+There's currently documentation for the following:
+
+- [withSuccess](./src/injections/withSuccess/docs.md)
+
+And a function `composeInjections` to help crafting your own async action definitions.
 
 ## Middlewares
+
 Middlewares allow to inject logic between dispatching the action and the actual desired change in the store. Middlewares are particularly helpful when handling asynchronous actions.
 
 The following are currently available:
 
-* [fetchMiddleware](./src/middlewares/docs.md)
+- [fetchMiddleware](./src/middlewares/docs.md)
 
+## Thanks to
 
-## Thanks to  
-This library was inspired by acdlite/recompose. Let's keep creating tools for ease development.  
+This library was inspired by acdlite/recompose. Let's keep creating tools for ease development.
 
 ## Contributing
 
