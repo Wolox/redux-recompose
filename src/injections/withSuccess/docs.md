@@ -33,4 +33,4 @@ Example:
   };
 ```
 
-Remember that this injector may only be used for overriding `onSuccess`, if you wish to inject some logic after a successful service call (and the default `onSuccess` behaviour that comes with it), use `onPostSuccess` injector.
+Remember that this injector may only be used for overriding `onSuccess`, if you wish to inject some logic after a successful service call (and the default `onSuccess` behaviour that comes with it), use `withPostSuccess` injector.

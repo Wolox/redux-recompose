@@ -130,12 +130,14 @@ Injectors are meant to customize your thunk action behavior. We are working on t
 
 ```
 baseThunkAction
-withPreRequest
-withPostRequest
-withStatusHandling
-withSuccess
 withFailure
 withFlowDetermination
+withPostFailure
+withPostFetch
+withPostSuccess
+withPrefetch
+withStatusHandling
+withSuccess
 ```
 
 There's currently documentation for the following:
