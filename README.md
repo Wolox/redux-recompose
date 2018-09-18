@@ -142,8 +142,6 @@ There's currently documentation for the following:
 
 - [withSuccess](./src/injections/withSuccess/docs.md)
 
-And a function `composeInjections` to help crafting your own async action definitions. 
-
 ## Middlewares
 Middlewares allow to inject logic between dispatching the action and the actual desired change in the store. Middlewares are particularly helpful when handling asynchronous actions.
 
@@ -192,4 +190,3 @@ This project is maintained by [Manuel Battan](https://github.com/mvbattan) and i
     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
-    
