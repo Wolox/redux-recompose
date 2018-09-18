@@ -125,19 +125,23 @@ const initialState = completeCustomState(initialStateDescription, ['Info', 'Warn
 ```
 
 ## Injectors [WIP]
-Injectors are meant to customize your thunk action behavior. We are working on these:  
+
+Injectors are meant to customize your thunk action behavior. We are working on these:
 
 ```
-baseThunkAction
-withPreRequest
-withPostRequest
-withStatusHandling
-withSuccess
 withFailure
 withFlowDetermination
+withPostFailure
+withPostFetch
+withPostSuccess
+withPrefetch
+withStatusHandling
+withSuccess
 ```
 
-And a function `composeInjections` to help crafting your own async action definitions.  
+There's currently documentation for the following:
+
+- [withSuccess](./src/injections/withSuccess/docs.md)
 
 ## Middlewares
 Middlewares allow to inject logic between dispatching the action and the actual desired change in the store. Middlewares are particularly helpful when handling asynchronous actions.
