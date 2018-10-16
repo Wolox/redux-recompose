@@ -1,0 +1,10 @@
+machine:
+  node:
+    version: 8.5.0
+  dependencies:
+    override:
+    - npm
+  test:
+    override:
+    - npm run precommit
+  
