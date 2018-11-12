@@ -29,7 +29,7 @@ describe('onAppend', () => {
     expect(newState.numberArray).toEqual([4, 2, 3, 4, 1, 7]);
   });
 
-  it('Deletes objects based on a payload', () => {
+  it('Appends objects based on a payload', () => {
     const reducer = createReducer(setUp.state, {
       '@@ACTION/APPEND_INTEGER': onAppend(action => action.payload.id)
     });
