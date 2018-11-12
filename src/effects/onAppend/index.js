@@ -4,7 +4,7 @@ function onAppend(selector = action => action.payload) {
   return validate({
     name: 'onAppend',
     realTarget: action => action.target,
-    do: (action, state) => state[action.target].concat(selector(action))
+    do: (action, state) => [...state[action.target], selector(action)]
   });
 }
 
