@@ -1,6 +1,6 @@
 ## onConcatenate - Effect
 
-This effect allow us to concatenate an array to an array in the state. This is useful for cases where you want to dinamically add elements to an array as you fetch them, like the case of an infinite scroll.
+This effect allow us to concatenate an array to an array in the state. This is useful for cases where you want to dynamically add elements to an array as you fetch them, like the case of an infinite scroll.
 
 Example:
 
