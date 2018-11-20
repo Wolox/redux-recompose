@@ -67,6 +67,7 @@ of the state is being changed.
 - [onSetValue](./src/effects/onSetValue/docs.md)
 - [onSuccess](./src/effects/onSuccess/docs.md)
 - [onAppend](./src/effects/onAppend/docs.md)
+- [onConcatenate](./src/effects/onConcatenate/docs.md)
 
 We are currently writing some other effects:
 
