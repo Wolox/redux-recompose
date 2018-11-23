@@ -1,11 +1,12 @@
-import { mergeState } from '../../configuration';
+import validate from '../validate';
 
-// TODO: Add support and validations for multi target actions
 function onToggle(selector = action => action.payload) {
-  return (state, action) =>
-    mergeState(state, {
-      [action.target]: selector(action, state) || !state[action.target]
-    });
+  return validate({
+    name: 'onToggle',
+    realTarget: action => action.target,
+    do: (action, state) =>
+      (selector(action, state) === undefined ? !state[action.target] : selector(action, state))
+  });
 }
 
 export default onToggle;

@@ -17,7 +17,7 @@ beforeEach(() => {
 });
 
 describe('onToggle', () => {
-  it('Sets target content based on state value', () => {
+  it('Toggles target value based on state value', () => {
     const reducer = createReducer(setUp.state, {
       '@@ACTION/TYPE': onToggle()
     });
@@ -32,16 +32,26 @@ describe('onToggle', () => {
       target: false
     });
   });
-  it('Sets target content based on payload', () => {
+
+  it('Sets target value based on payload', () => {
     const reducer = createReducer(setUp.state, {
       '@@ACTION/TYPE': onToggle()
     });
-    setUp.state = reducer(setUp.state, { type: '@@ACTION/TYPE', target: 'target', payload: true });
-    expect(setUp.state).toEqual({
-      target: true
-    });
-
     setUp.state = reducer(setUp.state, { type: '@@ACTION/TYPE', target: 'target', payload: false });
+    expect(setUp.state).toEqual({
+      target: false
+    });
+  });
+
+  it('Sets target value based on payload with custom selector', () => {
+    const reducer = createReducer(setUp.state, {
+      '@@ACTION/TYPE': onToggle(action => action.payload.a.b)
+    });
+    setUp.state = reducer(setUp.state, {
+      type: '@@ACTION/TYPE',
+      target: 'target',
+      payload: { a: { b: false } }
+    });
     expect(setUp.state).toEqual({
       target: false
     });
