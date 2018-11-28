@@ -163,6 +163,23 @@ The following are currently available:
 
 - [fetchMiddleware](./src/middlewares/docs.md)
 
+## Using with immutable libraries
+
+The way `redux-recompose` updates the redux state can be configured. The default configuration is
+
+```
+(state, newContent) => ({ ...state, ...newContent })
+```
+
+You can use `configureMergeState` to override the way `redux-recompose` handles state merging. This is specially useful when you are using immutable libraries.
+For example, if you are using `seamless-immutable` to keep your store immutable, you'll want to use it's [`merge`](https://github.com/rtfeldman/seamless-immutable#merge) function. You can do so with the following configuration:
+
+```
+import { configureMergeState } from 'redux-recompose';
+
+configureMergeState((state, newContent) => state.merge(newContent))
+```
+
 ## Thanks to
 
 This library was inspired by acdlite/recompose. Let's keep creating tools for ease development.
