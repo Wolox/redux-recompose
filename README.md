@@ -58,16 +58,16 @@ of the state is being changed.
 
 `redux-recompose` provides some effects to ease reducer definitions. These are:
 
-- [onDelete](./src/effects/onDelete/docs.md)
-- [onDeleteByIndex](./src/effects/onDeleteByIndex/docs.md)
-- [onFailure](./src/effects/onFailure/docs.md)
-- [onLoaded](./src/effects/onLoaded/docs.md)
-- [onLoading](./src/effects/onLoading/docs.md)
-- [onReadValue](./src/effects/onReadValue/docs.md)
-- [onSetValue](./src/effects/onSetValue/docs.md)
-- [onSuccess](./src/effects/onSuccess/docs.md)
-- [onAppend](./src/effects/onAppend/docs.md)
-- [onConcatenate](./src/effects/onConcatenate/docs.md)
+- [onDelete](./src/effects/onDelete/)
+- [onDeleteByIndex](./src/effects/onDeleteByIndex/)
+- [onFailure](./src/effects/onFailure/)
+- [onLoaded](./src/effects/onLoaded/)
+- [onLoading](./src/effects/onLoading/)
+- [onReadValue](./src/effects/onReadValue/)
+- [onSetValue](./src/effects/onSetValue/)
+- [onSuccess](./src/effects/onSuccess/)
+- [onAppend](./src/effects/onAppend/)
+- [onConcatenate](./src/effects/onConcatenate/)
 
 We are currently writing some other effects:
 
@@ -90,9 +90,9 @@ New effects are welcome ! Feel free to open an issue or even a PR.
 
 There are a few creators that also ease writing Redux reducers and async actions.
 
-- [createReducer](./src/creators/createReducer/docs.md)
-- [createTypes](./src/creators/createTypes/docs.md)
-- [createThunkAction](./src/creators/createThunkAction/docs.md)
+- [createReducer](./src/creators/createReducer/)
+- [createTypes](./src/creators/createTypes/)
+- [createThunkAction](./src/creators/createThunkAction/)
 
 We are currently working on these creators:
 
@@ -118,9 +118,9 @@ Completers in general looks like this:
 
 There are a few completers that can be used:
 
-- [completeState](./src/completers/completeState/docs.md)
-- [completeReducer](./src/completers/completeReducer/docs.md)
-- [completeTypes](./src/completers/completeTypes/docs.md)
+- [completeState](./src/completers/completeState/)
+- [completeReducer](./src/completers/completeReducer/)
+- [completeTypes](./src/completers/completeTypes/)
 
 We are working to introduce other completers like:
 
@@ -153,7 +153,7 @@ withSuccess
 
 There's currently documentation for the following:
 
-- [withSuccess](./src/injections/withSuccess/docs.md)
+- [withSuccess](./src/injections/withSuccess/)
 
 ## Middlewares
 
@@ -161,7 +161,7 @@ Middlewares allow to inject logic between dispatching the action and the actual 
 
 The following are currently available:
 
-- [fetchMiddleware](./src/middlewares/docs.md)
+- [fetchMiddleware](./src/middlewares/)
 
 ## Using with immutable libraries
 
