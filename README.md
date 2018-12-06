@@ -68,12 +68,12 @@ of the state is being changed.
 - [onSuccess](./src/effects/onSuccess/)
 - [onAppend](./src/effects/onAppend/)
 - [onConcatenate](./src/effects/onConcatenate/)
+- [onToggle](./src/effects/onToggle/)
 
 We are currently writing some other effects:
 
 ```
 onReset
-onToggle
 onCycle
 onMap
 ```
