@@ -31,7 +31,7 @@ state = {
 
 `onAppend` effect receives an optional parameter:
 
-- selector: This function describes how we read the error from the `action`.  
+- selector: This function describes how we read the value from the `action`.  
   `(action, state) => any`  
   By default, is:  
   `action => action.payload`
