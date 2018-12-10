@@ -18,7 +18,7 @@ const reducerDescription = {
 export default createReducer(initialState, reducerDescription);
 ```
 
-If we now do:  
+If we now do:
 `dispatch({ type: actions.SPREAD, payload: { key1: 'Hello', key2: 45 } });`
 
 Then the state will be:
@@ -36,6 +36,6 @@ state = {
 `onSpreadValue` receives an optional parameter:
 
 - selector: This function describes how we read the object we want to spread from the `action`.
-  `action => any`  
-   By default, is:  
-   `action => action.payload`
+  `(action, state) => Object`
+  By default, is:
+  `action => action.payload`
