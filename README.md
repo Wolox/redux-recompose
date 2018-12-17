@@ -69,6 +69,7 @@ of the state is being changed.
 - [onAppend](./src/effects/onAppend/)
 - [onConcatenate](./src/effects/onConcatenate/)
 - [onToggle](./src/effects/onToggle/)
+- [onSpreadValue](./src/effects/onSpreadValue/)
 
 We are currently writing some other effects:
 
