@@ -1,6 +1,6 @@
 
 
-## withSuccess
+## withFailure
 
 The `withFailure` injector overrides the behaviour of the [`onFailure` effect](../../effects/onFailure/) which means that the default failure action will not be dispatched, nor the store will be affected unless you explicitly do it in the `withFailure` injector.
 Please, do keep this in mind for completed actions and reducers, since the `loading` and `error` property of your `target` will not be automatically set.
