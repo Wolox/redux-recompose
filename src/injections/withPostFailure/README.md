@@ -17,7 +17,7 @@ Example:
         withPostFailure((dispatch, response, state) => {
           /* insert here whatever logic
            * you want to execute after a failed service call.
-           * This is particularly userful to dispatch error actions.
+           * This is particularly userful to dispatch side efects for errored service calls.
            */
           dispatch({
             type: someOtherAction,
