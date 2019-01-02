@@ -1,5 +1,3 @@
-
-
 ## withFailure
 
 The `withFailure` injector overrides the behaviour of the [`onFailure` effect](../../effects/onFailure/) which means that the default failure action will not be dispatched, nor the store will be affected unless you explicitly do it in the `withFailure` injector.
