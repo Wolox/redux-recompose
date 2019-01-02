@@ -15,7 +15,7 @@ Example:
       service: someService,
       payload: data,
       injections: [
-        withFailure((dispatch, response) => {
+        withFailure((dispatch, response, state) => {
           /* insert here whatever logic
           * you want to override the onFailure
           * effect with. You can dispatch actions
