@@ -1,6 +1,6 @@
 ## withPostSuccess
 
-The `withPostSuccess` injector allows to inject behaviour after the service call is successful and the `onSuccess` effect is executed. This means that the `${action.target}Loading` and `action.payload` will be set in `${action.target}` by the time `withPostSuccess` is called. This is particularly useful when changing or adding other properties to the store besides `${action.target}` is needed. 
+The `withPostSuccess` injector allows to inject behaviour after the service call is successful and the `onSuccess` effect is executed. This means that the `${action.target}Loading` and `action.payload` will be set in `${action.target}` by the time `withPostSuccess` is called. This is particularly useful when needing to change or add other properties to the store besides `${action.target}`. 
 
 Example:
 
