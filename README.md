@@ -146,8 +146,6 @@ withFlowDetermination
 withPostFetch
 withPrefetch
 withStatusHandling
-withSuccess
-
 ```
 
 There's currently documentation for the following:
