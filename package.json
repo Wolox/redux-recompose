@@ -8,7 +8,7 @@
   "main": "lib/index.js",
   "scripts": {
     "test": "jest",
-    "compile": "babel -d lib/ src/",
+    "compile": "babel -d lib/ src/ --ignore '**/test.js'",
     "prepublishOnly": "npm run compile"
   },
   "repository": {
