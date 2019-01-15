@@ -142,7 +142,6 @@ const initialState = completeCustomState(initialStateDescription, ['Info', 'Warn
 Injectors are meant to customize your thunk action behavior. We are working on these:
 
 ```
-withFlowDetermination
 withPostFetch
 withPrefetch
 withStatusHandling
@@ -154,6 +153,7 @@ There's currently documentation for the following:
 - [withFailure](./src/injections/withFailure/)
 - [withPostFailure](./src/injections/withPostFailure/)
 - [withPostSuccess](./src/injections/withPostSuccess/)
+- [withFlowDetermination](./src/injections/withFlowDetermination/)
 
 ## Middlewares
 
