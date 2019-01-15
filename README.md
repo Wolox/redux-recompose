@@ -144,7 +144,6 @@ Injectors are meant to customize your thunk action behavior. We are working on t
 ```
 withFlowDetermination
 withPostFetch
-withPrefetch
 withStatusHandling
 ```
 
