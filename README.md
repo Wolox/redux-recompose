@@ -154,6 +154,7 @@ There's currently documentation for the following:
 - [withFailure](./src/injections/withFailure/)
 - [withPostFailure](./src/injections/withPostFailure/)
 - [withPostSuccess](./src/injections/withPostSuccess/)
+- [withPrefetch](./src/injections/withPrefetch/)
 
 ## Middlewares
 
