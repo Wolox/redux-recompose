@@ -145,7 +145,6 @@ Injectors are meant to customize your thunk action behavior. We are working on t
 withFlowDetermination
 withPostFetch
 withPrefetch
-withStatusHandling
 ```
 
 There's currently documentation for the following:
@@ -154,6 +153,7 @@ There's currently documentation for the following:
 - [withFailure](./src/injections/withFailure/)
 - [withPostFailure](./src/injections/withPostFailure/)
 - [withPostSuccess](./src/injections/withPostSuccess/)
+- [withStatusHandling](./src/injections/withStatusHandling/)
 
 ## Middlewares
 
