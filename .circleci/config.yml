@@ -1,0 +1,16 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/Wolox/redux-recompose
+    parallelism: 1
+    shell: /bin/sh
+    docker:
+      - image: circleci/node:8
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm install
+      - run:
+          name: Run tests
+          command: npm run test
