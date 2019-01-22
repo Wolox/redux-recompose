@@ -174,7 +174,7 @@ The way `redux-recompose` updates the redux state can be configured. The default
 You can use `configureMergeState` to override the way `redux-recompose` handles state merging. This is specially useful when you are using immutable libraries.
 For example, if you are using `seamless-immutable` to keep your store immutable, you'll want to use it's [`merge`](https://github.com/rtfeldman/seamless-immutable#merge) function. You can do so with the following configuration:
 
-```
+```js
 import { configureMergeState } from 'redux-recompose';
 
 configureMergeState((state, newContent) => state.merge(newContent))
