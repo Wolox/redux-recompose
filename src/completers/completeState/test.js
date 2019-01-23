@@ -34,13 +34,38 @@ describe('completeState', () => {
       otherTarget: 2
     });
   });
+  it('Extends all polling fields', () => {
+    expect(completeState(setUp.state, [], ['otherTarget'])).toEqual({
+      target: 1,
+      targetLoading: false,
+      targetError: null,
+      otherTarget: 2,
+      otherTargetLoading: false,
+      otherTargetError: null,
+      otherTargetIsRetrying: false,
+      otherTargetCount: 0,
+      otherTargetTimeoutID: null
+    });
+  });
   it('Throws if an initial state is not provided', () => {
     expect(() => completeState(null)).toThrow(Error, 'Expected an object as a state to complete.');
   });
   it('Throws if ignored targets is not a list', () => {
-    expect(() => completeState({}, {})).toThrow(Error, 'Expected an array of strings as ignored targets');
+    expect(() => completeState({}, {})).toThrow(
+      Error,
+      'Expected an array of strings as ignored targets'
+    );
   });
   it('Throws if ignored targets is not a pure string array', () => {
-    expect(() => completeState({}, ['1', {}])).toThrow(Error, 'Expected an array of strings as ignored targets');
+    expect(() => completeState({}, ['1', {}])).toThrow(
+      Error,
+      'Expected an array of strings as ignored targets'
+    );
+  });
+  it('Throws if polling targets is not a pure string array', () => {
+    expect(() => completeState({}, [], {})).toThrow(
+      Error,
+      'Expected an array of strings as polling targets'
+    );
   });
 });

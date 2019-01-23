@@ -1,12 +1,14 @@
 import { isStringArray, isValidObject } from '../../utils/typeUtils';
 
-// Given a defaultState, it populates that state with ${key}Loading and ${key}Error
-function completeState(defaultState, ignoredTargets = []) {
+function completeState(defaultState, ignoredTargets = [], pollingTargets = []) {
   if (!isValidObject(defaultState)) {
     throw new Error('Expected an object as a state to complete.');
   }
   if (!isStringArray(ignoredTargets)) {
     throw new Error('Expected an array of strings as ignored targets');
+  }
+  if (!isStringArray(pollingTargets)) {
+    throw new Error('Expected an array of strings as polling targets');
   }
 
   const completedState = { ...defaultState };
@@ -16,6 +18,13 @@ function completeState(defaultState, ignoredTargets = []) {
       completedState[`${key}Loading`] = false;
       completedState[`${key}Error`] = null;
     });
+
+  pollingTargets.forEach(key => {
+    completedState[`${key}IsRetrying`] = false;
+    completedState[`${key}Count`] = 0;
+    completedState[`${key}TimeoutID`] = null;
+  });
+
   return completedState;
 }
 
