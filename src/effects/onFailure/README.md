@@ -7,6 +7,7 @@ This effect is a multi-target effect - It modifies more than one target at the s
 It will:  
   * Put `${action.target}Loading` in `false`  
   * Put `${action.target}Error` with your `action.payload` by default.  
+  * Put `${action.target}IsRetrying` in `false` if `action.isPolling` is truthy
 
 Example:
 ```
