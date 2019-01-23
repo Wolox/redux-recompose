@@ -25,6 +25,7 @@ import onSubscribe from './effects/onSubscribe';
 import onToggle from './effects/onToggle';
 import onUnsubscribe from './effects/onUnsubscribe';
 import onAppend from './effects/onAppend';
+import onRetry from './effects/onRetry';
 
 import baseThunkAction from './injections/baseThunkAction';
 import composeInjections from './injections/composeInjections';
@@ -67,6 +68,7 @@ exports.onSubscribe = onSubscribe;
 exports.onToggle = onToggle;
 exports.onUnsubscribe = onUnsubscribe;
 exports.onAppend = onAppend;
+exports.onRetry = onRetry;
 
 exports.baseThunkAction = baseThunkAction;
 exports.composeInjections = composeInjections;

@@ -70,6 +70,7 @@ of the state is being changed.
 - [onConcatenate](./src/effects/onConcatenate/)
 - [onToggle](./src/effects/onToggle/)
 - [onSpreadValue](./src/effects/onSpreadValue/)
+- [onRetry](./src/effects/onRetry/)
 
 We are currently writing some other effects:
 
