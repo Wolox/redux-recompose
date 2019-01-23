@@ -10,12 +10,23 @@ const initialState = {
   targetError: 'Some error'
 };
 
+const initialPollingState = {
+  target: null,
+  targetLoading: true,
+  targetError: 'Some error',
+  targetIsRetrying: true,
+  targetCount: 3,
+  targetTimeoutID: 3
+};
+
 const setUp = {
-  state: null
+  state: null,
+  pollingState: null
 };
 
 beforeEach(() => {
   setUp.state = Immutable(initialState);
+  setUp.pollingState = Immutable(initialPollingState);
 });
 
 describe('onSuccess', () => {
@@ -41,6 +52,25 @@ describe('onSuccess', () => {
       target: 2,
       targetLoading: false,
       targetError: null
+    });
+  });
+  it('Sets polling target', () => {
+    const reducer = createReducer(setUp.pollingState, {
+      '@@ACTION/TYPE': onSuccess()
+    });
+    const newState = reducer(setUp.pollingState, {
+      type: '@@ACTION/TYPE',
+      target: 'target',
+      payload: 'Success Payload',
+      isPolling: true
+    });
+    expect(newState).toEqual({
+      target: 'Success Payload',
+      targetLoading: false,
+      targetError: null,
+      targetIsRetrying: false,
+      targetCount: 3,
+      targetTimeoutID: 3
     });
   });
 });
