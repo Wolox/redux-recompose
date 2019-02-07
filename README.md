@@ -8,14 +8,14 @@ Here is a [blog post](https://medium.com/wolox-driving-innovation/932e746b0198) 
 
 Usually, we are used to write:
 
-```
-actions.js
+```js
+// actions.js
 
 function increment(anAmount) {
   return { type: 'INCREMENT', payload: anAmount };
 }
 
-reducer.js
+// reducer.js
 
 function reducer(state = initialState, action) {
   switch(action.type) {
@@ -29,8 +29,8 @@ function reducer(state = initialState, action) {
 
 With the new concept of _target_ of an action, we could write something like:
 
-```
-actions.js
+```js
+// actions.js
 
 // Define an action. It will place the result on state.counter
 function increment(anAmount) {
@@ -38,7 +38,7 @@ function increment(anAmount) {
 }
 
 
-reducer.js
+// reducer.js
 // Create a new effect decoupled from the state structure at all.
 const onAdd = (state, action) => ({ ...state, [action.target]: state[action.target] + action.payload });
 
@@ -131,7 +131,7 @@ completeFromProps: Helps to write a state from propTypes definition
 
 And to introduce completers that support custom patterns:
 
-```
+```js
 const initialStateDescription = { msg: '' };
 const initialState = completeCustomState(initialStateDescription, ['Info', 'Warn', 'Error']);
 // initialState.toEqual({ msg: '', msgInfo: '', msgWarn: '', msgError: '' });
@@ -167,14 +167,14 @@ The following are currently available:
 
 The way `redux-recompose` updates the redux state can be configured. The default configuration is
 
-```
+```js
 (state, newContent) => ({ ...state, ...newContent })
 ```
 
 You can use `configureMergeState` to override the way `redux-recompose` handles state merging. This is specially useful when you are using immutable libraries.
 For example, if you are using `seamless-immutable` to keep your store immutable, you'll want to use it's [`merge`](https://github.com/rtfeldman/seamless-immutable#merge) function. You can do so with the following configuration:
 
-```
+```js
 import { configureMergeState } from 'redux-recompose';
 
 configureMergeState((state, newContent) => state.merge(newContent))
