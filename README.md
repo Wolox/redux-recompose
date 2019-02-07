@@ -181,6 +181,83 @@ import { configureMergeState } from 'redux-recompose';
 configureMergeState((state, newContent) => state.merge(newContent))
 ```
 
+## Polling
+
+`redux-recompose` allows you to easily poll an API. After each polling action is dispatched, it will either go with the SUCCESS/FAILURE pattern or set up a timer to retry the request.
+
+Here's an example showing how to use it:
+
+Start by creating the polling actions. Use `completeTypes`'s third parameter to indicate this is a polling action.
+
+```js
+const actions = createTypes(
+  completeTypes(['POLLING_ACTION'], [], ['POLLING_ACTION']),
+  'NAMESPACE'
+);
+```
+
+Then complete the initial state using `completeState`'s third parameter so it has all the polling-related keys it will use later.
+
+```js
+const initialState = completeState(
+  {
+    myTarget: null
+  },
+  [],
+  ['myTarget']
+);
+```
+
+The initial state will look like this:
+
+```js
+const initialState = {
+  myTarget: null,
+  myTargetLoading: false,
+  myTargetError: null,
+  myTargetIsRetrying: false,
+  myTargetCount: 0,
+  myTargetTimeoutID: null
+};
+```
+
+You should already be familiar with the first 3 keys.
+`IsRetrying` is `true` when `redux-recompose` starts retrying the request, and will turn back to `false` when either of the `SUCCESS` or `FAILURE` actions are finally dispatched.
+`Count` represents the amount of retries `redux-recompose` has attempted.
+`TimeoutID` represents the ID of the timer. You can cancel the retry by passing this value to (`clearTimeout`)[https://www.w3schools.com/jsref/met_win_cleartimeout.asp].
+
+Now it´s time to create a reducer. Use `pollingActions` so `completeReducer` knows that those polling actions need polling reducers.
+
+```js
+createReducer(
+  initialState,
+  completeReducer({
+    pollingActions: [actions.POLLING_ACTION]
+  })
+);
+```
+
+You can now dispatch an action and start polling! The actions that have an `shouldRetry` key will be treated as polling actions. Polling actions also allow for a `determination` function.
+
+`determination` is a function that takes the `response` as its only parameter. If the return value of this function is truthy, we take the SUCCESS path. When it is falsy, the `shouldRetry` function comes into play.
+`shouldRetry` is a function that takes the `response` and current `state` as parameters. The return value of this function determines whether `redux-recompose` will retry the request or continue with the FAILURE PATH.
+`timeout` is the number of milliseconds the timer will wait before retrying the request.
+
+```js
+dispatch({
+  target: 'myTarget',
+  type: actions.POLLING_ACTION,
+  payload: myPayload,
+  determination: response => response.status === 201,
+  shouldRetry: (response, state) =>
+    state.pollingModeON && response.status === 202,
+  timeout: 10000
+});
+```
+
+If `shouldRetry` returns a truthy value, `actions.POLLING_ACTION_RETRY` will be dispatched. This will turn `myTargetIsRetrying` to `true`, increment `myTargetCount` and set the timer for the next request. The timer ID will be saved to `myTargetTimeoutID`. `myTargetError` will have the same error that the FAILURE pattern would assign it, so you can use to get the progress status from the server.
+Keep in mind that once the timer has finished, `redux-recompose` will dispatch the exact same action that started the polling chain. This means `determination`, `shouldRetry` and `timeout` will all be the same as they were the last time.
+
 ## Thanks to
 
 This library was inspired by acdlite/recompose. Let's keep creating tools for ease development.
