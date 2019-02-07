@@ -5,7 +5,7 @@ This completer can shrink a reducer description if handlers of these reducers ar
 Receives an object with `primaryActions` that is a string list of action names, and optionally a `override`.  
 For those actions in `primaryActions`, it will add `onLoading`, `onSuccess` and `onFailure` effects for `action.type`, `${action.type}_SUCCESS` and `${action.type}_FAILURE` respectively.  
 Example:  
-```
+```js
 const actions = createTypes(['FETCH', 'FETCH_SUCCESS', 'FETCH_FAILURE', 'OTHER'], '@@API');
 const reducerDescription = {
   primaryActions: [actions.FETCH],
@@ -18,7 +18,7 @@ const reducer = createReducer(completeReducer(reducerDescription));
 ```
 
 reducer handlers will be equivalent to:  
-```
+```js
   {
     [actions.FETCH]: onLoading(),
     [actions.FETCH_SUCCESS]: onSuccess(),
@@ -27,7 +27,7 @@ reducer handlers will be equivalent to:
   }
 ```  
 And the reducer created will behave like:  
-```
+```js
 const reducer(state = initialState, action) {
   switch (action.type) {
     case actions.FETCH:

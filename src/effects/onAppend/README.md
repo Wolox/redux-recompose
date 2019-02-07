@@ -4,7 +4,7 @@ This effect allow us to append an element to an array in the state.
 
 Example:
 
-```
+```js
 const initialState = {
   fibonacciArray: [1, 2, 3, 5, 8]
 };
@@ -21,7 +21,7 @@ If we now do:
 
 Then the state will be:
 
-```
+```js
 state = {
   fibonacciArray: [1, 2, 3, 5, 8, 13]
 };

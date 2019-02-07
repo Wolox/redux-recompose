@@ -4,7 +4,7 @@ This effect puts `${action.target}Loading` in true.
 
 Example of usage:
 
-```
+```js
 const initialState = {
   targetLoading: true
 };
