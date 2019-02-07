@@ -4,6 +4,7 @@ import emptyThunkAction from '../injections/emptyThunkAction';
 import singleCallThunkAction from '../injections/singleCallThunkAction';
 import composeInjections from '../injections/composeInjections';
 import mergeInjections from '../injections/mergeInjections';
+import pollingAction from '../injections/pollingAction';
 
 const ensembleInjections = action => {
   let base;
@@ -11,6 +12,8 @@ const ensembleInjections = action => {
     base = externalBaseAction(action);
   } else if (!action.type) {
     base = singleCallThunkAction(action);
+  } else if (action.shouldRetry) {
+    base = pollingAction(action);
   } else {
     base = action.target ? baseThunkAction(action) : emptyThunkAction(action);
   }
