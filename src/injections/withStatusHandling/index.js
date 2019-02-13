@@ -1,8 +1,8 @@
 function withStatusHandling(statusHandlerDescription) {
   return {
-    statusHandler: (dispatch, response) => (
+    statusHandler: (dispatch, response, state) => (
       statusHandlerDescription[response.status] ?
-        statusHandlerDescription[response.status](dispatch, response) :
+        statusHandlerDescription[response.status](dispatch, response, state) :
         () => true)
   };
 }
