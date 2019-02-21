@@ -22,10 +22,10 @@ beforeEach(() => {
 
 describe('createReducer', () => {
   it('Throws if no reducer description is passed', () => {
-    expect(() => createReducer({}, null)).toThrowError(Error, 'Expected a reducer description as an object.');
+    expect(() => createReducer({}, null)).toThrowError(new Error('Expected a reducer description as an object.'));
   });
   it('Throws if a non object reducer description is passed', () => {
-    expect(() => createReducer({}, [])).toThrowError(Error, 'Expected a reducer description as an object.');
+    expect(() => createReducer({}, [])).toThrowError(new Error('Expected a reducer description as an object.'));
   });
   it('Initializes state correctly', () => {
     const reducerDescription = {};
