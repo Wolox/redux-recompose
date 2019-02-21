@@ -13,9 +13,9 @@ describe('createTypes', () => {
     });
   });
   it('It throws if does not receive an array', () => {
-    expect(() => createTypes({}, 'none')).toThrow(new Error('Action names must be an array of strings.'));
+    expect(() => createTypes({}, 'none')).toThrow(new Error('Action names must be an array of strings'));
   });
   it('It throws if does not receive a string array', () => {
-    expect(() => createTypes(['s', {}], 'none')).toThrow(new Error('Action names must be an array of strings.'));
+    expect(() => createTypes(['s', {}], 'none')).toThrow(new Error('Action names must be an array of strings'));
   });
 });

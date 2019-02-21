@@ -5,8 +5,8 @@
  * stringArrayToObject(['A', 'B', 'C']) // { A: 'A', B: 'B', C: 'C' }
  */
 function stringArrayToObject(actionsArray, namespace) {
-  if (actionsArray.some(actionName => !actionName || typeof actionName !== 'string')) {
-    throw new Error('Action names must be an array of strings.');
+  if (!Array.isArray(actionsArray) || actionsArray.some(actionName => !actionName || typeof actionName !== 'string')) {
+    throw new Error('Action names must be an array of strings');
   }
 
   const actionNames = {};
