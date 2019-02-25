@@ -2,7 +2,7 @@ export const isArray = array => Object.prototype.toString.call(array) === '[obje
 
 export const isStringArray = array => !(
   !array ||
-  isArray(array) ||
+  !isArray(array) ||
   array.some(actionName => !actionName || typeof actionName !== 'string')
 );
 
