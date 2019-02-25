@@ -1,6 +1,8 @@
+export const isArray = array => Object.prototype.toString.call(array) === '[object Array]';
+
 export const isStringArray = array => !(
   !array ||
-  array.constructor !== Array ||
+  isArray(array) ||
   array.some(actionName => !actionName || typeof actionName !== 'string')
 );
 
