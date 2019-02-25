@@ -224,7 +224,7 @@ const initialState = {
 You should already be familiar with the first 3 keys.
 `IsRetrying` is `true` when `redux-recompose` starts retrying the request, and will turn back to `false` when either of the `SUCCESS` or `FAILURE` actions are finally dispatched.
 `Count` represents the amount of retries `redux-recompose` has attempted.
-`TimeoutID` represents the ID of the timer. You can cancel the retry by passing this value to (`clearTimeout`)[https://www.w3schools.com/jsref/met_win_cleartimeout.asp].
+`TimeoutID` represents the ID of the timer. You can cancel the retry by passing this value to [`clearTimeout`](https://www.w3schools.com/jsref/met_win_cleartimeout.asp).
 
 Now it´s time to create a reducer. Use `pollingActions` so `completeReducer` knows that those polling actions need polling reducers.
 
