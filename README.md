@@ -226,7 +226,7 @@ You should already be familiar with the first 3 keys.
 `Count` represents the amount of retries `redux-recompose` has attempted.
 `TimeoutID` represents the ID of the timer. You can cancel the retry by passing this value to [`clearTimeout`](https://www.w3schools.com/jsref/met_win_cleartimeout.asp).
 
-Now it´s time to create a reducer. Use `pollingActions` so `completeReducer` knows that those polling actions need polling reducers.
+Now it's time to create a reducer. Use `pollingActions` so `completeReducer` knows that those polling actions need polling reducers.
 
 ```js
 createReducer(
@@ -237,7 +237,7 @@ createReducer(
 );
 ```
 
-You can now dispatch an action and start polling! The actions that have an `shouldRetry` key will be treated as polling actions. Polling actions also allow for a `determination` function.
+You can now dispatch an action and start polling! The actions that have an `shouldRetry` key will be treated as polling actions. Polling actions can also incude an optional `determination` function.
 
 `determination` is a function that takes the `response` as its only parameter. If the return value of this function is truthy, we take the SUCCESS path. When it is falsy, the `shouldRetry` function comes into play.
 `shouldRetry` is a function that takes the `response` and current `state` as parameters. The return value of this function determines whether `redux-recompose` will retry the request or continue with the FAILURE PATH.
@@ -255,7 +255,14 @@ dispatch({
 });
 ```
 
-If `shouldRetry` returns a truthy value, `actions.POLLING_ACTION_RETRY` will be dispatched. This will turn `myTargetIsRetrying` to `true`, increment `myTargetCount` and set the timer for the next request. The timer ID will be saved to `myTargetTimeoutID`. `myTargetError` will have the same error that the FAILURE pattern would assign it, so you can use to get the progress status from the server.
+If `shouldRetry` returns a truthy value, `actions.POLLING_ACTION_RETRY` will be dispatched. This will:
+
+- Set `myTargetIsRetrying` to `true`.
+- Set `myTargetLoading` to `false`.
+- Increment `myTargetCount` by 1.
+- Set up a timer for the next request.
+- Save the timer ID to `myTargetTimeoutID`.
+- Set `myTargetError` in the same way that the FAILURE pattern would assign it. This can be used to get the progression status from the server.
 Keep in mind that once the timer has finished, `redux-recompose` will dispatch the exact same action that started the polling chain. This means `determination`, `shouldRetry` and `timeout` will all be the same as they were the last time.
 
 ## Thanks to

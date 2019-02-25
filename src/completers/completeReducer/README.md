@@ -76,6 +76,6 @@ Here´s an example using `pollingActions`:
     }
   */
 
-  //now, we create the actual reducer using createReducer
+  //Now, we create the actual reducer using createReducer
   const reducer = createReducer(reducerHandler);
 ```
