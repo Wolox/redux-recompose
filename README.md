@@ -1,3 +1,7 @@
+
+![versión npm](https://img.shields.io/npm/v/redux-recompose.svg?color=68d5f7) 
+![download npm](https://img.shields.io/npm/dw/redux-recompose.svg?color=7551bb)
+[![supported by](https://img.shields.io/badge/Supported%20by-Wolox.💗-blue.svg)](https://www.wolox.com.ar/) 
 # redux-recompose  
 
 ## Why another Redux library ?  
@@ -280,3 +284,4 @@ This project is maintained by [Manuel Battan](https://github.com/mvbattan) and i
     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
+
