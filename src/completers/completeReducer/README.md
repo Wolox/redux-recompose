@@ -14,7 +14,7 @@ const reducerDescription = {
   }
 }
 
-const reducer = createReducer(completeReducer(reducerDescription));
+const reducer = createReducer(initialState, completeReducer(reducerDescription));
 ```
 
 reducer handlers will be equivalent to:  
