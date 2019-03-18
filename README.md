@@ -1,8 +1,9 @@
 
 ![versión npm](https://img.shields.io/npm/v/redux-recompose.svg?color=68d5f7) 
-![download npm](https://img.shields.io/npm/dw/redux-recompose.svg?color=7551bb)
+![Download npm](https://img.shields.io/npm/dw/redux-recompose.svg?color=7551bb)
 [![supported by](https://img.shields.io/badge/Supported%20by-Wolox.💗-blue.svg)](https://www.wolox.com.ar/) 
-# redux-recompose  
+# Redux-recompose  
+![Vertical Logo Redux-recompose](./logo/images/Redux_vertical_small@2x.png)
 
 ## Why another Redux library ?  
 `redux-recompose` provide tools to write less reducers/actions code.  
