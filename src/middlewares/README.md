@@ -6,7 +6,7 @@ It works with Redux's `applyMiddleware` nicely, since it is simply passed down a
 
 Usage example:
 
-```
+```js
 import { fetchMiddleware } from 'redux-recompose';
 
 const store = createStore(
@@ -16,7 +16,7 @@ const store = createStore(
 
 Then, in your `action.js`, the logic for the code you want your middleware to execute can be added like this:
 
-```
+```js
 const someActions = {
   actionWithMiddleware: () => {
     /*
