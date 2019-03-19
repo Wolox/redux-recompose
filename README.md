@@ -1,4 +1,9 @@
-# redux-recompose
+
+![versión npm](https://img.shields.io/npm/v/redux-recompose.svg?color=68d5f7) 
+![Download npm](https://img.shields.io/npm/dw/redux-recompose.svg?color=7551bb)
+[![supported by](https://img.shields.io/badge/supported%20by-Wolox.💗-blue.svg)](https://www.wolox.com.ar/) 
+# Redux-recompose  
+![Vertical Logo Redux-recompose](./logo/images/Redux_vertical_small@2x.png)
 
 ## Why another Redux library ?
 
