@@ -9,57 +9,59 @@ import onRetry from '../../effects/onRetry';
 
 import { isStringArray, isValidObject } from '../../utils/typeUtils';
 
-// Given a reducer description, it returns a reducerHandler with all success and failure cases
-function completeReducer(reducerDescription) {
+const PRIMARY_ACTIONS = 'primaryActions';
+const MODAL_ACTIONS = 'modalActions';
+const POLLING_ACTIONS = 'pollingActions';
+const OVERRIDE_ACTIONS = 'override';
+
+function validateReducerDescription(reducerDescription) {
   if (
     !reducerDescription ||
-    ((!reducerDescription.primaryActions || !reducerDescription.primaryActions.length) &&
-      (!reducerDescription.modalActions || !reducerDescription.modalActions.length) &&
-      (!reducerDescription.pollingActions || !reducerDescription.pollingActions.length))
+    ![PRIMARY_ACTIONS, MODAL_ACTIONS, POLLING_ACTIONS].some(actionsField => reducerDescription[actionsField] && reducerDescription[actionsField].length)
   ) {
     throw new Error('Reducer description is incomplete, should contain at least an actions field to complete');
   }
+}
+
+function completeReducerHandler(reducerDescription, actionsKey, completeHandlerFunction) {
+  const actionsArray = reducerDescription[actionsKey];
+  if (actionsArray) {
+    if (!isStringArray(actionsArray)) {
+      throw new Error(`${actionsKey} must be a string array`);
+    }
+    actionsArray.forEach(completeHandlerFunction);
+  }
+}
+
+// Given a reducer description, it returns a reducerHandler with all success and failure cases
+function completeReducer(reducerDescription) {
+  validateReducerDescription(reducerDescription);
 
   let reducerHandler = {};
 
-  if (reducerDescription.primaryActions) {
-    if (!isStringArray(reducerDescription.primaryActions)) {
-      throw new Error('Primary actions must be a string array');
-    }
-    reducerDescription.primaryActions.forEach(actionName => {
-      reducerHandler[actionName] = onLoading();
-      reducerHandler[`${actionName}_SUCCESS`] = onSuccess();
-      reducerHandler[`${actionName}_FAILURE`] = onFailure();
-    });
-  }
+  completeReducerHandler(reducerDescription, PRIMARY_ACTIONS, actionName => {
+    reducerHandler[actionName] = onLoading();
+    reducerHandler[`${actionName}_SUCCESS`] = onSuccess();
+    reducerHandler[`${actionName}_FAILURE`] = onFailure();
+  });
 
-  if (reducerDescription.modalActions) {
-    if (!isStringArray(reducerDescription.modalActions)) {
-      throw new Error('Modal actions must be a string array');
-    }
-    reducerDescription.modalActions.forEach(actionName => {
-      reducerHandler[`${actionName}_OPEN`] = onSubscribe();
-      reducerHandler[`${actionName}_CLOSE`] = onUnsubscribe();
-    });
-  }
+  completeReducerHandler(reducerDescription, MODAL_ACTIONS, actionName => {
+    reducerHandler[`${actionName}_OPEN`] = onSubscribe();
+    reducerHandler[`${actionName}_CLOSE`] = onUnsubscribe();
+  });
 
-  if (reducerDescription.pollingActions) {
-    if (!isStringArray(reducerDescription.pollingActions)) {
-      throw new Error('Polling actions must be a string array');
-    }
-    reducerDescription.pollingActions.forEach(actionName => {
-      reducerHandler[actionName] = onLoading();
-      reducerHandler[`${actionName}_SUCCESS`] = onSuccess();
-      reducerHandler[`${actionName}_FAILURE`] = onFailure();
-      reducerHandler[`${actionName}_RETRY`] = onRetry();
-    });
-  }
+  completeReducerHandler(reducerDescription, POLLING_ACTIONS, actionName => {
+    reducerHandler[actionName] = onLoading();
+    reducerHandler[`${actionName}_SUCCESS`] = onSuccess();
+    reducerHandler[`${actionName}_FAILURE`] = onFailure();
+    reducerHandler[`${actionName}_RETRY`] = onRetry();
+  });
 
-  if (reducerDescription.override) {
-    if (!isValidObject(reducerDescription.override)) {
+  if (reducerDescription[OVERRIDE_ACTIONS]) {
+    if (!isValidObject(reducerDescription[OVERRIDE_ACTIONS])) {
       throw new Error('Reducer description containing a override is not an object');
     }
-    reducerHandler = { ...reducerHandler, ...reducerDescription.override };
+    reducerHandler = { ...reducerHandler, ...reducerDescription[OVERRIDE_ACTIONS] };
   }
   return reducerHandler;
 }
