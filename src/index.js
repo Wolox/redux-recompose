@@ -34,7 +34,7 @@ import withFlowDetermination from './injections/withFlowDetermination';
 import withPostFetch from './injections/withPostFetch';
 import withPostSuccess from './injections/withPostSuccess';
 import withPostFailure from './injections/withPostFailure';
-import withPrefetch from './injections/withPrefetch';
+import withPreFetch from './injections/withPreFetch';
 import withStatusHandling from './injections/withStatusHandling';
 import withSuccess from './injections/withSuccess';
 
@@ -77,7 +77,7 @@ exports.withFlowDetermination = withFlowDetermination;
 exports.withPostFetch = withPostFetch;
 exports.withPostSuccess = withPostSuccess;
 exports.withPostFailure = withPostFailure;
-exports.withPrefetch = withPrefetch;
+exports.withPreFetch = withPreFetch;
 exports.withStatusHandling = withStatusHandling;
 exports.withSuccess = withSuccess;
 

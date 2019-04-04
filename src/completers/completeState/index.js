@@ -2,7 +2,7 @@ import { isStringArray, isValidObject } from '../../utils/typeUtils';
 
 function completeState(defaultState, ignoredTargets = [], pollingTargets = []) {
   if (!isValidObject(defaultState)) {
-    throw new Error('Expected an object as a state to complete.');
+    throw new Error('Expected an object as a state to complete');
   }
   if (!isStringArray(ignoredTargets)) {
     throw new Error('Expected an array of strings as ignored targets');

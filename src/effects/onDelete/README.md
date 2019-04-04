@@ -6,7 +6,7 @@ These deletions are managed via `action.payload` by default.
 Example:
 
 We have this state:
-```
+```js
 const initialState = {
   objectList: [{ id: 1 }, { id: 2 }, { id: 3 }]
 };
@@ -14,7 +14,7 @@ const initialState = {
 
 And we want to delete objects _by id_. Then, we'd like to write:
 
-```
+```js
 dispatch({ type: actions.DELETE_ITEM, payload: 2 });
 ```
 
@@ -23,7 +23,7 @@ if we would like to delete the item with `{ id: 2 }`, leading to:
 `objectList: [{ id: 1 }, { id: 3 }]`
 
 To achieve that, we write this as a _reducer_:
-```
+```js
 const reducerDescription = {
   [actions.DELETE_ITEM]: onDelete()
 };

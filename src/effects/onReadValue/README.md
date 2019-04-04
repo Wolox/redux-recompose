@@ -5,7 +5,7 @@ This effect allow us to read values from the `action` and to put them directly i
 By default, this effect reads `action.payload`.  
 
 Example:  
-```
+```js
 const initialState = {
   aTarget: null
 };
@@ -25,7 +25,7 @@ If we now do:
 });`  
 
 Then the state will be like:  
-```
+```js
 state = {
   aTarget: 'Something'
 };

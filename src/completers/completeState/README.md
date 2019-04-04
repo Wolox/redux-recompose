@@ -7,12 +7,14 @@ A common pattern is to have a field associated with its Error and its Loading, s
 Receives a state description and a list of target exceptions. You can also pass an array of the targets you want to treat as polling targets.
 
 The polling targets have some extra properties:
+
 - `targetCount`: number of retries this request has taken so far
 - `targetIsRetrying`: if the request should be retried, this is set to `true` until either of the `SUCCESS` or `FAILURE` actions are dispatched.
 - `targetTimeoutID`: the `setTimeout` timer id. You pass this id to `clearTimeout` in order to stop retrying.
 
 Example:
-```
+
+```js
 const initialLongState = {
   thing: null,
   thingLoading: false,
@@ -34,5 +36,5 @@ const initialStateDescription = {
 
 const initialState = completeState(initialStateDescription, ['anotherThing'], ['otherThing']);
 
-initialState and initialLongState are equivalent.
+//initialState and initialLongState are equivalent.
 ```

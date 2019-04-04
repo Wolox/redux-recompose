@@ -4,7 +4,7 @@ This effect allow us to concatenate an array to an array in the state. This is u
 
 Example:
 
-```
+```js
 const initialState = {
   numberArray: [1, 2, 3]
 };
@@ -21,7 +21,7 @@ If we now do:
 
 Then the state will be:
 
-```
+```js
 state = {
   numberArray: [1, 2, 3, 4, 5]
 };

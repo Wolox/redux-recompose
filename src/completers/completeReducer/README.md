@@ -8,7 +8,7 @@ For those actions in `pollingActions`, it will add `onLoading`, `onSuccess`, `on
 You can use `override` to set a custom reducer for a specific action type.
 
 Example:  
-```
+```js
 const actions = createTypes(['FETCH', 'FETCH_SUCCESS', 'FETCH_FAILURE', 'OTHER'], '@@API');
 const reducerDescription = {
   primaryActions: [actions.FETCH],
@@ -17,11 +17,11 @@ const reducerDescription = {
   }
 }
 
-const reducer = createReducer(completeReducer(reducerDescription));
+const reducer = createReducer(initialState, completeReducer(reducerDescription));
 ```
 
 reducer handlers will be equivalent to:  
-```
+```js
   {
     [actions.FETCH]: onLoading(),
     [actions.FETCH_SUCCESS]: onSuccess(),
@@ -30,7 +30,7 @@ reducer handlers will be equivalent to:
   }
 ```  
 And the reducer created will behave like:  
-```
+```js
 const reducer(state = initialState, action) {
   switch (action.type) {
     case actions.FETCH:

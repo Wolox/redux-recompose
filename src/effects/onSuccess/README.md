@@ -11,7 +11,7 @@ It will:
   * Put `${action.target}IsRetrying` in `false` if `action.isPolling` is truthy
 
 Example:  
-  ```  
+  ```js
   const selector =
     (action, state) => action.payload || state[action.target];  
 

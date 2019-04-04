@@ -3,7 +3,7 @@
 This completer helps to extends a group of actions including their `SUCCESS` and `FAILURE` cases. It also receives a second parameter that describes which ones are not extended. It also receives a third parameter that describes the actions that should be extended for polling.
 
 Examples:
-```
+```js
 const arrTypes = ['AN_ACTION', 'OTHER_ACTION'];
 const ignoredTypes = ['ANOTHER_ACTION']
 const pollingTypes = ['POLLING_ACTION'];

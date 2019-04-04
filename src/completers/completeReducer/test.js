@@ -30,16 +30,16 @@ beforeEach(() => {
 
 describe('completeReducer', () => {
   it('Throws if a reducer description is not present', () => {
-    expect(() => completeReducer(null)).toThrow(Error, 'Reducer description is incomplete, should contain at least a primaryActions field');
+    expect(() => completeReducer(null)).toThrow(new Error('Reducer description is incomplete, should contain at least an actions field to complete'));
   });
   it('Throws if a reducer description has not a primaryActions field', () => {
-    expect(() => completeReducer({ a: 1 })).toThrow(Error, 'Reducer description is incomplete, should contain at least a primaryActions field');
+    expect(() => completeReducer({ a: 1 })).toThrow(new Error('Reducer description is incomplete, should contain at least an actions field to complete'));
   });
   it('Throws if primary actions is not an array of strings', () => {
     const reducerDescription = {
       primaryActions: [null, 'thing']
     };
-    expect(() => completeReducer(reducerDescription)).toThrow(Error, 'Primary actions must be a string array');
+    expect(() => completeReducer(reducerDescription)).toThrow(new Error('primaryActions must be a string array'));
   });
   it('Extends correctly the primary actions', () => {
     const reducerDescription = {

@@ -5,7 +5,7 @@ Please, do keep this in mind for completed actions and reducers, since the `load
 
 Example:
 
-```
+```js
   import { withSuccess } from 'redux-recompose';
 
   const actionCreators = {

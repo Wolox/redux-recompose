@@ -10,7 +10,7 @@ It will:
   * Put `${action.target}IsRetrying` in `false` if `action.isPolling` is truthy
 
 Example:
-```
+```js
 const reducerDescription = {
   [actions.ON_FETCH_FAILURE]: onFailure()
 }
