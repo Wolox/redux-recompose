@@ -5,7 +5,7 @@ use you normalizing/denormalizing function on the `payload` property as shown be
 
 Example:
 
-```
+```js
   import { withPreFetch } from 'redux-recompose';
 
   const actionCreators = {
@@ -15,10 +15,9 @@ Example:
       service: someService,
       payload: denormalize(data),
       injections: [
-        withPreFetch((dispatch) => {
+        withPreFetch(dispatch => {
             /* you can dispatch other actions before the service call */
-          });
-        })
+        });
       ]
     })
   };
