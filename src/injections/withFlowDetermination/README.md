@@ -17,7 +17,7 @@ Example:
       service: someService,
       payload: data,
       injections: [
-        withFlowDetermination(response => response.ok) // this is the default //
+        withFlowDetermination(response => response.ok) // this is the default
       ]
     })
   };
