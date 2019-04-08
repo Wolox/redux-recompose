@@ -11,7 +11,7 @@ It receives four parameters:
 * selector: this argument is optional. Receives the entire state and the result of this function will be passed to `serviceCall` as a parameter.  
 
 Example:
-```
+```js
 const asyncAction = createThunkAction(
   actions.FETCH,
   'target',
@@ -21,7 +21,7 @@ const asyncAction = createThunkAction(
 ```
 
 Is conceptually equal to:
-```
+```js
 const asyncAction = async (dispatch, getState) => {
   dispatch({ type: actions.FETCH, target: 'target' });
   const stuffId = getState().stuff.id;
