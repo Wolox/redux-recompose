@@ -2,7 +2,7 @@ import { isValidObject } from '../../utils/typeUtils';
 
 function createReducer(initialState, descriptor) {
   if (!isValidObject(descriptor)) {
-    throw new Error('Expected a reducer description as an object.');
+    throw new Error('Expected a reducer description as an object');
   }
 
   return (state = initialState, action) => {
