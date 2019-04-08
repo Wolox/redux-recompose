@@ -10,7 +10,7 @@ It will:
   * Fill `${action.target}` with your `action.payload` by default, or use a selector provided  
 
 Example:  
-  ```  
+  ```js
   const selector =
     (action, state) => action.payload || state[action.target];  
 

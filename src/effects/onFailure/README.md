@@ -9,7 +9,7 @@ It will:
   * Put `${action.target}Error` with your `action.payload` by default.  
 
 Example:
-```
+```js
 const reducerDescription = {
   [actions.ON_FETCH_FAILURE]: onFailure()
 }
