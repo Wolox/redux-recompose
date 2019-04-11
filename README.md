@@ -142,13 +142,7 @@ const initialState = completeCustomState(initialStateDescription, ['Info', 'Warn
 // initialState.toEqual({ msg: '', msgInfo: '', msgWarn: '', msgError: '' });
 ```
 
-## Injectors [WIP]
-
-Injectors are meant to customize your thunk action behavior. We are working on these:
-
-```
-withPreFetch
-```
+## Injectors
 
 There's currently documentation for the following:
 
@@ -157,6 +151,7 @@ There's currently documentation for the following:
 - [withPostFailure](./src/injections/withPostFailure/)
 - [withPostFetch](./src/injections/withPostFetch/)
 - [withPostSuccess](./src/injections/withPostSuccess/)
+- [withPreFetch](./src/injections/withPreFetch/)
 - [withStatusHandling](./src/injections/withStatusHandling/)
 - [withSuccess](./src/injections/withSuccess/)
 
