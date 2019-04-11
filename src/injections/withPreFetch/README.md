@@ -17,7 +17,7 @@ Example:
       injections: [
         withPreFetch(dispatch => {
             /* you can dispatch other actions before the service call */
-        });
+        })
       ]
     })
   };
