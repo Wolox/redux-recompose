@@ -142,7 +142,7 @@ const initialState = completeCustomState(initialStateDescription, ['Info', 'Warn
 // initialState.toEqual({ msg: '', msgInfo: '', msgWarn: '', msgError: '' });
 ```
 
-## Injectors [WIP]
+## Injectors
 
 There's currently documentation for the following:
 
