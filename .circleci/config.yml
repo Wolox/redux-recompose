@@ -16,4 +16,4 @@ jobs:
           command: npm run test
       - run:
           name: Send to Codecov
-          command: "curl -s https://codecov.com/bash -t $CODECOV_TOKEN"
+          command: "curl -s https://codecov.io/bash -t $CODECOV_TOKEN"
