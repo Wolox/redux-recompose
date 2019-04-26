@@ -5,7 +5,7 @@ import createReducer from '../../creators/createReducer';
 import onCycle from '.';
 
 const initialState = {
-  numberArray: ['A','B','C','D','E','F','G','H']
+  letterArray: ['A','B','C','D','E','F','G','H']
 };
 
 const setUp = {
@@ -17,29 +17,29 @@ beforeEach(() => {
 });
 
 describe('onCycle', () => {
-  it('Cycle array', () => {
+  it('Cycle array two positions forward', () => {
     const reducer = createReducer(setUp.state, {
       '@@ACTION/CYCLE': onCycle()
     });
     const newState = reducer(setUp.state, {
       type: '@@ACTION/CYCLE',
-      target: 'numberArray',
+      target: 'letterArray',
       step: 2
     });
-    expect(newState.numberArray).toEqual(['C','D','E','F','G','H','A','B']);
+    expect(newState.letterArray).toEqual(['C','D','E','F','G','H','A','B']);
   });
 });
 
 describe('onCycle', () => {
-  it('Cycle array', () => {
+  it('Cycling array two positions backwards', () => {
     const reducer = createReducer(setUp.state, {
       '@@ACTION/CYCLE': onCycle()
     });
     const newState = reducer(setUp.state, {
       type: '@@ACTION/CYCLE',
-      target: 'numberArray',
+      target: 'letterArray',
       step: -2
     });
-    expect(newState.numberArray).toEqual(['G','H','A','B','C','D','E','F']);
+    expect(newState.letterArray).toEqual(['G','H','A','B','C','D','E','F']);
   });
 });
