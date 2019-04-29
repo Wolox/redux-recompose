@@ -6,6 +6,7 @@ module.exports = {
     "rules": {
       "comma-dangle": ["error", "never"],
       "no-console": ["error", {"allow": ["warn", "error"]}],
-      "arrow-parens": ["off", { "requireForBlockBody": false }]
+      "arrow-parens": ["off", { "requireForBlockBody": false }],
+      "import/no-extraneous-dependencies": ["error", { "devDependencies": true }]
     }
 };

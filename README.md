@@ -1,8 +1,8 @@
 
-![versión npm](https://img.shields.io/npm/v/redux-recompose.svg?color=68d5f7) 
+![versión npm](https://img.shields.io/npm/v/redux-recompose.svg?color=68d5f7)
 ![Download npm](https://img.shields.io/npm/dw/redux-recompose.svg?color=7551bb)
 [![codecov](https://codecov.io/gh/Wolox/redux-recompose/branch/master/graph/badge.svg)](https://codecov.io/gh/Wolox/redux-recompose)
-[![supported by](https://img.shields.io/badge/supported%20by-Wolox.💗-blue.svg)](https://www.wolox.com.ar/) 
+[![supported by](https://img.shields.io/badge/supported%20by-Wolox.💗-blue.svg)](https://www.wolox.com.ar/)
 # Redux-recompose  
 ![Vertical Logo Redux-recompose](./logo/images/Redux_vertical_small@2x.png)
 
@@ -76,6 +76,7 @@ of the state is being changed.
 - [onConcatenate](./src/effects/onConcatenate/)
 - [onToggle](./src/effects/onToggle/)
 - [onSpreadValue](./src/effects/onSpreadValue/)
+- [onCycle](./src/effects/onCycle/)
 
 We are currently writing some other effects:
 
