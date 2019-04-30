@@ -28,9 +28,7 @@ describe('onCycle', () => {
     });
     expect(newState.letterArray).toEqual(['C','D','E','F','G','H','A','B']);
   });
-});
 
-describe('onCycle', () => {
   it('Cycling array two positions backwards', () => {
     const reducer = createReducer(setUp.state, {
       '@@ACTION/CYCLE': onCycle()
