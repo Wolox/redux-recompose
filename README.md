@@ -1,4 +1,10 @@
-# redux-recompose
+
+![versión npm](https://img.shields.io/npm/v/redux-recompose.svg?color=68d5f7) 
+![Download npm](https://img.shields.io/npm/dw/redux-recompose.svg?color=7551bb)
+[![codecov](https://codecov.io/gh/Wolox/redux-recompose/branch/master/graph/badge.svg)](https://codecov.io/gh/Wolox/redux-recompose)
+[![supported by](https://img.shields.io/badge/supported%20by-Wolox.💗-blue.svg)](https://www.wolox.com.ar/) 
+# Redux-recompose  
+![Vertical Logo Redux-recompose](./logo/images/Redux_vertical_small@2x.png)
 
 ## Why another Redux library ?
 
@@ -138,23 +144,18 @@ const initialState = completeCustomState(initialStateDescription, ['Info', 'Warn
 // initialState.toEqual({ msg: '', msgInfo: '', msgWarn: '', msgError: '' });
 ```
 
-## Injectors [WIP]
-
-Injectors are meant to customize your thunk action behavior. We are working on these:
-
-```
-withFlowDetermination
-withPostFetch
-withPreFetch
-withStatusHandling
-```
+## Injectors
 
 There's currently documentation for the following:
 
-- [withSuccess](./src/injections/withSuccess/)
 - [withFailure](./src/injections/withFailure/)
+- [withFlowDetermination](./src/injections/withFlowDetermination/)
 - [withPostFailure](./src/injections/withPostFailure/)
+- [withPostFetch](./src/injections/withPostFetch/)
 - [withPostSuccess](./src/injections/withPostSuccess/)
+- [withPreFetch](./src/injections/withPreFetch/)
+- [withStatusHandling](./src/injections/withStatusHandling/)
+- [withSuccess](./src/injections/withSuccess/)
 
 ## Middlewares
 

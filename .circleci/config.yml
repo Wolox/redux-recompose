@@ -13,4 +13,7 @@ jobs:
           command: npm install
       - run:
           name: Run tests
-          command: npm run test
+          command: npm run test -- --coverage
+      - run:
+          name: Send to Codecov
+          command: "./node_modules/.bin/codecov --token=$CODECOV_TOKEN"
