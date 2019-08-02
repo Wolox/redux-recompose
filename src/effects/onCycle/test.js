@@ -5,7 +5,7 @@ import createReducer from '../../creators/createReducer';
 import onCycle from '.';
 
 const initialState = {
-  letterArray: ['A','B','C','D','E','F','G','H']
+  letterArray: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
 };
 
 const setUp = {
@@ -26,7 +26,7 @@ describe('onCycle', () => {
       target: 'letterArray',
       step: 2
     });
-    expect(newState.letterArray).toEqual(['C','D','E','F','G','H','A','B']);
+    expect(newState.letterArray).toEqual(['C', 'D', 'E', 'F', 'G', 'H', 'A', 'B']);
   });
 
   it('Cycling array two positions backwards', () => {
@@ -38,6 +38,6 @@ describe('onCycle', () => {
       target: 'letterArray',
       step: -2
     });
-    expect(newState.letterArray).toEqual(['G','H','A','B','C','D','E','F']);
+    expect(newState.letterArray).toEqual(['G', 'H', 'A', 'B', 'C', 'D', 'E', 'F']);
   });
 });
