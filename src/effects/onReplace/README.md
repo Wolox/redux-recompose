@@ -11,14 +11,14 @@ const initialState = {
 };
 
 const reducerDescription = {
-  [actions.Replace]: onReplace()
+  [actions.REPLACE]: onReplace()
 };
 
 export default createReducer(initialState, reducerDescription);
 ```
 
 If we now do:  
-`dispatch({ type: actions.Replace, target: 'letterArray', index: 3, payload: 'Z' });`
+`dispatch({ type: actions.REPLACE, target: 'letterArray', index: 3, payload: 'Z' });`
 
 Then the state will be:
 
@@ -35,14 +35,14 @@ const initialState = {
 };
 
 const reducerDescription = {
-  [actions.Replace]: onReplace()
+  [actions.REPLACE]: onReplace()
 };
 
 export default createReducer(initialState, reducerDescription);
 ```
 
 If we now do:  
-`dispatch({ type: actions.Replace, target: 'numberArray', condition: element => element > 50, payload: 51 });`
+`dispatch({ type: actions.REPLACE, target: 'numberArray', condition: element => element > 50, payload: 51 });`
 
 Then the state will be:
 
