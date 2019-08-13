@@ -5,7 +5,7 @@ import createReducer from '../../creators/createReducer';
 import onReplace from '.';
 
 const initialState = {
-  letterArray: ['H','I','J','K','L','M','N'],
+  letterArray: ['H', 'I', 'J', 'K', 'L', 'M', 'N'],
   numberArray: [23, 45, 56, 12, 28, 45, 90, 36, 44, 67]
 };
 
@@ -28,7 +28,7 @@ describe('onReplace', () => {
       index: 3,
       payload: 'Z'
     });
-    expect(newState.letterArray).toEqual(['H','I','J','Z','L','M','N']);
+    expect(newState.letterArray).toEqual(['H', 'I', 'J', 'Z', 'L', 'M', 'N']);
   });
 
   it('Replace position on array by condition', () => {
