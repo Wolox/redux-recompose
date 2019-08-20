@@ -27,7 +27,7 @@ import onUnsubscribe from './effects/onUnsubscribe';
 import onAppend from './effects/onAppend';
 import onCycle from './effect/onCycle';
 import onConcatenate from './effects/onConcatenate';
-import onReplace from './effect/onReplace';
+import onReplace from './effects/onReplace';
 
 import baseThunkAction from './injections/baseThunkAction';
 import composeInjections from './injections/composeInjections';

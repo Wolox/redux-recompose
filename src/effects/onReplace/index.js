@@ -9,10 +9,7 @@ function onReplace() {
         payload, index, condition, target
       } = action;
       const array = [...state[target]];
-      if (condition) {
-        const arrayFilter = array.filter(condition);
-        return array.map(item => (arrayFilter.includes(item) ? payload : item));
-      }
+      if (condition) return array.map(element => (condition(element) ? payload : element));
       if (index) array[index] = payload;
       return [...array];
     }
