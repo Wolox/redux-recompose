@@ -25,7 +25,7 @@ import onSubscribe from './effects/onSubscribe';
 import onToggle from './effects/onToggle';
 import onUnsubscribe from './effects/onUnsubscribe';
 import onAppend from './effects/onAppend';
-import onCycle from './effect/onCycle';
+import onCycle from './effects/onCycle';
 import onConcatenate from './effects/onConcatenate';
 import onReplace from './effects/onReplace';
 
