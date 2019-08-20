@@ -77,6 +77,7 @@ of the state is being changed.
 - [onToggle](./src/effects/onToggle/)
 - [onSpreadValue](./src/effects/onSpreadValue/)
 - [onCycle](./src/effects/onCycle/)
+- [onReplace](./src/effects/onReplace/)
 
 We are currently writing some other effects:
 
