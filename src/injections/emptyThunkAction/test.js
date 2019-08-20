@@ -15,9 +15,7 @@ describe('emptyThunkAction', () => {
     const store = mockStore({});
     await store.dispatch({ type: actions.FETCH, service: MockService.fetchSomething });
     const actionsDispatched = store.getActions();
-    expect(actionsDispatched).toEqual([
-      { type: actions.FETCH }
-    ]);
+    expect(actionsDispatched).toEqual([{ type: actions.FETCH }]);
   });
   it('Calls the service specified via parameters', async () => {
     const store = mockStore({});
@@ -25,8 +23,10 @@ describe('emptyThunkAction', () => {
       type: actions.FETCH,
       service: MockService.fetchSomething,
       payload: 20,
-      injections: withPostSuccess((dispatch, response) =>
-        dispatch({ type: actions.OTHER_FETCH, payload: response.data }))
+      injections: [
+        withPostSuccess((dispatch, response) =>
+          dispatch({ type: actions.OTHER_FETCH, payload: response.data }))
+      ]
     });
     const actionsDispatched = store.getActions();
     expect(actionsDispatched).toEqual([
