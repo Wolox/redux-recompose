@@ -199,6 +199,11 @@ This library was inspired by acdlite/recompose. Let's keep creating tools for ea
 
 This project is maintained by [Manuel Battan](https://github.com/mvbattan) and it was written by [Wolox](http://www.wolox.com.ar).
 
+
+<a href="https://github.com/marianozicavo"><img src="https://avatars3.githubusercontent.com/u/7256996?s=460&v=4" title="marianozicavo" width="80" height="80"></a>
+<a href="https://github.com/mvbattan"><img src="https://avatars3.githubusercontent.com/u/11986709?s=460&v=4" title="mvbattan" width="80" height="80"></a>
+
+
 ![Wolox](https://raw.githubusercontent.com/Wolox/press-kit/master/logos/logo_banner.png)
 
 ## License
