@@ -3,7 +3,7 @@ import mergeInjections from './index';
 
 describe('mergeInjections', () => {
   it('Throws error when injections is not an array', () => {
-    expect(() => mergeInjections(withPreFetch(() => {}))).toThrow(new TypeError('Expected actions injections to be an array'));
+    expect(() => mergeInjections(withPreFetch(() => {}))).toThrow(new TypeError('Expected action injections to be an array'));
   });
   it('Merges injections', () => {
     const mergedInjections = mergeInjections([withPreFetch(() => {})]);
