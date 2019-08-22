@@ -1,12 +1,11 @@
 import { isStringArray } from '../../utils/typeUtils';
 
-const primaryActionsCompleter = primaryActions =>
-  primaryActions.reduce(
-    (completedTypes, type) => [...completedTypes, type, `${type}_SUCCESS`, `${type}_FAILURE`],
-    []
-  );
+export const primaryActionsCompleter = primaryActions => primaryActions.reduce(
+  (completedTypes, type) => [...completedTypes, type, `${type}_SUCCESS`, `${type}_FAILURE`],
+  []
+);
 
-const ignoresActionsCompleter = ignoredActions => ignoredActions || [];
+export const ignoredActionsCompleter = ignoredActions => ignoredActions || [];
 
 function completeTypes({ primaryActions, ignoredActions = [], customCompleters = [] }) {
   if (!isStringArray(primaryActions)) {
@@ -21,9 +20,9 @@ function completeTypes({ primaryActions, ignoredActions = [], customCompleters =
   });
 
   const primaryTypes = primaryActionsCompleter(primaryActions);
-  const ignoredTypes = ignoresActionsCompleter(ignoredActions);
+  const ignoredTypes = ignoredActionsCompleter(ignoredActions);
   const customCompletedTypes = customCompleters.reduce(
-    (customTypes, { actions, completer }) => completer(actions),
+    (customTypes, { actions, completer }) => [...customTypes, ...actions.flatMap(action => completer(action))],
     []
   );
 

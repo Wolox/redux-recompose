@@ -33,6 +33,19 @@ describe('completeTypes', () => {
       'EXCEPT_ACTION'
     ]);
   });
+  it('Custom completers completes all types passed', () => {
+    const primaryActions = [];
+    const ignoredActions = [];
+    const completer = type => [type, `${type}_SUCCESS`, `${type}_FAILURE`];
+    const customCompleters = [
+      { completer, actions: ['CUSTOM_ACTION'] }
+    ];
+    expect(completeTypes({ primaryActions, ignoredActions, customCompleters })).toEqual([
+      'CUSTOM_ACTION',
+      'CUSTOM_ACTION_SUCCESS',
+      'CUSTOM_ACTION_FAILURE'
+    ]);
+  });
   it('Throws if parameters are not the expected ones', () => {
     expect(() => completeTypes({ primaryActiosn: null })).toThrow(new Error('Primary actions must be an array of strings'));
     expect(() => completeTypes({ primaryActions: ['ONE'], ignoredActions: null })).toThrow(new Error('Ignored actions must be an array of strings'));
