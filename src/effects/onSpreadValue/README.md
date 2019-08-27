@@ -4,7 +4,7 @@ This effect allows us to read the entries of an object from the `action` and spr
 
 Example:
 
-```
+```js
 const initialState = {
   key1: 10,
   key2: 20,
@@ -23,7 +23,7 @@ If we now do:
 
 Then the state will be:
 
-```
+```js
 state = {
   key1: 'Hello',
   key2: 45,

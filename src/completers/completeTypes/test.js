@@ -30,7 +30,7 @@ describe('completeTypes', () => {
     ]);
   });
   it('Throws if parameters are not string lists', () => {
-    expect(() => completeTypes(null)).toThrow(Error, 'Types must be an array of strings');
-    expect(() => completeTypes(['ONE'], null)).toThrow(Error, 'Exception cases from actions must be an array of strings');
+    expect(() => completeTypes(null)).toThrow(new Error('Types must be an array of strings'));
+    expect(() => completeTypes(['ONE'], null)).toThrow(new Error('Exception cases from actions must be an array of strings'));
   });
 });

@@ -1,4 +1,10 @@
-# redux-recompose
+
+![versión npm](https://img.shields.io/npm/v/redux-recompose.svg?color=68d5f7)
+![Download npm](https://img.shields.io/npm/dw/redux-recompose.svg?color=7551bb)
+[![codecov](https://codecov.io/gh/Wolox/redux-recompose/branch/master/graph/badge.svg)](https://codecov.io/gh/Wolox/redux-recompose)
+[![supported by](https://img.shields.io/badge/supported%20by-Wolox.💗-blue.svg)](https://www.wolox.com.ar/)
+# Redux-recompose  
+![Vertical Logo Redux-recompose](./logo/images/Redux_vertical_small@2x.png)
 
 ## Why another Redux library ?
 
@@ -70,6 +76,8 @@ of the state is being changed.
 - [onConcatenate](./src/effects/onConcatenate/)
 - [onToggle](./src/effects/onToggle/)
 - [onSpreadValue](./src/effects/onSpreadValue/)
+- [onCycle](./src/effects/onCycle/)
+- [onReplace](./src/effects/onReplace/)
 
 We are currently writing some other effects:
 
@@ -137,23 +145,18 @@ const initialState = completeCustomState(initialStateDescription, ['Info', 'Warn
 // initialState.toEqual({ msg: '', msgInfo: '', msgWarn: '', msgError: '' });
 ```
 
-## Injectors [WIP]
-
-Injectors are meant to customize your thunk action behavior. We are working on these:
-
-```
-withFlowDetermination
-withPostFetch
-withPrefetch
-withStatusHandling
-```
+## Injectors
 
 There's currently documentation for the following:
 
-- [withSuccess](./src/injections/withSuccess/)
 - [withFailure](./src/injections/withFailure/)
+- [withFlowDetermination](./src/injections/withFlowDetermination/)
 - [withPostFailure](./src/injections/withPostFailure/)
+- [withPostFetch](./src/injections/withPostFetch/)
 - [withPostSuccess](./src/injections/withPostSuccess/)
+- [withPreFetch](./src/injections/withPreFetch/)
+- [withStatusHandling](./src/injections/withStatusHandling/)
+- [withSuccess](./src/injections/withSuccess/)
 
 ## Middlewares
 
@@ -194,7 +197,13 @@ This library was inspired by acdlite/recompose. Let's keep creating tools for ea
 
 ## About
 
-This project is maintained by [Manuel Battan](https://github.com/mvbattan) and it was written by [Wolox](http://www.wolox.com.ar).
+This project was created by [Manuel Battan](https://github.com/mvbattan) and it was written by [Wolox](http://www.wolox.com.ar). It is mantained by:
+
+<a href="https://github.com/mvbattan"><img src="https://avatars3.githubusercontent.com/u/11986709?s=460&v=4" title="mvbattan" width="80" height="80"></a>
+<a href="https://github.com/jeymarsonwolox"><img src="https://avatars2.githubusercontent.com/u/44580968?s=460&v=4" title="jeymarsonwolox" width="80" height="80"></a>
+<a href="https://github.com/marianozicavo"><img src="https://avatars3.githubusercontent.com/u/7256996?s=460&v=4" title="marianozicavo" width="80" height="80"></a>
+<a href="https://github.com/santinucera"><img src="https://avatars0.githubusercontent.com/u/21241074?s=460&v=4" title="santinucera" width="80" height="80"></a>
+<a href="https://github.com/Anisospina"><img src="https://avatars3.githubusercontent.com/u/13072856?s=460&v=4" title="Anisospina" width="80" height="80"></a>
 
 ![Wolox](https://raw.githubusercontent.com/Wolox/press-kit/master/logos/logo_banner.png)
 

@@ -25,6 +25,9 @@ import onSubscribe from './effects/onSubscribe';
 import onToggle from './effects/onToggle';
 import onUnsubscribe from './effects/onUnsubscribe';
 import onAppend from './effects/onAppend';
+import onCycle from './effects/onCycle';
+import onConcatenate from './effects/onConcatenate';
+import onReplace from './effects/onReplace';
 
 import baseThunkAction from './injections/baseThunkAction';
 import composeInjections from './injections/composeInjections';
@@ -33,7 +36,7 @@ import withFlowDetermination from './injections/withFlowDetermination';
 import withPostFetch from './injections/withPostFetch';
 import withPostSuccess from './injections/withPostSuccess';
 import withPostFailure from './injections/withPostFailure';
-import withPrefetch from './injections/withPrefetch';
+import withPreFetch from './injections/withPreFetch';
 import withStatusHandling from './injections/withStatusHandling';
 import withSuccess from './injections/withSuccess';
 
@@ -67,6 +70,9 @@ exports.onSubscribe = onSubscribe;
 exports.onToggle = onToggle;
 exports.onUnsubscribe = onUnsubscribe;
 exports.onAppend = onAppend;
+exports.onCycle = onCycle;
+exports.onConcatenate = onConcatenate;
+exports.onReplace = onReplace;
 
 exports.baseThunkAction = baseThunkAction;
 exports.composeInjections = composeInjections;
@@ -75,7 +81,7 @@ exports.withFlowDetermination = withFlowDetermination;
 exports.withPostFetch = withPostFetch;
 exports.withPostSuccess = withPostSuccess;
 exports.withPostFailure = withPostFailure;
-exports.withPrefetch = withPrefetch;
+exports.withPreFetch = withPreFetch;
 exports.withStatusHandling = withStatusHandling;
 exports.withSuccess = withSuccess;
 

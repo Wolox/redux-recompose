@@ -4,7 +4,7 @@ The `withPostSuccess` injector allows to inject behaviour after the service call
 
 Example:
 
-```
+```js
   import { withPostSuccess } from 'redux-recompose';
 
   const actionCreators = {

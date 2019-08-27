@@ -4,7 +4,7 @@ The `withPostFailure` injector allows to inject behaviour after the service call
 
 Example:
 
-```
+```js
   import { withPostFailure } from 'redux-recompose';
 
   const actionCreators = {

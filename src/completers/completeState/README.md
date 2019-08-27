@@ -6,7 +6,7 @@ A common pattern is to have a field associated with its Error and its Loading, s
 
 Receives a state description and a list of target exceptions.  
 Example:  
-```
+```js
 const initialLongState = {
   thing: null,
   thingLoading: false,
