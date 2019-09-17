@@ -5,10 +5,6 @@ describe('completeTypes', () => {
     const arrTypes = ['AN_ACTION'];
     expect(completeTypes({ primaryActions: arrTypes })).toEqual(['AN_ACTION', 'AN_ACTION_SUCCESS', 'AN_ACTION_FAILURE']);
   });
-  it('Must have primary actions', () => {
-    const arrTypes = ['AN_ACTION'];
-    expect(completeTypes({ primaryActions: arrTypes })).toEqual(['AN_ACTION', 'AN_ACTION_SUCCESS', 'AN_ACTION_FAILURE']);
-  });
   it('Completes from an array of multiple elements', () => {
     const arrTypes = ['AN_ACTION', 'OTHER_ACTION', 'ANOTHER_ACTION'];
     expect(completeTypes({ primaryActions: arrTypes })).toEqual([
@@ -47,7 +43,7 @@ describe('completeTypes', () => {
     ]);
   });
   it('Throws if parameters are not the expected ones', () => {
-    expect(() => completeTypes({ primaryActiosn: null })).toThrow(new Error('Primary actions must be an array of strings'));
+    expect(() => completeTypes({ primaryActions: null })).toThrow(new Error('Primary actions must be an array of strings'));
     expect(() => completeTypes({ primaryActions: ['ONE'], ignoredActions: null })).toThrow(new Error('Ignored actions must be an array of strings'));
     expect(() => completeTypes({
       primaryActions: ['ONE'],
