@@ -5,7 +5,7 @@ jobs:
     parallelism: 1
     shell: /bin/sh
     docker:
-      - image: circleci/node:10
+      - image: circleci/node:11
     steps:
       - checkout
       - run:
