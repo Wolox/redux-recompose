@@ -17,7 +17,8 @@ beforeEach(() => {
 
 describe('completeState', () => {
   it('Extends all fields by default', () => {
-    expect(completeState(setUp.state)).toEqual({
+    const completedState = completeState({ description: setUp.state });
+    expect(completedState).toEqual({
       target: 1,
       targetLoading: false,
       targetError: null,
@@ -26,21 +27,51 @@ describe('completeState', () => {
       otherTargetError: null
     });
   });
+
   it('Extends only fields that are not excluded', () => {
-    expect(completeState(setUp.state, ['otherTarget'])).toEqual({
+    const completedState = completeState({
+      description: setUp.state,
+      ignoredTargets: ['otherTarget']
+    });
+    expect(completedState).toEqual({
       target: 1,
       targetLoading: false,
       targetError: null,
       otherTarget: 2
     });
   });
+
   it('Throws if an initial state is not provided', () => {
-    expect(() => completeState(null)).toThrow(new Error('Expected an object as a state to complete'));
+    expect(() => completeState({ description: null })).toThrow(new Error('Expected an object as a state to complete'));
   });
+
   it('Throws if ignored targets is not a list', () => {
-    expect(() => completeState({}, {})).toThrow(new Error('Expected an array of strings as ignored targets'));
+    expect(() => completeState({ description: {}, ignoredTargets: {} })).toThrow(new Error('Expected an array of strings as ignored targets'));
   });
+
   it('Throws if ignored targets is not a pure string array', () => {
-    expect(() => completeState({}, ['1', {}])).toThrow(new Error('Expected an array of strings as ignored targets'));
+    expect(() => completeState({ description: {}, ignoredTargets: ['1', {}] })).toThrow(new Error('Expected an array of strings as ignored targets'));
+  });
+
+  it('Should complete in a custom way `otherTarget`', () => {
+    const completedState = completeState({
+      description: setUp.state,
+      ignoredTargets: ['otherTarget'],
+      targetCompleters: [
+        {
+          completers: {
+            Custom: true
+          },
+          targets: ['otherTarget']
+        }
+      ]
+    });
+    expect(completedState).toEqual({
+      target: 1,
+      targetLoading: false,
+      targetError: null,
+      otherTarget: 2,
+      otherTargetCustom: true
+    });
   });
 });
