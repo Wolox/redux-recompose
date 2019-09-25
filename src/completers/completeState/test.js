@@ -1,6 +1,6 @@
 import Immutable from 'seamless-immutable';
 
-import completeState from '.';
+import completeState, { customCompleter } from './';
 
 const initialState = {
   target: 1,
@@ -42,7 +42,7 @@ describe('completeState', () => {
   });
 
   it('Throws if an initial state is not provided', () => {
-    expect(() => completeState({ description: null })).toThrow(new Error('Expected an object as a state to complete'));
+    expect(() => completeState({ description: null })).toThrow(new Error('Expected an object as a description'));
   });
 
   it('Throws if ignored targets is not a list', () => {
@@ -51,6 +51,16 @@ describe('completeState', () => {
 
   it('Throws if ignored targets is not a pure string array', () => {
     expect(() => completeState({ description: {}, ignoredTargets: ['1', {}] })).toThrow(new Error('Expected an array of strings as ignored targets'));
+  });
+
+  it('Throws if targetCompleters is not an object array', () => {
+    expect(() => completeState({ description: {}, targetCompleters: [{}, 1, null] }))
+      .toThrow(new Error('Expected an array of objects as a target completers'));
+  });
+
+  it('Throws if targetCompleters has an invalid object', () => {
+    expect(() => completeState({ description: {}, targetCompleters: [{}] }))
+      .toThrow(new Error('Expected an objects with targets as string array and completers as valid object'));
   });
 
   it('Should complete in a custom way `otherTarget`', () => {
@@ -73,5 +83,19 @@ describe('completeState', () => {
       otherTarget: 2,
       otherTargetCustom: true
     });
+  });
+
+  it('Should return a custom completed object', () => {
+    const result = customCompleter(['data'], {
+      Completed: 100
+    });
+    expect(result).toEqual({
+      dataCompleted: 100
+    });
+  });
+
+  it('Should return an empty object', () => {
+    const result = customCompleter(['data']);
+    expect(result).toEqual({});
   });
 });
