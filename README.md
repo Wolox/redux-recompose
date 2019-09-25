@@ -197,13 +197,7 @@ This library was inspired by acdlite/recompose. Let's keep creating tools for ea
 
 ## About
 
-This project was created by [Manuel Battan](https://github.com/mvbattan) and it was written by [Wolox](http://www.wolox.com.ar). It is mantained by:
-
-<a href="https://github.com/mvbattan"><img src="https://avatars3.githubusercontent.com/u/11986709?s=460&v=4" title="mvbattan" width="80" height="80"></a>
-<a href="https://github.com/jeymarsonwolox"><img src="https://avatars2.githubusercontent.com/u/44580968?s=460&v=4" title="jeymarsonwolox" width="80" height="80"></a>
-<a href="https://github.com/marianozicavo"><img src="https://avatars3.githubusercontent.com/u/7256996?s=460&v=4" title="marianozicavo" width="80" height="80"></a>
-<a href="https://github.com/santinucera"><img src="https://avatars0.githubusercontent.com/u/21241074?s=460&v=4" title="santinucera" width="80" height="80"></a>
-<a href="https://github.com/Anisospina"><img src="https://avatars3.githubusercontent.com/u/13072856?s=460&v=4" title="Anisospina" width="80" height="80"></a>
+This project is maintained by [Manuel Battan](https://github.com/mvbattan) and it was written by [Wolox](http://www.wolox.com.ar).
 
 ![Wolox](https://raw.githubusercontent.com/Wolox/press-kit/master/logos/logo_banner.png)
 

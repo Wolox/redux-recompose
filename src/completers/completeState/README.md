@@ -2,10 +2,10 @@
 
 This completer can extend a state description, helping to reduce its code size.  
 
-A common pattern is to have a field associated with its Error and its Loading, so this completer adds `Loading` and `Error` extensions to the state for every field that is not an exception.  
+A common pattern is to have a field associated with its Error and its Loading, so this completer adds `Loading` and `Error` extensions to the state for every field that is not an exception.
 
 Receives a state description and a list of target exceptions.  
-Example:  
+### Example:
 ```js
 const initialLongState = {
   thing: null,
@@ -23,7 +23,44 @@ const initialStateDescription = {
   anotherThing: null
 }
 
-const initialState = completeState(initialStateDescription, ['anotherThing']);
+const initialState = completeState({
+  description: initialStateDescription,
+  ignoredTargets: ['anotherThing']
+});
 
-initialState and initialLongState are equivalent.
+// initialState and initialLongState are equivalent.
+```
+
+Also can add custom completers, in order to make the extension to your taste.
+
+### Example with custom completers
+
+```js
+const initialLongState = {
+  thing: null,
+  thingLoading: false,
+  thingError: null,
+  otherThing: null,
+  otherThingCustomized: 'Yeah! Custom'
+};
+
+const initialStateDescription = {
+  thing: null,
+  otherThing: null
+};
+
+const initialState = completeState({
+  description: initialStateDescription,
+  ignoredTargets: ['anotherThing'],
+  customCompleters: [
+    {
+      completers: {
+        Customized: 'Yeah! Custom'
+      },
+      targets: ['otherThing']
+    }
+  ]
+});
+
+// initialState and initialLongState are equivalent.
 ```
