@@ -16,8 +16,8 @@ Example:
       payload: data,
       injections: [
         withStatusHandling({
-          401: (dispatch, response, state) => handle401(state, dispatch, response),
-          404: (dispatch, response, state) => handle404(response, dispatch, state)
+          401: (dispatch, response, getState) => handle401(getState, dispatch, response),
+          404: (dispatch, response, getState) => handle404(response, dispatch, getState)
         })
       ]
     })
