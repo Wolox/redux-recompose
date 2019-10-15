@@ -1,7 +1,7 @@
 import { isObjectArray } from './typeUtils';
 
 describe('Is object array', () => {
-  it('Shouldn`t receive number as param', () => {
+  it("Shouldn't receive number as param", () => {
     const result = isObjectArray(100);
     expect(result).toBe(false);
   });
@@ -11,7 +11,7 @@ describe('Is object array', () => {
     expect(result).toBe(true);
   });
 
-  it('should receibe only objects array', () => {
+  it('Should receive only objects array', () => {
     const result = isObjectArray([{}]);
     expect(result).toBe(true);
     const result2 = isObjectArray([{}, {}, null]);
