@@ -15,7 +15,7 @@ Example:
       service: someService,
       payload: data,
       injections: [
-        withSuccess((dispatch, response) => {
+        withSuccess((dispatch, response, getState) => {
           /* insert here whatever logic
           * you want to override the onSuccess
           * effect with. You can dispatch actions

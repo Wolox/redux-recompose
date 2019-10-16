@@ -14,7 +14,7 @@ Example:
       service: someService,
       payload: data,
       injections: [
-        withPostFailure((dispatch, response, state) => {
+        withPostFailure((dispatch, response, getState) => {
           /* insert here whatever logic
            * you want to execute after a failed service call.
            * This is particularly userful to dispatch side efects for failed service calls.
