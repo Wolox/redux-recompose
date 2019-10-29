@@ -31,13 +31,15 @@ describe('completeState', () => {
   it('Extends only fields that are not excluded', () => {
     const completedState = completeState({
       description: setUp.state,
-      ignoredTargets: ['otherTarget']
+      ignoredTargets: { ignoredTargets: 'ignoredTargets' }
     });
     expect(completedState).toEqual({
       target: 1,
       targetLoading: false,
       targetError: null,
-      otherTarget: 2
+      otherTarget: 2,
+      otherTargetLoading: false,
+      otherTargetError: null
     });
   });
 
@@ -46,11 +48,7 @@ describe('completeState', () => {
   });
 
   it('Throws if ignored targets is not a list', () => {
-    expect(() => completeState({ description: {}, ignoredTargets: {} })).toThrow(new Error('Expected an array of strings as ignored targets'));
-  });
-
-  it('Throws if ignored targets is not a pure string array', () => {
-    expect(() => completeState({ description: {}, ignoredTargets: ['1', {}] })).toThrow(new Error('Expected an array of strings as ignored targets'));
+    expect(() => completeState({ description: {}, ignoredTargets: [] })).toThrow(new Error('Expected an objects as ignored targets'));
   });
 
   it('Throws if targetCompleters is not an object array', () => {
@@ -66,13 +64,13 @@ describe('completeState', () => {
   it('Should complete in a custom way `otherTarget`', () => {
     const completedState = completeState({
       description: setUp.state,
-      ignoredTargets: ['otherTarget'],
+      ignoredTargets: { otherTarget: 'otherTarget' },
       targetCompleters: [
         {
           completers: {
             Custom: true
           },
-          targets: ['otherTarget']
+          targets: ['customTarget']
         }
       ]
     });
@@ -81,7 +79,9 @@ describe('completeState', () => {
       targetLoading: false,
       targetError: null,
       otherTarget: 2,
-      otherTargetCustom: true
+      otherTargetLoading: false,
+      otherTargetError: null,
+      customTargetCustom: true
     });
   });
 

@@ -8,19 +8,18 @@ export const customCompleter = (target, completers = {}) =>
     .map(completer => ({ [`${target}${completer}`]: completers[completer] }))
     .reduce((acc, value) => ({ ...acc, ...value }), {});
 
-function completeState({ description, targetCompleters = [], ignoredTargets = [] }) {
+function completeState({ description, targetCompleters = [], ignoredTargets = {} }) {
   if (!isValidObject(description)) {
     throw new Error('Expected an object as a description');
   }
-  if (!isStringArray(ignoredTargets)) {
-    throw new Error('Expected an array of strings as ignored targets');
+  if (ignoredTargets && !isValidObject(ignoredTargets)) {
+    throw new Error('Expected an objects as ignored targets');
   }
   if (!isObjectArray(targetCompleters)) {
     throw new Error('Expected an array of objects as a target completers');
   }
 
   const primaryState = Object.keys(description)
-    .filter(key => ignoredTargets.indexOf(key) === -1)
     .reduce((acc, key) => ({
       ...acc,
       [`${key}Loading`]: false,
