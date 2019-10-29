@@ -10,4 +10,4 @@ export const isStringArray = array =>
 export const isValidObject = obj => !(!obj || obj.constructor !== Object);
 
 export const isObjectArray = array =>
-  Array.isArray(array) && !array.some((item) => !isValidObject(item));
+  Array.isArray(array) && array.every((item) => isValidObject(item));
