@@ -22,6 +22,7 @@ function completeState({ description, targetCompleters = [], ignoredTargets = {}
   const primaryState = Object.keys(description)
     .reduce((acc, key) => ({
       ...acc,
+      [key]: description[key],
       [`${key}Loading`]: false,
       [`${key}Error`]: null
     }), {});
@@ -37,7 +38,7 @@ function completeState({ description, targetCompleters = [], ignoredTargets = {}
     })
     .reduce((acc, value) => ({ ...acc, ...value }), {});
 
-  return { ...description, ...primaryState, ...customCompleters };
+  return { ...primaryState, ...customCompleters };
 }
 
 export default completeState;
