@@ -1,12 +1,7 @@
 import { isStringArray, isValidObject, isObjectArray } from '../../utils/typeUtils';
 
-const isValidCustomCompleter = (targets, completers) =>
-  isStringArray(targets) && isValidObject(completers);
-
-export const customCompleter = (target, completers = {}) =>
-  Object.keys(completers)
-    .map(completer => ({ [`${target}${completer}`]: completers[completer] }))
-    .reduce((acc, value) => ({ ...acc, ...value }), {});
+const isValidCustomCompleter = (targets, completer) =>
+  isStringArray(targets) && typeof completer === 'function';
 
 function completeState({ description, targetCompleters = [], ignoredTargets = {} }) {
   if (!isValidObject(description)) {
@@ -28,17 +23,17 @@ function completeState({ description, targetCompleters = [], ignoredTargets = {}
     }), {});
 
   const customCompleters = targetCompleters
-    .map(({ completers, targets }) => {
-      if (!isValidCustomCompleter(targets, completers)) {
-        throw new Error('Expected an objects with targets as string array and completers as valid object');
+    .map(({ completer, targets }) => {
+      if (!isValidCustomCompleter(targets, completer)) {
+        throw new Error('Expected an objects with targets as string array and completer as valid function');
       }
       return targets
-        .map(target => customCompleter(target, completers))
+        .map(completer)
         .reduce((acc, value) => ({ ...acc, ...value }), {});
     })
     .reduce((acc, value) => ({ ...acc, ...value }), {});
 
-  return { ...primaryState, ...customCompleters };
+  return { ...primaryState, ...customCompleters, ...ignoredTargets };
 }
 
 export default completeState;

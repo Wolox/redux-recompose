@@ -1,6 +1,6 @@
 import Immutable from 'seamless-immutable';
 
-import completeState, { customCompleter } from './';
+import completeState from './';
 
 const initialState = {
   target: 1,
@@ -39,7 +39,8 @@ describe('completeState', () => {
       targetError: null,
       otherTarget: 2,
       otherTargetLoading: false,
-      otherTargetError: null
+      otherTargetError: null,
+      ignoredTargets: 'ignoredTargets'
     });
   });
 
@@ -47,7 +48,7 @@ describe('completeState', () => {
     expect(() => completeState({ description: null })).toThrow(new Error('Expected an object as a description'));
   });
 
-  it('Throws if ignored targets is not a list', () => {
+  it('Throws if ignored targets is not a object', () => {
     expect(() => completeState({ description: {}, ignoredTargets: [] })).toThrow(new Error('Expected an objects as ignored targets'));
   });
 
@@ -58,19 +59,20 @@ describe('completeState', () => {
 
   it('Throws if targetCompleters has an invalid object', () => {
     expect(() => completeState({ description: {}, targetCompleters: [{}] }))
-      .toThrow(new Error('Expected an objects with targets as string array and completers as valid object'));
+      .toThrow(new Error('Expected an object with targets as string array and completer as valid function'));
   });
 
   it('Should complete in a custom way `otherTarget`', () => {
     const completedState = completeState({
       description: setUp.state,
-      ignoredTargets: { otherTarget: 'otherTarget' },
+      ignoredTargets: { ignoredTarget: 'ignoredTarget' },
       targetCompleters: [
         {
-          completers: {
-            Custom: true
-          },
-          targets: ['customTarget']
+          completer: target => ({
+            [target]: 100,
+            [`${target}Customized`]: true
+          }),
+          targets: ['value']
         }
       ]
     });
@@ -81,21 +83,9 @@ describe('completeState', () => {
       otherTarget: 2,
       otherTargetLoading: false,
       otherTargetError: null,
-      customTargetCustom: true
+      ignoredTarget: 'ignoredTarget',
+      value: 100,
+      valueCustomized: true
     });
-  });
-
-  it('Should return a custom completed object', () => {
-    const result = customCompleter(['data'], {
-      Completed: 100
-    });
-    expect(result).toEqual({
-      dataCompleted: 100
-    });
-  });
-
-  it('Should return an empty object', () => {
-    const result = customCompleter(['data']);
-    expect(result).toEqual({});
   });
 });
