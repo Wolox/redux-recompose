@@ -19,13 +19,12 @@ const initialLongState = {
 
 const initialStateDescription = {
   thing: null,
-  otherThing: null,
-  anotherThing: null
+  otherThing: null
 }
 
 const initialState = completeState({
   description: initialStateDescription,
-  ignoredTargets: ['anotherThing']
+  ignoredTargets: { anotherThing: null }
 });
 
 // initialState and initialLongState are equivalent.
@@ -40,23 +39,24 @@ const initialLongState = {
   thing: null,
   thingLoading: false,
   thingError: null,
+  anotherThing: null,
   otherThing: null,
   otherThingCustomized: 'Yeah! Custom'
 };
 
 const initialStateDescription = {
-  thing: null,
-  otherThing: null
+  thing: null
 };
 
 const initialState = completeState({
   description: initialStateDescription,
-  ignoredTargets: ['anotherThing'],
+  ignoredTargets: { anotherThing: null },
   customCompleters: [
     {
-      completers: {
-        Customized: 'Yeah! Custom'
-      },
+      completer: target => ({
+        [target]: null,
+        [´${target}Customized´]: 'Yeah! Custom'
+      }),
       targets: ['otherThing']
     }
   ]
