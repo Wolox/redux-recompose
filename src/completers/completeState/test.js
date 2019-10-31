@@ -59,7 +59,7 @@ describe('completeState', () => {
 
   it('Throws if targetCompleters has an invalid object', () => {
     expect(() => completeState({ description: {}, targetCompleters: [{}] }))
-      .toThrow(new Error('Expected an object with targets as string array and completer as valid function'));
+      .toThrow(new Error('Expected an objects with targets as string array and completer as valid function'));
   });
 
   it('Should complete in a custom way `otherTarget`', () => {

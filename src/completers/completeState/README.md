@@ -1,10 +1,10 @@
 ## completeState - Completer
 
-This completer can extend a state description, helping to reduce its code size.  
+This completer can extend a state description, helping to reduce its code size.
 
 A common pattern is to have a field associated with its Error and its Loading, so this completer adds `Loading` and `Error` extensions to the state for every field that is not an exception.
 
-Receives a state description and a list of target exceptions.  
+Receives a state description and a list of target exceptions.
 ### Example:
 ```js
 const initialLongState = {
@@ -55,7 +55,7 @@ const initialState = completeState({
     {
       completer: target => ({
         [target]: null,
-        [´${target}Customized´]: 'Yeah! Custom'
+        [`${target}Customized`]: 'Yeah! Custom'
       }),
       targets: ['otherThing']
     }
