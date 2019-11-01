@@ -25,7 +25,7 @@ function completeState({ description, targetCompleters = [], ignoredTargets = {}
   const customCompleters = targetCompleters
     .map(({ completer, targets }) => {
       if (!isValidCustomCompleter(targets, completer)) {
-        throw new Error('Expected an objects with targets as string array and completer as valid function');
+        throw new Error('Expected an object with targets as string array and completer as valid function');
       }
       return targets
         .map(completer)
