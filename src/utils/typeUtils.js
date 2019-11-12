@@ -8,3 +8,6 @@ export const isStringArray = array =>
   );
 
 export const isValidObject = obj => !(!obj || obj.constructor !== Object);
+
+export const isObjectArray = array =>
+  Array.isArray(array) && array.every(isValidObject);

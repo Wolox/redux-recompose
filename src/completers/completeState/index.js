@@ -1,22 +1,39 @@
-import { isStringArray, isValidObject } from '../../utils/typeUtils';
+import { isStringArray, isValidObject, isObjectArray } from '../../utils/typeUtils';
 
-// Given a defaultState, it populates that state with ${key}Loading and ${key}Error
-function completeState(defaultState, ignoredTargets = []) {
-  if (!isValidObject(defaultState)) {
-    throw new Error('Expected an object as a state to complete');
+const isValidCustomCompleter = (targets, completer) =>
+  isStringArray(targets) && typeof completer === 'function';
+
+function completeState({ description, targetCompleters = [], ignoredTargets = {} }) {
+  if (!isValidObject(description)) {
+    throw new Error('Expected an object as a description');
   }
-  if (!isStringArray(ignoredTargets)) {
-    throw new Error('Expected an array of strings as ignored targets');
+  if (ignoredTargets && !isValidObject(ignoredTargets)) {
+    throw new Error('Expected an objects as ignored targets');
+  }
+  if (!isObjectArray(targetCompleters)) {
+    throw new Error('Expected an array of objects as a target completers');
   }
 
-  const completedState = { ...defaultState };
-  Object.keys(defaultState)
-    .filter(key => ignoredTargets.indexOf(key) === -1)
-    .forEach(key => {
-      completedState[`${key}Loading`] = false;
-      completedState[`${key}Error`] = null;
-    });
-  return completedState;
+  const primaryState = Object.keys(description)
+    .reduce((acc, key) => ({
+      ...acc,
+      [key]: description[key],
+      [`${key}Loading`]: false,
+      [`${key}Error`]: null
+    }), {});
+
+  const customCompleters = targetCompleters
+    .map(({ completer, targets }) => {
+      if (!isValidCustomCompleter(targets, completer)) {
+        throw new Error('Expected an object with targets as string array and completer as valid function');
+      }
+      return targets
+        .map(completer)
+        .reduce((acc, value) => ({ ...acc, ...value }), {});
+    })
+    .reduce((acc, value) => ({ ...acc, ...value }), {});
+
+  return { ...primaryState, ...customCompleters, ...ignoredTargets };
 }
 
 export default completeState;
