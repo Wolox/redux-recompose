@@ -5,7 +5,8 @@ import withPreFetch from '.';
 
 const MockService = {
   fetchSomething: async () => new Promise(resolve => resolve({ ok: true, data: 42 })),
-  fetchFailureNotFound: async () => new Promise(resolve => resolve({ ok: false, problem: 'CLIENT_ERROR', status: 404 }))
+  fetchFailureNotFound: async () =>
+    new Promise(resolve => resolve({ ok: false, problem: 'CLIENT_ERROR', status: 404 }))
 };
 
 const actions = createTypes(['FETCH', 'FETCH_SUCCESS', 'FETCH_FAILURE', 'FETCH_LOADING'], '@TEST');
@@ -17,7 +18,7 @@ describe('withPreFetch', () => {
       type: actions.FETCH,
       target: 'aTarget',
       service: MockService.fetchSomething,
-      injections: withPreFetch(dispatch => dispatch({ type: actions.FETCH_LOADING }))
+      injections: [withPreFetch(dispatch => dispatch({ type: actions.FETCH_LOADING }))]
     });
     const actionsDispatched = store.getActions();
     expect(actionsDispatched).toEqual([

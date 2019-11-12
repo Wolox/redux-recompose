@@ -22,12 +22,12 @@ describe('singleCallThunkAction', () => {
     await store.dispatch({
       service: MockService.fetchSomething,
       payload: 20,
-      injections: withPostSuccess((dispatch, response) =>
-        dispatch({ type: actions.OTHER_FETCH, payload: response.data }))
+      injections: [
+        withPostSuccess((dispatch, response) =>
+          dispatch({ type: actions.OTHER_FETCH, payload: response.data }))
+      ]
     });
     const actionsDispatched = store.getActions();
-    expect(actionsDispatched).toEqual([
-      { type: actions.OTHER_FETCH, payload: 21 }
-    ]);
+    expect(actionsDispatched).toEqual([{ type: actions.OTHER_FETCH, payload: 21 }]);
   });
 });

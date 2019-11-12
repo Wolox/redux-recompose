@@ -1,8 +1,4 @@
-import mergeInjections from '../mergeInjections';
-
-function composeInjections(...injections) {
-  const injectionsDescription = mergeInjections(injections);
-
+function composeInjections(injections) {
   const {
     prebehavior = () => {},
     apiCall = () => {},
@@ -13,7 +9,7 @@ function composeInjections(...injections) {
     postFailure = () => {},
     failure = () => {},
     statusHandler = () => true
-  } = injectionsDescription;
+  } = injections;
 
   return async (dispatch, getState) => {
     prebehavior(dispatch);

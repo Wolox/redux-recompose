@@ -6,10 +6,14 @@ import withFailure from '.';
 
 const MockService = {
   fetchSomething: async () => new Promise(resolve => resolve({ ok: true, data: 42 })),
-  fetchFailureNotFound: async () => new Promise(resolve => resolve({ ok: false, problem: 'CLIENT_ERROR', status: 404 }))
+  fetchFailureNotFound: async () =>
+    new Promise(resolve => resolve({ ok: false, problem: 'CLIENT_ERROR', status: 404 }))
 };
 
-const actions = createTypes(['FETCH', 'FETCH_SUCCESS', 'FETCH_FAILURE', 'OTHER_ACTION', 'NOT_FOUND'], '@TEST');
+const actions = createTypes(
+  ['FETCH', 'FETCH_SUCCESS', 'FETCH_FAILURE', 'OTHER_ACTION', 'NOT_FOUND'],
+  '@TEST'
+);
 
 describe('withFailure', () => {
   it('Handles correctly failure behavior', async () => {
@@ -18,13 +22,13 @@ describe('withFailure', () => {
       type: actions.FETCH,
       target: 'aTarget',
       service: MockService.fetchSomething,
-      injections: withFailure(dispatch => dispatch({ type: actions.OTHER_ACTION }))
+      injections: [withFailure(dispatch => dispatch({ type: actions.OTHER_ACTION }))]
     });
     await store.dispatch({
       type: actions.FETCH,
       target: 'aTarget',
       service: MockService.fetchFailureNotFound,
-      injections: withFailure(dispatch => dispatch({ type: actions.OTHER_ACTION }))
+      injections: [withFailure(dispatch => dispatch({ type: actions.OTHER_ACTION }))]
     });
     const actionsDispatched = store.getActions();
     // Does not dispatch FAILURE action
@@ -60,7 +64,8 @@ describe('withFailure', () => {
             return false;
           }
         }),
-        withFailure(dispatch => dispatch({ type: actions.OTHER_ACTION }))]
+        withFailure(dispatch => dispatch({ type: actions.OTHER_ACTION }))
+      ]
     });
 
     const actionsDispatched = store.getActions();
