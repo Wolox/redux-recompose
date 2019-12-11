@@ -21,9 +21,16 @@ const ensembleInjections = action => {
   return { ...base, ...injections };
 };
 
-const fetchMiddleware = ({ dispatch }) => next => action => (
+const shouldExecuteAction = (currentEnv, scopes) =>
+  Array.isArray(scopes) &&
+  scopes.some(scope => Object.entries(scope).every(([key, value]) => currentEnv[key] === value));
+
+const scopeMiddleware =  (currentEnv, action) =>
+  action.scopes ? shouldExecuteAction(currentEnv, action.scopes) && dispatch(composeInjections(ensembleInjections(action))) : dispatch(composeInjections(ensembleInjections(action)));
+
+const fetchMiddleware = currentEnv => () => next => action => (
   action.service ?
-    dispatch(composeInjections(ensembleInjections(action))) :
+    scopeMiddleware(currentEnv, action) :
     next(action)
 );
 
