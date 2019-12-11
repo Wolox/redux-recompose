@@ -42,6 +42,8 @@ import withSuccess from './injections/withSuccess';
 
 import fetchMiddleware from './middlewares/fetch';
 
+import decorateWithScope from './utils/decorateWithScope';
+
 exports.configureMergeState = configureMergeState;
 
 exports.wrapCombineReducers = wrapCombineReducers;
@@ -86,3 +88,5 @@ exports.withStatusHandling = withStatusHandling;
 exports.withSuccess = withSuccess;
 
 exports.fetchMiddleware = fetchMiddleware;
+
+exports.decorateWithScope = decorateWithScope;
