@@ -25,12 +25,15 @@ const shouldExecuteAction = (currentEnv, scopes) =>
   Array.isArray(scopes) &&
   scopes.some(scope => Object.entries(scope).every(([key, value]) => currentEnv[key] === value));
 
-const scopeMiddleware =  (currentEnv, action) =>
-  action.scopes ? shouldExecuteAction(currentEnv, action.scopes) && dispatch(composeInjections(ensembleInjections(action))) : dispatch(composeInjections(ensembleInjections(action)));
+const scopeMiddleware = (currentEnv, action, dispatch) =>
+  (action.scopes
+    ? shouldExecuteAction(currentEnv, action.scopes)
+    && dispatch(composeInjections(ensembleInjections(action)))
+    : dispatch(composeInjections(ensembleInjections(action))));
 
-const fetchMiddleware = currentEnv => () => next => action => (
+const fetchMiddleware = currentEnv => dispatch => next => action => (
   action.service ?
-    scopeMiddleware(currentEnv, action) :
+    scopeMiddleware(currentEnv, action, dispatch) :
     next(action)
 );
 
