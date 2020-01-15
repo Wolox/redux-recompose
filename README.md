@@ -186,6 +186,8 @@ You will have to write actions with the following params:
 
 ```
 
+Your service will receive an object with the nextPage prop.
+
 ## Middlewares
 
 Middlewares allow to inject logic between dispatching the action and the actual desired change in the store. Middlewares are particularly helpful when handling asynchronous actions.
