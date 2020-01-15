@@ -22,7 +22,7 @@ function baseThunkAction({
     apiCall: async getState => service(finalSelector(getState())),
     determination: response => response.ok,
     paginationAction,
-    pageSelector: { reducerName, target },
+    pageSelector: { reducerName, target, refresh },
     success: (dispatch, response) =>
       dispatch({
         type: `${type}_SUCCESS`,

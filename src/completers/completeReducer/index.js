@@ -13,7 +13,8 @@ function completeReducer(reducerDescription) {
   if (
     !reducerDescription ||
     ((!reducerDescription.primaryActions || !reducerDescription.primaryActions.length) &&
-      (!reducerDescription.modalActions || !reducerDescription.modalActions.length))
+      (!reducerDescription.modalActions || !reducerDescription.modalActions.length) &&
+      (!reducerDescription.paginationActions || !reducerDescription.paginationActions.length))
   ) {
     throw new Error('Reducer description is incomplete, should contain at least an actions field to complete');
   }
