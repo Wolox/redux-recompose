@@ -230,6 +230,10 @@ export const actionCreators = {
 const getTickets = ({ nextPage }) => api.get(`/tickets?page=${nextPage}`);
 ```
 
+#### Remember
+
+Remember to dispatch the paginated action whit refresh in false only when the `targetLoading` isn't true. So you will have to make a check in the `handleReachedEnd`
+
 ## Middlewares
 
 Middlewares allow to inject logic between dispatching the action and the actual desired change in the store. Middlewares are particularly helpful when handling asynchronous actions.
