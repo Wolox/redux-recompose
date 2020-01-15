@@ -2,8 +2,9 @@ import mergeInjections from '../mergeInjections';
 
 const checkPaginationNotHasFinished = (state, pageSelector) =>
   pageSelector.refresh ||
-  state[pageSelector.reducerName][`${pageSelector.target}NextPage`] <=
-    state[pageSelector.reducerName][`${pageSelector.target}TotalPages`];
+  (!state[pageSelector.reducerName][`${pageSelector.target}Loading`] &&
+    state[pageSelector.reducerName][`${pageSelector.target}NextPage`] <=
+      state[pageSelector.reducerName][`${pageSelector.target}TotalPages`]);
 
 function composeInjections(...injections) {
   const injectionsDescription = mergeInjections(injections);
