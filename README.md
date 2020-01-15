@@ -200,10 +200,7 @@ const stateDescription = {
 const initialState = completeState(stateDescription);
 
 const reducerDescription = {
-  paginationActions: [actions.GET_TICKETS],
-  override: {
-    [appActions.CLEAR_STORE]: state => state.merge({ ...initialState })
-  }
+  paginationActions: [actions.GET_TICKETS]
 };
 
 //actions.js
@@ -225,8 +222,7 @@ export const actionCreators = {
     refresh: newPagination,
     reducerName: "tickets",
     service: TicketService.getTickets,
-    successSelector: response => formatPagination(response),
-    failureSelector: response => normalizeFailure(response)
+    successSelector: response => formatPagination(response)
   })
 };
 
