@@ -2,7 +2,7 @@ import Immutable from 'seamless-immutable';
 
 import createReducer from '../../creators/createReducer';
 
-import onSuccess from '.';
+import onSuccessPagination from '.';
 
 const initialState = {
   target: null,
@@ -18,29 +18,26 @@ beforeEach(() => {
   setUp.state = Immutable(initialState);
 });
 
-describe('onSuccess', () => {
-  it('Sets correctly target with error and loading', () => {
+describe('onSuccessPagination', () => {
+  it('Sets correctly target with error, loading, totalPages, nextPages y TotalItems', () => {
     const reducer = createReducer(setUp.state, {
-      '@@ACTION/TYPE': onSuccess()
+      '@@ACTION/TYPE': onSuccessPagination()
     });
-    const newState = reducer(setUp.state, { type: '@@ACTION/TYPE', target: 'target', payload: 'Success Payload' });
+    const newState = reducer(setUp.state, {
+      type: '@@ACTION/TYPE',
+      target: 'target',
+      payload: {
+        list: ['item 1', 'item 2'],
+        meta: { totalPages: 1, currentPage: 1, totalItems: 2 }
+      }
+    });
     expect(newState).toEqual({
-      target: 'Success Payload',
+      target: ['item 1', 'item 2'],
       targetLoading: false,
-      targetError: null
-    });
-  });
-  it('Sets conditionally target content based on payload', () => {
-    const reducer = createReducer(setUp.state, {
-      '@@ACTION/TYPE': onSuccess((action, state) => action.payload + (state[action.target] || 0))
-    });
-    const incrementAction = { type: '@@ACTION/TYPE', target: 'target', payload: 1 };
-    setUp.state = reducer(setUp.state, incrementAction);
-    setUp.state = reducer(setUp.state, incrementAction);
-    expect(setUp.state).toEqual({
-      target: 2,
-      targetLoading: false,
-      targetError: null
+      targetError: null,
+      targetTotalPages: 1,
+      targetNextPage: 2,
+      targetTotalItems: 2
     });
   });
 });
