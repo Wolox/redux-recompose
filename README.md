@@ -188,6 +188,52 @@ You will have to write actions with the following params:
 
 Your service will receive an object with the nextPage prop.
 
+Example of using:
+
+```js
+//reducer.js
+
+const stateDescription = {
+  tickets: null
+};
+
+const initialState = completeState(stateDescription);
+
+const reducerDescription = {
+  paginationActions: [actions.GET_TICKETS],
+  override: {
+    [appActions.CLEAR_STORE]: state => state.merge({ ...initialState })
+  }
+};
+
+//actions.js
+
+const formatPagination = response => ({
+  list: response.data?.data,
+  meta: {
+    totalPages: response.data?.meta?.total_pages,
+    currentPage: response.data?.meta?.current_page,
+    totalItems: response.data?.meta?.total
+  }
+});
+
+export const actionCreators = {
+  getTickets: (newPagination = true) => ({
+    type: actions.GET_TICKETS,
+    target: ticketsTarget,
+    paginationAction: true,
+    refresh: newPagination,
+    reducerName: "tickets",
+    service: TicketService.getTickets,
+    successSelector: response => formatPagination(response),
+    failureSelector: response => normalizeFailure(response)
+  })
+};
+
+//service.js
+const getTickets = ({ nextPage }) => api.get(`/tickets?page=${nextPage}`);
+```
+
 ## Middlewares
 
 Middlewares allow to inject logic between dispatching the action and the actual desired change in the store. Middlewares are particularly helpful when handling asynchronous actions.
