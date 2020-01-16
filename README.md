@@ -230,6 +230,8 @@ export const actionCreators = {
 const getTickets = ({ nextPage }) => api.get(`/tickets?page=${nextPage}`);
 ```
 
+`IMPORTANT`: If you want to send more info to your service, your `payload` will have to return an object, not a single value. (Only if you are using paginationActions)
+
 ## Middlewares
 
 Middlewares allow to inject logic between dispatching the action and the actual desired change in the store. Middlewares are particularly helpful when handling asynchronous actions.
