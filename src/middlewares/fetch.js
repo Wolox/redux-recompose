@@ -22,9 +22,9 @@ const ensembleInjections = action => {
 };
 
 const fetchMiddleware = ({ dispatch }) => next => action => (
-  action.service ?
-    dispatch(composeInjections(ensembleInjections(action))) :
-    next(action)
+  action.service
+    ? dispatch(composeInjections(ensembleInjections(action)))
+    : next(action)
 );
 
 export default fetchMiddleware;

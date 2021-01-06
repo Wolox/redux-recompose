@@ -12,10 +12,16 @@ function externalBaseAction({
     prebehavior: dispatch => dispatch({ type: $.LOADING, target }),
     apiCall: async getState => service(selector(getState())),
     determination: response => response.ok,
-    success: (dispatch, response) =>
-      dispatch({ type: $.SUCCESS, target, payload: successSelector(response) }),
-    failure: (dispatch, response) =>
-      dispatch({ type: $.FAILURE, target, payload: failureSelector(response) })
+    success: (dispatch, response) => dispatch({
+      type: $.SUCCESS,
+      target,
+      payload: successSelector(response)
+    }),
+    failure: (dispatch, response) => dispatch({
+      type: $.FAILURE,
+      target,
+      payload: failureSelector(response)
+    })
   };
 }
 

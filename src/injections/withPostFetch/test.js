@@ -17,8 +17,10 @@ describe('withPostFetch', () => {
       type: actions.FETCH,
       target: 'aTarget',
       service: MockService.fetchSomething,
-      injections: withPostFetch((dispatch, response) =>
-        dispatch({ type: actions.FETCH_LOADING, payload: response.ultraSecretData }))
+      injections: withPostFetch((dispatch, response) => dispatch({
+        type: actions.FETCH_LOADING,
+        payload: response.ultraSecretData
+      }))
     });
     const actionsDispatched = store.getActions();
     expect(actionsDispatched).toEqual([
