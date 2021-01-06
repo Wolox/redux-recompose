@@ -10,9 +10,8 @@ const schema = yup.object().shape({
 });
 
 function customComplete(targetCompleters) {
-  return targetCompleters.map(({ completer, targets }) => targets
-    .map(completer)
-    .reduce((acc, value) => ({ ...acc, ...value }), {}))
+  return targetCompleters.flatMap(({ completer, targets }) => targets
+    .map(completer))
     .reduce((acc, value) => ({ ...acc, ...value }), {});
 }
 
