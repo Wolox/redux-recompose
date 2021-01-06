@@ -17,9 +17,9 @@ const initialState = completeState({
   },
   customCompleters: [
     {
-      completer: target => ({
+      completer: (target, index) => ({
         [target]: "I'm a custom state",
-        [`${target}Customized`]: 'Yeah! Custom'
+        [`${target}Customized${index}`]: 'Yeah! Custom'
       }),
       targets: ['firstCustomState', 'secondCustomState']
     },
@@ -43,9 +43,9 @@ initialState === {
   firstIgnoredState: 1,
   secondIgnoredState: 2,
   firstCustomState: "I'm a custom state",
-  firstCustomStateCustomized: 'Yeah! Custom',
+  firstCustomStateCustomized0: 'Yeah! Custom',
   secondCustomState: "I'm a custom state",
-  secondCustomStateCustomized: 'Yeah! Custom',
+  secondCustomStateCustomized1: 'Yeah! Custom',
   anotherCustomStateCool: "I'm custom as well"
 };
 */

@@ -74,9 +74,9 @@ describe('completeState', () => {
       ignoredTargets: { ignoredTarget: 'ignoredTarget' },
       targetCompleters: [
         {
-          completer: target => ({
+          completer: (target, index) => ({
             [target]: 100,
-            [`${target}Customized`]: true
+            [`${target}Customized${index}`]: true
           }),
           targets: ['firstTarget', 'secondTarget']
         },
@@ -98,9 +98,9 @@ describe('completeState', () => {
       otherTargetError: null,
       ignoredTarget: 'ignoredTarget',
       firstTarget: 100,
-      firstTargetCustomized: true,
+      firstTargetCustomized0: true,
       secondTarget: 100,
-      secondTargetCustomized: true,
+      secondTargetCustomized1: true,
       thirdTarget: 200,
       thirdTargetCustomizedAgain: true
     });
