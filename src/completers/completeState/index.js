@@ -1,17 +1,17 @@
-import { isStringArray, isValidObject, isObjectArray } from '../../utils/typeUtils';
+import * as yup from 'yup';
 
-const isValidCustomCompleter = (targets, completer) => isStringArray(targets) && typeof completer === 'function';
+const schema = yup.object().shape({
+  description: yup.object().required('description is required').typeError('description should be an object'),
+  targetCompleters: yup.array().of(yup.object().shape({
+    targets: yup.array().of(yup.string()),
+    completer: yup.mixed().test(value => typeof value === 'function')
+  }).typeError('targetCompleters should be an array of objects')).typeError('targetCompleters should be an array'),
+  ignoredTargets: yup.object().typeError('ignoredTargets should be an object')
+});
 
-function completeState({ description, targetCompleters = [], ignoredTargets = {} }) {
-  if (!isValidObject(description)) {
-    throw new Error('Expected an object as a description');
-  }
-  if (ignoredTargets && !isValidObject(ignoredTargets)) {
-    throw new Error('Expected an objects as ignored targets');
-  }
-  if (!isObjectArray(targetCompleters)) {
-    throw new Error('Expected an array of objects as a target completers');
-  }
+function completeState(params) {
+  schema.validateSync(params);
+  const { description, targetCompleters = [], ignoredTargets = {} } = params;
 
   const primaryState = Object.keys(description)
     .reduce((acc, key) => ({
@@ -22,14 +22,9 @@ function completeState({ description, targetCompleters = [], ignoredTargets = {}
     }), {});
 
   const customCompleters = targetCompleters
-    .map(({ completer, targets }) => {
-      if (!isValidCustomCompleter(targets, completer)) {
-        throw new Error('Expected an object with targets as string array and completer as valid function');
-      }
-      return targets
-        .map(completer)
-        .reduce((acc, value) => ({ ...acc, ...value }), {});
-    })
+    .map(({ completer, targets }) => targets
+      .map(completer)
+      .reduce((acc, value) => ({ ...acc, ...value }), {}))
     .reduce((acc, value) => ({ ...acc, ...value }), {});
 
   return { ...primaryState, ...customCompleters, ...ignoredTargets };

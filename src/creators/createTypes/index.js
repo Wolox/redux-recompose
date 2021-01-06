@@ -1,4 +1,6 @@
-import { isArray } from '../../utils/typeUtils';
+import * as yup from 'yup';
+
+const schema = yup.array().of(yup.string().typeError('actionsArray should be an array of strings')).typeError('actionsArray should be an array');
 
 /**
  * Receives an array of strings, and returns an obj with that strings as properties
@@ -7,9 +9,7 @@ import { isArray } from '../../utils/typeUtils';
  * stringArrayToObject(['A', 'B', 'C']) // { A: 'A', B: 'B', C: 'C' }
  */
 function stringArrayToObject(actionsArray, namespace) {
-  if (!isArray(actionsArray) || actionsArray.some(actionName => !actionName || typeof actionName !== 'string')) {
-    throw new Error('Action names must be an array of strings');
-  }
+  schema.validateSync(actionsArray);
 
   const actionNames = {};
 

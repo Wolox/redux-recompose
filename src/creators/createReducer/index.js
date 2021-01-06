@@ -1,14 +1,17 @@
-import { isValidObject } from '../../utils/typeUtils';
+import * as yup from 'yup';
 
-function createReducer(initialState, descriptor) {
-  if (!isValidObject(descriptor)) {
-    throw new Error('Expected a reducer description as an object');
-  }
+const schema = yup.object().required('reducerDescription is required').typeError('reducerDescription should be an object');
+
+function createReducer(initialState, reducerDescription) {
+  schema.validateSync(reducerDescription);
 
   return (state = initialState, action) => {
-    const handler = descriptor[action.type];
-    if (!handler && !action.type) {
+    if (!action.type) {
       console.warn(`Handling an action without type: ${JSON.stringify(action)}`);
+    }
+    const handler = reducerDescription[action.type];
+    if (!handler) {
+      console.warn(`No handler configured for action with type: ${JSON.stringify(action)}`);
     }
     return (handler && handler(state, action)) || state;
   };

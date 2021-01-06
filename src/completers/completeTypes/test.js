@@ -43,15 +43,24 @@ describe('completeTypes', () => {
     ]);
   });
   it('Throws if parameters are not the expected ones', () => {
-    expect(() => completeTypes({ primaryActions: null })).toThrow(new Error('Primary actions must be an array of strings'));
-    expect(() => completeTypes({ primaryActions: ['ONE'], ignoredActions: null })).toThrow(new Error('Ignored actions must be an array of strings'));
+    expect(() => completeTypes({ primaryActions: null })).toThrow(new Error('primaryActions should be an array'));
+    expect(() => completeTypes({ primaryActions: [null] })).toThrow(new Error('primaryActions should be an array of strings'));
+    expect(() => completeTypes({ primaryActions: ['ONE'], ignoredActions: null })).toThrow(new Error('ignoredActions should be an array'));
+    expect(() => completeTypes({ primaryActions: ['ONE'], ignoredActions: [null] })).toThrow(new Error('ignoredActions should be an array of strings'));
     expect(() => completeTypes({
       primaryActions: ['ONE'],
       ignoredActions: ['TWO'],
       customCompleters: [{
         actions: null
       }]
-    })).toThrow(new Error('Exception cases from actions must be an array of strings'));
+    })).toThrow(new Error('actions should be an array'));
+    expect(() => completeTypes({
+      primaryActions: ['ONE'],
+      ignoredActions: ['TWO'],
+      customCompleters: [{
+        actions: [null]
+      }]
+    })).toThrow(new Error('actions should be an array of strings'));
     expect(() => completeTypes({
       primaryActions: ['ONE'],
       ignoredActions: ['TWO'],
@@ -59,6 +68,6 @@ describe('completeTypes', () => {
         actions: ['THREE'],
         completer: null
       }]
-    })).toThrow(new Error('Completer must be a function'));
+    })).toThrow();
   });
 });

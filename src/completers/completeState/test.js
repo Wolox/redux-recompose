@@ -28,10 +28,10 @@ describe('completeState', () => {
     });
   });
 
-  it('Extends only fields that are not excluded', () => {
+  it('Only extends fields that are not ignored', () => {
     const completedState = completeState({
       description: setUp.state,
-      ignoredTargets: { ignoredTargets: 'ignoredTargets' }
+      ignoredTargets: { ignoredTargetsKey: 'ignoredTargetsValue' }
     });
     expect(completedState).toEqual({
       target: 1,
@@ -40,26 +40,32 @@ describe('completeState', () => {
       otherTarget: 2,
       otherTargetLoading: false,
       otherTargetError: null,
-      ignoredTargets: 'ignoredTargets'
+      ignoredTargetsKey: 'ignoredTargetsValue'
     });
   });
 
   it('Throws if an initial state is not provided', () => {
-    expect(() => completeState({ description: null })).toThrow(new Error('Expected an object as a description'));
+    expect(() => completeState({ })).toThrow(new Error('description is required'));
+    expect(() => completeState()).toThrow(new Error('description is required'));
+  });
+
+  it('Throws if an initial state is not a object', () => {
+    expect(() => completeState({ description: null })).toThrow(new Error('description should be an object'));
+    expect(() => completeState({ description: 3 })).toThrow(new Error('description should be an object'));
   });
 
   it('Throws if ignored targets is not a object', () => {
-    expect(() => completeState({ description: {}, ignoredTargets: [] })).toThrow(new Error('Expected an objects as ignored targets'));
+    expect(() => completeState({ description: {}, ignoredTargets: [] })).toThrow(new Error('ignoredTargets should be an object'));
+    expect(() => completeState({ description: {}, ignoredTargets: 3 })).toThrow(new Error('ignoredTargets should be an object'));
   });
 
   it('Throws if targetCompleters is not an object array', () => {
-    expect(() => completeState({ description: {}, targetCompleters: [{}, 1, null] }))
-      .toThrow(new Error('Expected an array of objects as a target completers'));
-  });
-
-  it('Throws if targetCompleters has an invalid object', () => {
-    expect(() => completeState({ description: {}, targetCompleters: [{}] }))
-      .toThrow(new Error('Expected an object with targets as string array and completer as valid function'));
+    expect(() => completeState({ description: {}, targetCompleters: 3 }))
+      .toThrow(new Error('targetCompleters should be an array'));
+    expect(() => completeState({ description: {}, targetCompleters: [1, {}, 1, null] }))
+      .toThrow(new Error('targetCompleters should be an array of objects'));
+    expect(() => completeState({ description: {}, targetCompleters: [{ targets: ['1'], completer: 1 }] }))
+      .toThrow();
   });
 
   it('Should complete in a custom way `otherTarget`', () => {
@@ -72,7 +78,14 @@ describe('completeState', () => {
             [target]: 100,
             [`${target}Customized`]: true
           }),
-          targets: ['value']
+          targets: ['firstTarget', 'secondTarget']
+        },
+        {
+          completer: target => ({
+            [target]: 200,
+            [`${target}CustomizedAgain`]: true
+          }),
+          targets: ['thirdTarget']
         }
       ]
     });
@@ -84,8 +97,12 @@ describe('completeState', () => {
       otherTargetLoading: false,
       otherTargetError: null,
       ignoredTarget: 'ignoredTarget',
-      value: 100,
-      valueCustomized: true
+      firstTarget: 100,
+      firstTargetCustomized: true,
+      secondTarget: 100,
+      secondTargetCustomized: true,
+      thirdTarget: 200,
+      thirdTargetCustomizedAgain: true
     });
   });
 });
