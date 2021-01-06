@@ -1,3 +1,3 @@
 src/
-.babelrc
+babel.config.json
 example/
