@@ -9,23 +9,27 @@ const schema = yup.object().shape({
   ignoredTargets: yup.object().typeError('ignoredTargets should be an object')
 });
 
+function customComplete(targetCompleters) {
+  return targetCompleters.map(({ completer, targets }) => targets
+    .map(completer)
+    .reduce((acc, value) => ({ ...acc, ...value }), {}))
+    .reduce((acc, value) => ({ ...acc, ...value }), {});
+}
+
 function completeState(params) {
   schema.validateSync(params);
   const { description, targetCompleters = [], ignoredTargets = {} } = params;
 
-  const primaryState = Object.keys(description)
-    .reduce((acc, key) => ({
-      ...acc,
+  const primaryState = customComplete([{
+    targets: Object.keys(description),
+    completer: key => ({
       [key]: description[key],
       [`${key}Loading`]: false,
       [`${key}Error`]: null
-    }), {});
+    })
+  }]);
 
-  const customCompleters = targetCompleters
-    .map(({ completer, targets }) => targets
-      .map(completer)
-      .reduce((acc, value) => ({ ...acc, ...value }), {}))
-    .reduce((acc, value) => ({ ...acc, ...value }), {});
+  const customCompleters = customComplete(targetCompleters);
 
   return { ...primaryState, ...customCompleters, ...ignoredTargets };
 }
