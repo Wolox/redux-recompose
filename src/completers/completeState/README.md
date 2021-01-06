@@ -1,66 +1,52 @@
 ## completeState - Completer
 
-This completer can extend a state description, helping to reduce its code size.
+This completer can extend a state description, helping to reduce its code size or programatically generate an initial redux state.
 
-A common pattern is to have a field associated with its Error and its Loading, so this completer adds `Loading` and `Error` extensions to the state for every field that is not an exception.
+A common pattern is to have a field associated with its Error and its Loading, so this completer adds `Loading` and `Error` extensions to the state for every field in the `description` argument. It also receives `customCompleters` to programatically generate the initial state and `ignoredTargets` that are added to the state without any changes.
 
-Receives a state description and a list of target exceptions.
 ### Example:
 ```js
-const initialLongState = {
-  thing: null,
-  thingLoading: false,
-  thingError: null,
-  otherThing: null,
-  otherThingLoading: false,
-  otherThingError: null,
-  anotherThing: null
-};
-
-const initialStateDescription = {
-  thing: null,
-  otherThing: null
-}
-
 const initialState = completeState({
-  description: initialStateDescription,
-  ignoredTargets: { anotherThing: null }
-});
-
-// initialState and initialLongState are equivalent.
-```
-
-Also can add custom completers, in order to make the extension to your taste.
-
-### Example with custom completers
-
-```js
-const initialLongState = {
-  thing: null,
-  thingLoading: false,
-  thingError: null,
-  anotherThing: null,
-  otherThing: null,
-  otherThingCustomized: 'Yeah! Custom'
-};
-
-const initialStateDescription = {
-  thing: null
-};
-
-const initialState = completeState({
-  description: initialStateDescription,
-  ignoredTargets: { anotherThing: null },
+  description: {
+    firstCompleteState: 123,
+    secondCompleteState: 456
+  },
+  ignoredTargets: {
+    firstIgnoredState: 1,
+    secondIgnoredState: 2
+  },
   customCompleters: [
     {
       completer: target => ({
-        [target]: null,
+        [target]: "I'm a custom state",
         [`${target}Customized`]: 'Yeah! Custom'
       }),
-      targets: ['otherThing']
+      targets: ['firstCustomState', 'secondCustomState']
+    },
+    {
+      completer: target => ({
+        [`${target}Cool`]: "I'm custom as well"
+      }),
+      targets: ['anotherCustomState']
     }
   ]
 });
 
-// initialState and initialLongState are equivalent.
+/*
+initialState === {
+  firstCompleteState: 123,
+  firstCompleteStateLoading: false,
+  firstCompleteStateError: null,
+  secondCompleteState: 456,
+  secondCompleteStateLoading: false,
+  secondCompleteStateError: null,
+  firstIgnoredState: 1,
+  secondIgnoredState: 2,
+  firstCustomState: "I'm a custom state",
+  firstCustomStateCustomized: 'Yeah! Custom',
+  secondCustomState: "I'm a custom state",
+  secondCustomStateCustomized: 'Yeah! Custom',
+  anotherCustomStateCool: "I'm custom as well"
+};
+*/
 ```
