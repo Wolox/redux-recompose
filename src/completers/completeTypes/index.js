@@ -5,7 +5,6 @@ const primaryActionsCompleter = primaryActions => primaryActions.reduce(
   []
 );
 
-
 function completeTypes({ primaryActions = [], ignoredActions = [], customCompleters = [] }) {
   if (!isStringArray(primaryActions)) {
     throw new Error('Primary actions must be an array of strings');

@@ -1,6 +1,6 @@
 import Immutable from 'seamless-immutable';
 
-import completeState from './';
+import completeState from '.';
 
 const initialState = {
   target: 1,

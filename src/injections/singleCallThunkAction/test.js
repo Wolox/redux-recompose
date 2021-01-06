@@ -3,8 +3,7 @@ import createTypes from '../../creators/createTypes';
 import withPostSuccess from '../withPostSuccess';
 
 const MockService = {
-  fetchSomething: async (data = 42) =>
-    new Promise(resolve => resolve({ ok: true, data: data + 1 })),
+  fetchSomething: async (data = 42) => new Promise(resolve => resolve({ ok: true, data: data + 1 })),
   fetchFailure: async () => new Promise(resolve => resolve({ ok: false, problem: 'CLIENT_ERROR' }))
 };
 
@@ -23,8 +22,7 @@ describe('singleCallThunkAction', () => {
       service: MockService.fetchSomething,
       payload: 20,
       injections: [
-        withPostSuccess((dispatch, response) =>
-          dispatch({ type: actions.OTHER_FETCH, payload: response.data }))
+        withPostSuccess((dispatch, response) => dispatch({ type: actions.OTHER_FETCH, payload: response.data }))
       ]
     });
     const actionsDispatched = store.getActions();

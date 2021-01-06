@@ -1,7 +1,6 @@
 import { isStringArray, isValidObject, isObjectArray } from '../../utils/typeUtils';
 
-const isValidCustomCompleter = (targets, completer) =>
-  isStringArray(targets) && typeof completer === 'function';
+const isValidCustomCompleter = (targets, completer) => isStringArray(targets) && typeof completer === 'function';
 
 function completeState({ description, targetCompleters = [], ignoredTargets = {} }) {
   if (!isValidObject(description)) {

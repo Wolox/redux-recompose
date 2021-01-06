@@ -5,8 +5,7 @@ import withPostFailure from '.';
 
 const MockService = {
   fetchSomething: async () => new Promise(resolve => resolve({ ok: true, data: 42 })),
-  fetchFailureNotFound: async () =>
-    new Promise(resolve => resolve({ ok: false, problem: 'CLIENT_ERROR', status: 404 }))
+  fetchFailureNotFound: async () => new Promise(resolve => resolve({ ok: false, problem: 'CLIENT_ERROR', status: 404 }))
 };
 
 const actions = createTypes(['FETCH', 'FETCH_SUCCESS', 'FETCH_FAILURE', 'OTHER_ACTION'], '@TEST');

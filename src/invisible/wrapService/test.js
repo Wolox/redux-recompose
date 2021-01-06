@@ -1,4 +1,6 @@
-import { combineReducers, createStore, applyMiddleware, compose } from 'redux';
+import {
+  combineReducers, createStore, applyMiddleware, compose
+} from 'redux';
 
 import { thunk } from '../../utils/asyncActionsUtils';
 import withPostSuccess from '../../injections/withPostSuccess';
@@ -49,8 +51,7 @@ describe('wrapService', () => {
     });
   });
   it('Does allow custom injections', async () => {
-    MockService.fetchSomethingForSelector.injections =
-      [withPostSuccess((_, response) => expect(response).toEqual({ ok: true, data: 40 }))];
+    MockService.fetchSomethingForSelector.injections = [withPostSuccess((_, response) => expect(response).toEqual({ ok: true, data: 40 }))];
     const ServiceActions = wrapService(MockService, 'foo', { fetchSomethingForSelector: 'fetchSomething' });
     await setUp.store.dispatch(ServiceActions.fetchSomethingForSelector());
     expect(setUp.store.getState()).toEqual({

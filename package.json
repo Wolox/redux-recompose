@@ -6,7 +6,9 @@
     "node": ">=6.0.0"
   },
   "main": "lib/index.js",
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "test": "jest",
     "compile": "babel src -d lib --ignore '**/test.js'",

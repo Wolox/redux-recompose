@@ -10,9 +10,9 @@ import { isStringArray, isValidObject } from '../../utils/typeUtils';
 // Given a reducer description, it returns a reducerHandler with all success and failure cases
 function completeReducer(reducerDescription) {
   if (
-    !reducerDescription ||
-    ((!reducerDescription.primaryActions || !reducerDescription.primaryActions.length) &&
-    (!reducerDescription.modalActions || !reducerDescription.modalActions.length))
+    !reducerDescription
+    || ((!reducerDescription.primaryActions || !reducerDescription.primaryActions.length)
+    && (!reducerDescription.modalActions || !reducerDescription.modalActions.length))
   ) {
     throw new Error('Reducer description is incomplete, should contain at least an actions field to complete');
   }
