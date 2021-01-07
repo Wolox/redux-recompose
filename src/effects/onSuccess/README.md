@@ -9,6 +9,7 @@ It will:
   * Put `${action.target}Error` in `null`  
   * Fill `${action.target}` with your `action.payload` by default, or use a selector provided  
   * Put `${action.target}IsRetrying` in `false` if `action.isPolling` is truthy
+  * Put `${action.target}CountRetry` in `0` if `action.isPolling` is truthy
 
 Example:  
   ```js

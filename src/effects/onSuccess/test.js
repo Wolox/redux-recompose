@@ -69,7 +69,7 @@ describe('onSuccess', () => {
       targetLoading: false,
       targetError: null,
       targetIsRetrying: false,
-      targetRetryCount: 3,
+      targetRetryCount: 0,
       targetTimeoutID: 3
     });
   });
