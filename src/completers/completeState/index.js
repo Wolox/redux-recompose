@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 
 const schema = yup.object().shape({
-  description: yup.object().required('description is required').typeError('description should be an object'),
+  description: yup.object().typeError('description should be an object'),
   targetCompleters: yup.array().of(yup.object().shape({
     targets: yup.array().of(yup.string()),
     completer: yup.mixed().test(value => typeof value === 'function')
@@ -19,7 +19,7 @@ function customComplete(targetCompleters) {
 function completeState(params) {
   schema.validateSync(params);
   const {
-    description, targetCompleters = [], ignoredTargets = {}, pollingTargets = {}
+    description = {}, targetCompleters = [], ignoredTargets = {}, pollingTargets = {}
   } = params;
 
   const primaryState = customComplete([{

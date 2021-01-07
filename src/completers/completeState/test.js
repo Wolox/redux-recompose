@@ -45,7 +45,7 @@ describe('completeState', () => {
   });
 
   it('Extends all polling fields', () => {
-    const completedState = completeState({ description: setUp.state, pollingTargets: { otherTarget: 2 } });
+    const completedState = completeState({ description: setUp.state, pollingTargets: { myPollingTarget: 3 } });
     expect(completedState).toEqual({
       target: 1,
       targetLoading: false,
@@ -53,15 +53,13 @@ describe('completeState', () => {
       otherTarget: 2,
       otherTargetLoading: false,
       otherTargetError: null,
-      otherTargetIsRetrying: false,
-      otherTargetRetryCount: 0,
-      otherTargetTimeoutID: null
+      myPollingTarget: 3,
+      myPollingTargetLoading: false,
+      myPollingTargetError: null,
+      myPollingTargetIsRetrying: false,
+      myPollingTargetRetryCount: 0,
+      myPollingTargetTimeoutID: null
     });
-  });
-
-  it('Throws if an initial state is not provided', () => {
-    expect(() => completeState({ })).toThrow(new Error('description is required'));
-    expect(() => completeState()).toThrow(new Error('description is required'));
   });
 
   it('Throws if an initial state is not a object', () => {
