@@ -7,7 +7,7 @@ function onRetry(selector = action => action.payload.error) {
     [`${action.target}Loading`]: false,
     [`${action.target}RetryCount`]: state[`${action.target}RetryCount`] + 1,
     [`${action.target}Error`]: selector(action, state),
-    [`${action.target}TimeoutID`]: action.payload.interval
+    [`${action.target}TimeoutID`]: action.payload.timeoutID
   });
 }
 
