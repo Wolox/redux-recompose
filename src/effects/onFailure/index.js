@@ -9,6 +9,7 @@ function onFailure(selector = action => action.payload) {
     };
     if (action.isPolling) {
       newValues[`${action.target}IsRetrying`] = false;
+      newValues[`${action.target}RetryCount`] = 0;
     }
 
     return mergeState(state, newValues);

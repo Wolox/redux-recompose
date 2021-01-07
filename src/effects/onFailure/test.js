@@ -67,7 +67,7 @@ describe('onFailure', () => {
       targetLoading: false,
       targetError: 'Boom!',
       targetIsRetrying: false,
-      targetRetryCount: 3,
+      targetRetryCount: 0,
       targetTimeoutID: 3
     });
   });
