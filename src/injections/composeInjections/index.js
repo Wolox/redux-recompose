@@ -15,7 +15,7 @@ function composeInjections(injections) {
     prebehavior(dispatch);
     const response = await apiCall(getState);
     postBehavior(dispatch, response);
-    if (determination(response)) {
+    if (determination(response, getState)) {
       const shouldContinue = success(dispatch, response, getState);
       if (shouldContinue) postSuccess(dispatch, response, getState);
     } else {
