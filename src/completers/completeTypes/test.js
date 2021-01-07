@@ -1,7 +1,7 @@
 import completeTypes from '.';
 
 describe('completeTypes', () => {
-  it('Completes from an array\'s element', () => {
+  it("Completes from an array's element", () => {
     const arrTypes = ['AN_ACTION'];
     expect(completeTypes({ primaryActions: arrTypes })).toEqual(['AN_ACTION', 'AN_ACTION_SUCCESS', 'AN_ACTION_FAILURE']);
   });
@@ -42,6 +42,19 @@ describe('completeTypes', () => {
       'CUSTOM_ACTION_FAILURE'
     ]);
   });
+  it('Polling actions completes', () => {
+    const pollingActions = ['FETCH_1', 'FETCH_2'];
+    expect(completeTypes({ pollingActions })).toEqual([
+      'FETCH_1',
+      'FETCH_1_SUCCESS',
+      'FETCH_1_FAILURE',
+      'FETCH_1_RETRY',
+      'FETCH_2',
+      'FETCH_2_SUCCESS',
+      'FETCH_2_FAILURE',
+      'FETCH_2_RETRY'
+    ]);
+  });
   it('Throws if parameters are not the expected ones', () => {
     expect(() => completeTypes({ primaryActions: null })).toThrow(new Error('primaryActions should be an array'));
     expect(() => completeTypes({ primaryActions: [null] })).toThrow(new Error('primaryActions should be an array of strings'));
@@ -69,5 +82,7 @@ describe('completeTypes', () => {
         completer: null
       }]
     })).toThrow();
+    expect(() => completeTypes({ pollingActions: null }).toThrow(new Error('pollingActions should be an array')));
+    expect(() => completeTypes({ pollingActions: [null] }).toThrow(new Error('pollingActions should be an array of strings')));
   });
 });
