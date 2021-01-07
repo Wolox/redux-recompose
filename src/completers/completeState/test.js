@@ -44,6 +44,21 @@ describe('completeState', () => {
     });
   });
 
+  it('Extends all polling fields', () => {
+    const completedState = completeState({ description: setUp.state, pollingTargets: { otherTarget: 2 } });
+    expect(completedState).toEqual({
+      target: 1,
+      targetLoading: false,
+      targetError: null,
+      otherTarget: 2,
+      otherTargetLoading: false,
+      otherTargetError: null,
+      otherTargetIsRetrying: false,
+      otherTargetRetryCount: 0,
+      otherTargetTimeoutID: null
+    });
+  });
+
   it('Throws if an initial state is not provided', () => {
     expect(() => completeState({ })).toThrow(new Error('description is required'));
     expect(() => completeState()).toThrow(new Error('description is required'));
@@ -57,6 +72,11 @@ describe('completeState', () => {
   it('Throws if ignored targets is not a object', () => {
     expect(() => completeState({ description: {}, ignoredTargets: [] })).toThrow(new Error('ignoredTargets should be an object'));
     expect(() => completeState({ description: {}, ignoredTargets: 3 })).toThrow(new Error('ignoredTargets should be an object'));
+  });
+
+  it('Throws if polling targets is not a object', () => {
+    expect(() => completeState({ description: {}, pollingTargets: [] })).toThrow(new Error('pollingTargets should be an object'));
+    expect(() => completeState({ description: {}, pollingTargets: 3 })).toThrow(new Error('pollingTargets should be an object'));
   });
 
   it('Throws if targetCompleters is not an object array', () => {

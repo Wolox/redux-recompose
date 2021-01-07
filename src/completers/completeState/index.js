@@ -6,7 +6,8 @@ const schema = yup.object().shape({
     targets: yup.array().of(yup.string()),
     completer: yup.mixed().test(value => typeof value === 'function')
   }).typeError('targetCompleters should be an array of objects')).typeError('targetCompleters should be an array'),
-  ignoredTargets: yup.object().typeError('ignoredTargets should be an object')
+  ignoredTargets: yup.object().typeError('ignoredTargets should be an object'),
+  pollingTargets: yup.object().typeError('pollingTargets should be an object')
 });
 
 function customComplete(targetCompleters) {
@@ -17,7 +18,9 @@ function customComplete(targetCompleters) {
 
 function completeState(params) {
   schema.validateSync(params);
-  const { description, targetCompleters = [], ignoredTargets = {} } = params;
+  const {
+    description, targetCompleters = [], ignoredTargets = {}, pollingTargets = {}
+  } = params;
 
   const primaryState = customComplete([{
     targets: Object.keys(description),
@@ -28,9 +31,23 @@ function completeState(params) {
     })
   }]);
 
+  const pollingState = customComplete([{
+    targets: Object.keys(pollingTargets),
+    completer: key => ({
+      [key]: pollingTargets[key],
+      [`${key}Loading`]: false,
+      [`${key}Error`]: null,
+      [`${key}IsRetrying`]: false,
+      [`${key}RetryCount`]: 0,
+      [`${key}TimeoutID`]: null
+    })
+  }]);
+
   const customCompleters = customComplete(targetCompleters);
 
-  return { ...primaryState, ...customCompleters, ...ignoredTargets };
+  return {
+    ...primaryState, ...pollingState, ...customCompleters, ...ignoredTargets
+  };
 }
 
 export default completeState;
