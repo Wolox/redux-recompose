@@ -22,8 +22,8 @@ function pollingAction(action) {
       payload: successSelector(response),
       isPolling: true
     }),
-    failure: (dispatch, response, state) => {
-      if (shouldRetry(response, state)) {
+    failure: (dispatch, response, getState) => {
+      if (shouldRetry(response, getState)) {
         const timeoutID = setTimeout(() => dispatch(action), timeout);
         dispatch({
           type: `${type}_RETRY`,
