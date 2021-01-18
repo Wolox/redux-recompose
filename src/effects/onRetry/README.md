@@ -14,7 +14,7 @@ It will:
 
 Example:
 
-```
+```js
 const selector =
   (action, state) => action.payload.customError || state.defaultError;
 
