@@ -5,6 +5,7 @@ import onFailure from '../../effects/onFailure';
 import onSubscribe from '../../effects/onSubscribe';
 import onUnsubscribe from '../../effects/onUnsubscribe';
 import onRetry from '../../effects/onRetry';
+import onCancel from '../../effects/onCancel';
 
 const schema = yup.object().required().shape({
   primaryActions: yup.array().of(yup.string().typeError('primaryActions should be an array of strings')).typeError('primaryActions should be an array'),
@@ -36,6 +37,7 @@ function completeReducer(reducerDescription) {
     reducerHandler[`${actionName}_SUCCESS`] = onSuccess();
     reducerHandler[`${actionName}_FAILURE`] = onFailure();
     reducerHandler[`${actionName}_RETRY`] = onRetry();
+    reducerHandler[`${actionName}_CANCEL`] = onCancel();
   });
 
   return { ...reducerHandler, ...override };
