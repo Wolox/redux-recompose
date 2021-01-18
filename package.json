@@ -12,7 +12,7 @@
   "scripts": {
     "test": "jest",
     "compile": "babel src -d lib --ignore '**/test.js'",
-    "prepublishOnly": "npm run compile",
+    "prepack": "npm run compile",
     "lint": "eslint src",
     "lint-fix": "eslint src --fix",
     "lint-diff": "git diff --name-only --cached --relative | grep \\.js$ | xargs eslint",
