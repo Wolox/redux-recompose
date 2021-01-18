@@ -29,7 +29,7 @@ describe('onRetry', () => {
     const newState = reducer(setUp.state, {
       type: '@@ACTION/TYPE',
       target: 'target',
-      payload: { error: 'Please try again', interval: 1 }
+      payload: { error: 'Please try again', timeoutID: 1 }
     });
     expect(newState).toEqual({
       target: null,
@@ -47,7 +47,7 @@ describe('onRetry', () => {
     const newState = reducer(setUp.state, {
       type: '@@ACTION/TYPE',
       target: 'target',
-      payload: { customError: 'Please try again', interval: 1 }
+      payload: { customError: 'Please try again', timeoutID: 1 }
     });
     expect(newState).toEqual({
       target: null,
