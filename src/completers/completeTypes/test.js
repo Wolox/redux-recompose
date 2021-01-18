@@ -49,10 +49,12 @@ describe('completeTypes', () => {
       'FETCH_1_SUCCESS',
       'FETCH_1_FAILURE',
       'FETCH_1_RETRY',
+      'FETCH_1_CANCEL',
       'FETCH_2',
       'FETCH_2_SUCCESS',
       'FETCH_2_FAILURE',
-      'FETCH_2_RETRY'
+      'FETCH_2_RETRY',
+      'FETCH_2_CANCEL'
     ]);
   });
   it('Throws if parameters are not the expected ones', () => {

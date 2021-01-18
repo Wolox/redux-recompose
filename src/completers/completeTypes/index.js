@@ -19,7 +19,7 @@ function completeTypes(params) {
   } = params;
 
   const primaryTypes = customCompleter([{ actions: primaryActions, completer: type => [type, `${type}_SUCCESS`, `${type}_FAILURE`] }]);
-  const pollingTypes = customCompleter([{ actions: pollingActions, completer: type => [type, `${type}_SUCCESS`, `${type}_FAILURE`, `${type}_RETRY`] }]);
+  const pollingTypes = customCompleter([{ actions: pollingActions, completer: type => [type, `${type}_SUCCESS`, `${type}_FAILURE`, `${type}_RETRY`, `${type}_CANCEL`] }]);
   const customCompletedTypes = customCompleter(customCompleters);
   return [...primaryTypes, ...pollingTypes, ...customCompletedTypes, ...ignoredActions];
 }
