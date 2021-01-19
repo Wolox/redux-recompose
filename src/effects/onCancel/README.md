@@ -26,7 +26,7 @@ const reducerDescription = {
 
 ### Custom selectors
 
-`onRetry` effect receives an optional parameter:
+`onCancel` effect receives an optional parameter:
 
 - selector: This function describes how we read the data from the `action`.  
   `(action, state) => any`  

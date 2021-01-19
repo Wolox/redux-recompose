@@ -15,16 +15,16 @@ const actions = createTypes(completeTypes({
   pollingActions: ['POLLING_ACTION'],
   modalActions: ['MODAL_ACTION'],
   ignoredActions: ['IGNORED_ACTION'],
-  customCompleters: [{actions: ['CUSTOM_COMPLETED_ACTION'], completer: action => `${action}_COMPLETED`}]
-}), '@@API');
+  customCompleters: [{actions: ['CUSTOM_ACTION'], completer: action => `${action}_COMPLETED`}]
+}), '@@NAMESPACE');
 const reducerDescription = {
   primaryActions: [actions.PRIMARY_ACTION],
   pollingActions: [actions.POLLING_ACTION],
   modalActions: [actions.MODAL_ACTION],
   override: {
-    [actions.IGNORED_ACTION]: (state, action) => ({ ...state, someTarget: action.payload }), // custom reducer for IGNORED_ACTION
-    [actions.CUSTOM_COMPLETED_ACTION_COMPLETED]: (state, action) => ({ ...state, someOtherTarget: action.payload }), // custom reducer for CUSTOM_COMPLETED_ACTION_COMPLETED
-    [actions.PRIMARY_ACTION_FAILURE]: (state, action) => ({ ...state, someOtherTarget: action.payload }), // override the completed PRIMARY_ACTION_FAILURE reducer
+    [actions.IGNORED_ACTION]: (state, action) => ({ ...state, someTarget: action.payload }),
+    [actions.CUSTOM_ACTION_COMPLETED]: (state, action) => ({ ...state, someOtherTarget: action.payload }),
+    [actions.PRIMARY_ACTION_FAILURE]: (state, action) => ({ ...state, someOtherTarget: action.payload }), // overrides the default onFailure() of PRIMARY_ACTION_FAILURE
   }
 }
 
@@ -33,17 +33,17 @@ const completedReducer = completeReducer(reducerDescription);
 {
   [actions.PRIMARY_ACTION]: onLoading(),
   [actions.PRIMARY_ACTION_SUCCESS]: onSuccess(),
-  [actions.FETCH_FAILURE_FAILURE]: onFailure(),
+  [actions.PRIMARY_ACTION_FAILURE]: onFailure(), //this is overwritten afterwards
   [actions.MODAL_ACTION_OPEN]: onSuscribe(),
   [actions.MODAL_ACTION_CLOSE]: onUnsubscribes(),
-  [actions.PRIMARY_ACTION]: onLoading(),
-  [actions.PRIMARY_ACTION_SUCCESS]: onSuccess(),
-  [actions.FETCH_FAILURE_FAILURE]: onFailure(),
-  [actions.FETCH_FAILURE_RETRY]: onRetry(),
-  [actions.FETCH_FAILURE_CANCEL]: onCancel(),
-  [actions.IGNORED_ACTION]: (state, action) => ({ ...state, someTarget: action.payload }), // custom reducer for IGNORED_ACTION
-  [actions.CUSTOM_COMPLETED_ACTION_COMPLETED]: (state, action) => ({ ...state, someOtherTarget: action.payload }), // custom reducer for CUSTOM_COMPLETED_ACTION_COMPLETED
-  [actions.PRIMARY_ACTION_FAILURE]: (state, action) => ({ ...state, someOtherTarget: action.payload }), // override the completed PRIMARY_ACTION_FAILURE reducer
+  [actions.POLLING_ACTION]: onLoading(),
+  [actions.POLLING_ACTION_SUCCESS]: onSuccess(),
+  [actions.POLLING_ACTION_FAILURE]: onFailure(),
+  [actions.POLLING_ACTION_RETRY]: onRetry(),
+  [actions.POLLING_ACTION_CANCEL]: onCancel(),
+  [actions.IGNORED_ACTION]: (state, action) => ({ ...state, someTarget: action.payload }),
+  [actions.CUSTOM_ACTION_COMPLETED]: (state, action) => ({ ...state, someOtherTarget: action.payload }),
+  [actions.PRIMARY_ACTION_FAILURE]: (state, action) => ({ ...state, someOtherTarget: action.payload })
   }
 */
 

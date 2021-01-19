@@ -1,6 +1,5 @@
 import { mergeState } from '../../configuration';
 
-// TODO: Add support and validations for multi target actions
 function onRetry(selector = action => action.payload.error) {
   return (state, action) => mergeState(state, {
     [`${action.target}IsRetrying`]: true,

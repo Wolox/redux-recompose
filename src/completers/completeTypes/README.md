@@ -9,7 +9,7 @@ This completer can extend the list of possible action types, helping to reduce i
 
 ### Example:
 ```js
-const actions = completeTypes({
+const completedActions = completeTypes({
   primaryActions: ['FIRST_PRIMARY_ACTION', 'SECOND_PRIMARY_ACTION'],
   ignoredActions: ['FIRST_IGNORED_ACTION', 'SECOND_IGNORED_ACTION'],
   pollingActions: ['FIRST_POLLING_ACTION', 'SECOND_POLLING_ACTION'],
@@ -19,7 +19,7 @@ const actions = completeTypes({
   ]});
 
 /*
-actions === [
+[
   "FIRST_PRIMARY_ACTION",
   "FIRST_PRIMARY_ACTION_SUCCESS",
   "FIRST_PRIMARY_ACTION_FAILURE",
@@ -44,4 +44,6 @@ actions === [
   "FIRST_IGNORED_ACTION",
   "SECOND_IGNORED_ACTION
 */
+
+const actions = createTypes(completedActions, '@@NAMESPACE')
 ```
