@@ -150,6 +150,10 @@ import { configureMergeState } from 'redux-recompose';
 configureMergeState((state, newContent) => state.merge(newContent))
 ```
 
+## Recipes
+
+- [Polling](./recipes/POLLING.md)
+
 ## Thanks to
 
 This library was inspired by acdlite/recompose. Let's keep creating tools for ease development.
