@@ -42,7 +42,7 @@ const completedActions = completeTypes({
   "UPGRADED_SECOND_CUSTOM_ACTION",
   "NEW_THIRD_CUSTOM_ACTION",
   "FIRST_IGNORED_ACTION",
-  "SECOND_IGNORED_ACTION
+  "SECOND_IGNORED_ACTION"
 */
 
 const actions = createTypes(completedActions, '@@NAMESPACE')
