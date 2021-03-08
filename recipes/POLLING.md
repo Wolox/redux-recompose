@@ -1,6 +1,6 @@
 # Basic polling recipe
 
-Imagine you have to translate a PDF. In order to translate it, you will upload it to a server in order for it translate it and create a new URL where you can fetch the new translated PDF.
+Imagine you have to translate a PDF. In order to translate it, you will upload it to a server in order for it translate and create a new URL where you can fetch the new translated PDF.
 If file is still being processed, the server will respond with a [202 status code](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/202). Once the PDF has finished processing, the server will respond with a 200 status code and the response body will include a URL where you can download the new PDF.
 
 Let's define a service using [`apisauce`](https://github.com/infinitered/apisauce).
@@ -69,7 +69,7 @@ Here's a diagram to help you further understand how the polling works
 
 ## Basic polling recipe with retries limit
 
-You can add an easy linit to the number of retries with:
+You can add an easy limit to the number of retries with:
 ```js
 const actionCreators = {
   getTranslationStatus: (translationID) => ({

@@ -1,6 +1,6 @@
 ## onCancel - Effect
 
-This effect is cancels the polling flow.
+This effect cancels the polling flow.
 
 This effect is a multi-target effect - It modifies more than one target at the same time.
 
