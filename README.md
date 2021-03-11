@@ -78,20 +78,8 @@ of the state is being changed.
 - [onSpreadValue](./src/effects/onSpreadValue/)
 - [onCycle](./src/effects/onCycle/)
 - [onReplace](./src/effects/onReplace/)
-
-We are currently writing some other effects:
-
-```
-onReset
-onCycle
-onMap
-```
-
-And other utilities like
-
-```
-composeEffects
-```
+- [onRetry](./src/effects/onRetry/)
+- [onCancel](./src/effects/onCancel/)
 
 New effects are welcome ! Feel free to open an issue or even a PR.
 
@@ -103,15 +91,8 @@ There are a few creators that also ease writing Redux reducers and async actions
 - [createTypes](./src/creators/createTypes/)
 - [createThunkAction](./src/creators/createThunkAction/)
 
-We are currently working on these creators:
-
-```
-createMultiTargetedAction
-createPollingAction
-```
-
 Since state handling is decoupled from its state, we could create some more complex async actions, or even map an effect with an action type to create families of actions.  
-More crazy and useful ideas are welcome too !
+More crazy and useful ideas are welcome too!
 
 ## Completers
 
@@ -130,20 +111,6 @@ There are a few completers that can be used:
 - [completeState](./src/completers/completeState/)
 - [completeReducer](./src/completers/completeReducer/)
 - [completeTypes](./src/completers/completeTypes/)
-
-We are working to introduce other completers like:
-
-```
-completeFromProps: Helps to write a state from propTypes definition
-```
-
-And to introduce completers that support custom patterns:
-
-```js
-const initialStateDescription = { msg: '' };
-const initialState = completeCustomState(initialStateDescription, ['Info', 'Warn', 'Error']);
-// initialState.toEqual({ msg: '', msgInfo: '', msgWarn: '', msgError: '' });
-```
 
 ## Injectors
 
@@ -182,6 +149,10 @@ import { configureMergeState } from 'redux-recompose';
 
 configureMergeState((state, newContent) => state.merge(newContent))
 ```
+
+## Recipes
+
+- [Polling](./recipes/POLLING.md)
 
 ## Thanks to
 

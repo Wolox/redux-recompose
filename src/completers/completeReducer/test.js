@@ -11,7 +11,13 @@ const initialState = {
   targetLoading: false,
   targetError: null,
   modalIsOpen: false,
-  modalContent: null
+  modalContent: null,
+  pollingTarget: 5,
+  pollingTargetLoading: false,
+  pollingTargetError: null,
+  pollingTargetRetryCount: 0,
+  pollingTargetTimeoutID: null,
+  pollingTargetIsRetrying: false
 };
 
 const setUp = {
@@ -87,5 +93,121 @@ describe('completeReducer', () => {
     setUp.state = reducer(setUp.state, modal.close());
     expect(setUp.state.modalIsOpen).toBe(false);
     expect(setUp.state.modalContent).toBe(null);
+  });
+  it('Completes polling successfully', () => {
+    const reducerDescription = {
+      pollingActions: ['@NAMESPACE/POLLING']
+    };
+    const reducer = createReducer(setUp.state, completeReducer(reducerDescription));
+
+    const basePollingAction = {
+      type: '@NAMESPACE/POLLING',
+      target: 'pollingTarget',
+      shouldRetry: () => false
+    };
+
+    setUp.state = reducer(setUp.state, basePollingAction);
+    expect(setUp.state.pollingTargetIsRetrying).toBe(false);
+    expect(setUp.state.pollingTargetLoading).toBe(true);
+    expect(setUp.state.pollingTargetError).toBeNull();
+    expect(setUp.state.pollingTarget).toBe(5);
+    expect(setUp.state.pollingTargetRetryCount).toBe(0);
+    expect(setUp.state.pollingTargetTimeoutID).toBeNull();
+
+    // onRetry
+    setUp.state = reducer(setUp.state, {
+      type: '@NAMESPACE/POLLING_RETRY',
+      target: 'pollingTarget',
+      payload: {
+        timeoutID: 1,
+        error: 'Oopsie'
+      }
+    });
+    expect(setUp.state.pollingTargetIsRetrying).toBe(true);
+    expect(setUp.state.pollingTargetLoading).toBe(false);
+    expect(setUp.state.pollingTargetError).toBe('Oopsie');
+    expect(setUp.state.pollingTarget).toBe(5);
+    expect(setUp.state.pollingTargetRetryCount).toBe(1);
+    expect(setUp.state.pollingTargetTimeoutID).toBe(1);
+
+    setUp.state = reducer(setUp.state, basePollingAction);
+    expect(setUp.state.pollingTargetIsRetrying).toBe(true);
+    expect(setUp.state.pollingTargetLoading).toBe(true);
+    expect(setUp.state.pollingTargetError).toBe('Oopsie');
+    expect(setUp.state.pollingTarget).toBe(5);
+    expect(setUp.state.pollingTargetRetryCount).toBe(1);
+    expect(setUp.state.pollingTargetTimeoutID).toBe(1);
+
+    // onSuccess
+    setUp.state = reducer(setUp.state, {
+      type: '@NAMESPACE/POLLING_SUCCESS',
+      target: 'pollingTarget',
+      payload: 50,
+      isPolling: true
+    });
+    expect(setUp.state.pollingTargetIsRetrying).toBe(false);
+    expect(setUp.state.pollingTargetLoading).toBe(false);
+    expect(setUp.state.pollingTargetError).toBeNull();
+    expect(setUp.state.pollingTarget).toBe(50);
+    expect(setUp.state.pollingTargetRetryCount).toBe(0);
+    expect(setUp.state.pollingTargetTimeoutID).toBe(1);
+  });
+  it('Completes polling unsuccessfully', () => {
+    const reducerDescription = {
+      pollingActions: ['@NAMESPACE/POLLING']
+    };
+    const reducer = createReducer(setUp.state, completeReducer(reducerDescription));
+
+    const basePollingAction = {
+      type: '@NAMESPACE/POLLING',
+      target: 'pollingTarget',
+      shouldRetry: () => false
+    };
+
+    setUp.state = reducer(setUp.state, basePollingAction);
+    expect(setUp.state.pollingTargetIsRetrying).toBe(false);
+    expect(setUp.state.pollingTargetLoading).toBe(true);
+    expect(setUp.state.pollingTargetError).toBeNull();
+    expect(setUp.state.pollingTarget).toBe(5);
+    expect(setUp.state.pollingTargetRetryCount).toBe(0);
+    expect(setUp.state.pollingTargetTimeoutID).toBeNull();
+
+    // onRetry
+    setUp.state = reducer(setUp.state, {
+      type: '@NAMESPACE/POLLING_RETRY',
+      target: 'pollingTarget',
+      payload: {
+        timeoutID: 1,
+        error: 'Oopsie'
+      }
+    });
+    expect(setUp.state.pollingTargetIsRetrying).toBe(true);
+    expect(setUp.state.pollingTargetLoading).toBe(false);
+    expect(setUp.state.pollingTargetError).toBe('Oopsie');
+    expect(setUp.state.pollingTarget).toBe(5);
+    expect(setUp.state.pollingTargetRetryCount).toBe(1);
+    expect(setUp.state.pollingTargetTimeoutID).toBe(1);
+
+    setUp.state = reducer(setUp.state, basePollingAction);
+    expect(setUp.state.pollingTargetIsRetrying).toBe(true);
+    expect(setUp.state.pollingTargetLoading).toBe(true);
+    expect(setUp.state.pollingTargetError).toBe('Oopsie');
+    expect(setUp.state.pollingTarget).toBe(5);
+    expect(setUp.state.pollingTargetRetryCount).toBe(1);
+    expect(setUp.state.pollingTargetTimeoutID).toBe(1);
+
+    // onFailure
+    setUp.state = reducer(setUp.state, {
+      type: '@NAMESPACE/POLLING_FAILURE',
+      target: 'pollingTarget',
+      payload: 33,
+      isPolling: true
+    });
+    expect(setUp.state.pollingTargetIsRetrying).toBe(false);
+    expect(setUp.state.pollingTargetLoading).toBe(false);
+    expect(setUp.state.pollingTargetError).toBe(33);
+    expect(setUp.state.pollingTarget).toBe(5);
+    expect(setUp.state.pollingTargetRetryCount).toBe(0);
+    expect(setUp.state.pollingTargetTimeoutID).toBe(1);
   });
 });
