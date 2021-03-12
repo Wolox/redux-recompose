@@ -1,5 +1,6 @@
 import onLoading from '../../effects/onLoading';
 import onSuccess from '../../effects/onSuccess';
+import onSuccessPagination from '../../effects/onSuccessPagination';
 import onFailure from '../../effects/onFailure';
 
 import onSubscribe from '../../effects/onSubscribe';
@@ -12,7 +13,8 @@ function completeReducer(reducerDescription) {
   if (
     !reducerDescription ||
     ((!reducerDescription.primaryActions || !reducerDescription.primaryActions.length) &&
-    (!reducerDescription.modalActions || !reducerDescription.modalActions.length))
+      (!reducerDescription.modalActions || !reducerDescription.modalActions.length) &&
+      (!reducerDescription.paginationActions || !reducerDescription.paginationActions.length))
   ) {
     throw new Error('Reducer description is incomplete, should contain at least an actions field to complete');
   }
@@ -26,6 +28,17 @@ function completeReducer(reducerDescription) {
     reducerDescription.primaryActions.forEach(actionName => {
       reducerHandler[actionName] = onLoading();
       reducerHandler[`${actionName}_SUCCESS`] = onSuccess();
+      reducerHandler[`${actionName}_FAILURE`] = onFailure();
+    });
+  }
+
+  if (reducerDescription.paginationActions) {
+    if (!isStringArray(reducerDescription.paginationActions)) {
+      throw new Error('Primary actions must be a string array');
+    }
+    reducerDescription.paginationActions.forEach(actionName => {
+      reducerHandler[actionName] = onLoading();
+      reducerHandler[`${actionName}_SUCCESS`] = onSuccessPagination();
       reducerHandler[`${actionName}_FAILURE`] = onFailure();
     });
   }

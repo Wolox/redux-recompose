@@ -1,9 +1,10 @@
-
 ![versión npm](https://img.shields.io/npm/v/redux-recompose.svg?color=68d5f7)
 ![Download npm](https://img.shields.io/npm/dw/redux-recompose.svg?color=7551bb)
 [![codecov](https://codecov.io/gh/Wolox/redux-recompose/branch/master/graph/badge.svg)](https://codecov.io/gh/Wolox/redux-recompose)
 [![supported by](https://img.shields.io/badge/supported%20by-Wolox.💗-blue.svg)](https://www.wolox.com.ar/)
-# Redux-recompose  
+
+# Redux-recompose
+
 ![Vertical Logo Redux-recompose](./logo/images/Redux_vertical_small@2x.png)
 
 ## Why another Redux library ?
@@ -18,14 +19,14 @@ Usually, we are used to write:
 // actions.js
 
 function increment(anAmount) {
-  return { type: 'INCREMENT', payload: anAmount };
+  return { type: "INCREMENT", payload: anAmount };
 }
 
 // reducer.js
 
 function reducer(state = initialState, action) {
-  switch(action.type) {
-    case 'INCREMENT':
+  switch (action.type) {
+    case "INCREMENT":
       return { ...state, counter: state.counter + action.payload };
     default:
       return state;
@@ -40,18 +41,20 @@ With the new concept of _target_ of an action, we could write something like:
 
 // Define an action. It will place the result on state.counter
 function increment(anAmount) {
-  return { type: 'INCREMENT', target: 'counter', payload: anAmount };
+  return { type: "INCREMENT", target: "counter", payload: anAmount };
 }
-
 
 // reducer.js
 // Create a new effect decoupled from the state structure at all.
-const onAdd = (state, action) => ({ ...state, [action.target]: state[action.target] + action.payload });
+const onAdd = (state, action) => ({
+  ...state,
+  [action.target]: state[action.target] + action.payload
+});
 
 // Describe your reducer - without the switch
 const reducerDescription = {
-  'INCREMENT': onAdd()
-}
+  INCREMENT: onAdd()
+};
 
 // Create it !
 const reducer = createReducer(initialState, reducerDescription);
@@ -140,8 +143,12 @@ completeFromProps: Helps to write a state from propTypes definition
 And to introduce completers that support custom patterns:
 
 ```js
-const initialStateDescription = { msg: '' };
-const initialState = completeCustomState(initialStateDescription, ['Info', 'Warn', 'Error']);
+const initialStateDescription = { msg: "" };
+const initialState = completeCustomState(initialStateDescription, [
+  "Info",
+  "Warn",
+  "Error"
+]);
 // initialState.toEqual({ msg: '', msgInfo: '', msgWarn: '', msgError: '' });
 ```
 
@@ -158,6 +165,73 @@ There's currently documentation for the following:
 - [withStatusHandling](./src/injections/withStatusHandling/)
 - [withSuccess](./src/injections/withSuccess/)
 
+## Pagination Actions
+
+You will have to write actions with the following params:
+
+- paginationAction (boolean)
+- reducerName (The name of the reducer you are going to handle this) (use only if paginationAction is true)
+- refresh (Param that probably you receive in your action, you are going to set it to false when you want to have next pages. By default is setted to true)
+- successSelector (This last param have to transform the response and return the following object)
+
+```js
+{
+  list,
+  meta: {
+  totalPages,
+  currentPage,
+  totalItems // This last item is not necessary but maybe you will need it for something specific.
+  }
+}
+
+```
+
+Your service will receive an object with the nextPage prop.
+
+Example of using:
+
+```js
+//reducer.js
+
+const stateDescription = {
+  tickets: null
+};
+
+const initialState = completeState(stateDescription);
+
+const reducerDescription = {
+  paginationActions: [actions.GET_TICKETS]
+};
+
+//actions.js
+
+const formatPagination = response => ({
+  list: response.data?.data,
+  meta: {
+    totalPages: response.data?.meta?.total_pages,
+    currentPage: response.data?.meta?.current_page,
+    totalItems: response.data?.meta?.total
+  }
+});
+
+export const actionCreators = {
+  getTickets: (newPagination = true) => ({
+    type: actions.GET_TICKETS,
+    target: ticketsTarget,
+    paginationAction: true,
+    refresh: newPagination,
+    reducerName: "tickets",
+    service: TicketService.getTickets,
+    successSelector: response => formatPagination(response)
+  })
+};
+
+//service.js
+const getTickets = ({ nextPage }) => api.get(`/tickets?page=${nextPage}`);
+```
+
+`IMPORTANT`: If you want to send more info to your service, your `payload` will have to return an object, not a single value. (Only if you are using paginationActions)
+
 ## Middlewares
 
 Middlewares allow to inject logic between dispatching the action and the actual desired change in the store. Middlewares are particularly helpful when handling asynchronous actions.
@@ -171,16 +245,16 @@ The following are currently available:
 The way `redux-recompose` updates the redux state can be configured. The default configuration is
 
 ```js
-(state, newContent) => ({ ...state, ...newContent })
+(state, newContent) => ({ ...state, ...newContent });
 ```
 
 You can use `configureMergeState` to override the way `redux-recompose` handles state merging. This is specially useful when you are using immutable libraries.
 For example, if you are using `seamless-immutable` to keep your store immutable, you'll want to use it's [`merge`](https://github.com/rtfeldman/seamless-immutable#merge) function. You can do so with the following configuration:
 
 ```js
-import { configureMergeState } from 'redux-recompose';
+import { configureMergeState } from "redux-recompose";
 
-configureMergeState((state, newContent) => state.merge(newContent))
+configureMergeState((state, newContent) => state.merge(newContent));
 ```
 
 ## Thanks to
