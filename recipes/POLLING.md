@@ -89,3 +89,6 @@ You can cancel the polling at any time with:
 ```js
 dispatch({type: actions.FETCH_PAYMENT_DATA_CANCEL, target: 'currentTranslationStatus'});
 ```
+
+## Demo
+You can try out a [demo](https://codesandbox.io/s/polling-actions-example-) in order to improve your understanding of polling actions. We recommend using you own browser's console instead of `codesandbox.ios`'s.
