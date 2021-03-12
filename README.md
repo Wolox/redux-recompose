@@ -152,7 +152,7 @@ configureMergeState((state, newContent) => state.merge(newContent))
 
 ## Recipes
 
-- [Invisible Reducer](./recipes/invisible.md)
+- [Invisible Reducer](./recipes/INVISIBLE.md)
 - [Polling](./recipes/POLLING.md)
 
 ## Thanks to
