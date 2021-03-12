@@ -2,10 +2,10 @@ import mockStore from '../../utils/asyncActionsUtils';
 import createTypes from '../../creators/createTypes';
 
 const MockService = {
-  fetchSomething: async () => new Promise(resolve => resolve({ ok: true, data: 30 })),
-  fetchSomethingForSelector: async () => new Promise(resolve => resolve({ ok: true, newData: 40 })),
-  fetchFailure: async () => new Promise(resolve => resolve({ ok: false, problem: 'CLIENT_ERROR' })),
-  fetchFailureForSelector: async () => new Promise(resolve => resolve({ ok: false, error: 'NEW_CLIENT_ERROR' }))
+  fetchSomething: () => new Promise(resolve => resolve({ ok: true, data: 30 })),
+  fetchSomethingForSelector: () => new Promise(resolve => resolve({ ok: true, newData: 40 })),
+  fetchFailure: () => new Promise(resolve => resolve({ ok: false, problem: 'CLIENT_ERROR' })),
+  fetchFailureForSelector: () => new Promise(resolve => resolve({ ok: false, error: 'NEW_CLIENT_ERROR' }))
 };
 
 const actions = createTypes(['FETCH', 'FETCH_SUCCESS', 'FETCH_FAILURE', 'OTHER_FETCH'], '@TEST');

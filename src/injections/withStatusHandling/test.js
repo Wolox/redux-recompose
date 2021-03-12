@@ -4,9 +4,9 @@ import createTypes from '../../creators/createTypes';
 import withStatusHandling from '.';
 
 const MockService = {
-  fetchSomething: async () => new Promise(resolve => resolve({ ok: true, data: 42 })),
-  fetchFailureNotFound: async () => new Promise(resolve => resolve({ ok: false, problem: 'CLIENT_ERROR', status: 404 })),
-  fetchFailureExpiredToken: async () => new Promise(resolve => resolve({ ok: false, problem: 'CLIENT_ERROR', status: 422 }))
+  fetchSomething: () => new Promise(resolve => resolve({ ok: true, data: 42 })),
+  fetchFailureNotFound: () => new Promise(resolve => resolve({ ok: false, problem: 'CLIENT_ERROR', status: 404 })),
+  fetchFailureExpiredToken: () => new Promise(resolve => resolve({ ok: false, problem: 'CLIENT_ERROR', status: 422 }))
 };
 
 const actions = createTypes(

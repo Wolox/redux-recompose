@@ -6,10 +6,10 @@ let tries = 0;
 jest.useFakeTimers();
 
 const MockService = {
-  fetchSomething: async () => new Promise(resolve => resolve({ ok: true, data: 30, newData: 40 })),
-  fetchFailure: async () => new Promise(resolve => resolve({ ok: false, problem: 'CLIENT_ERROR' })),
-  fetchFailureForSelector: async () => new Promise(resolve => resolve({ ok: false, error: 'NEW_CLIENT_ERROR' })),
-  fetchFailureForPolling: async () => {
+  fetchSomething: () => new Promise(resolve => resolve({ ok: true, data: 30, newData: 40 })),
+  fetchFailure: () => new Promise(resolve => resolve({ ok: false, problem: 'CLIENT_ERROR' })),
+  fetchFailureForSelector: () => new Promise(resolve => resolve({ ok: false, error: 'NEW_CLIENT_ERROR' })),
+  fetchFailureForPolling: () => {
     let promise;
     if (tries === 2) {
       promise = new Promise(resolve => resolve({ ok: true, status: 200, data: 'OK' }));

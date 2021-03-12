@@ -3,8 +3,8 @@ import createTypes from '../../creators/createTypes';
 import withPostSuccess from '../withPostSuccess';
 
 const MockService = {
-  fetchSomething: async (data = 42) => new Promise(resolve => resolve({ ok: true, data: data + 1 })),
-  fetchFailure: async () => new Promise(resolve => resolve({ ok: false, problem: 'CLIENT_ERROR' }))
+  fetchSomething: (data = 42) => new Promise(resolve => resolve({ ok: true, data: data + 1 })),
+  fetchFailure: () => new Promise(resolve => resolve({ ok: false, problem: 'CLIENT_ERROR' }))
 };
 
 const actions = createTypes(['FETCH', 'OTHER_FETCH'], '@TEST');

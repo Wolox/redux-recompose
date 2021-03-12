@@ -5,8 +5,8 @@ import withStatusHandling from '../withStatusHandling';
 import withFailure from '.';
 
 const MockService = {
-  fetchSomething: async () => new Promise(resolve => resolve({ ok: true, data: 42 })),
-  fetchFailureNotFound: async () => new Promise(resolve => resolve({ ok: false, problem: 'CLIENT_ERROR', status: 404 }))
+  fetchSomething: () => new Promise(resolve => resolve({ ok: true, data: 42 })),
+  fetchFailureNotFound: () => new Promise(resolve => resolve({ ok: false, problem: 'CLIENT_ERROR', status: 404 }))
 };
 
 const actions = createTypes(
