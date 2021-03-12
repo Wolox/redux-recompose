@@ -10,9 +10,6 @@ function createReducer(initialState, reducerDescription) {
       console.warn(`Handling an action without type: ${JSON.stringify(action)}`);
     }
     const handler = reducerDescription[action.type];
-    if (!handler) {
-      console.warn(`No handler configured for action with type: ${JSON.stringify(action)}`);
-    }
     return (handler && handler(state, action)) || state;
   };
 }
