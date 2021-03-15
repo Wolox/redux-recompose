@@ -40,22 +40,4 @@ describe('onCancel', () => {
       targetIsRetrying: false
     });
   });
-  it('Sets targets with selector', () => {
-    const reducer = createReducer(setUp.state, {
-      '@@ACTION/TYPE': onCancel(action => action.payload.timeoutID)
-    });
-    const newState = reducer(setUp.state, {
-      type: '@@ACTION/TYPE',
-      target: 'target',
-      payload: { timeoutID: 1 }
-    });
-    expect(newState).toEqual({
-      target: null,
-      targetLoading: false,
-      targetError: null,
-      targetRetryCount: 0,
-      targetTimeoutID: null,
-      targetIsRetrying: false
-    });
-  });
 });

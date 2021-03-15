@@ -1,14 +1,15 @@
 import { mergeState } from '../../configuration';
 
-function onCancel(selector = action => action.payload) {
+function onCancel() {
   return (state, action) => {
-    clearTimeout(selector(action, state));
+    const timeoutIDKey = `${action.target}TimeoutID`;
+    clearTimeout(state[timeoutIDKey]);
     return mergeState(state, {
       [`${action.target}IsRetrying`]: false,
       [`${action.target}Loading`]: false,
       [`${action.target}RetryCount`]: 0,
       [`${action.target}Error`]: null,
-      [`${action.target}TimeoutID`]: null
+      [timeoutIDKey]: null
     });
   };
 }

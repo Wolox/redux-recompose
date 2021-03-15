@@ -15,20 +15,7 @@ It will:
 Example:
 
 ```js
-const selector =
-  (action, state) => action.payload.customError || state.defaultError;
-
 const reducerDescription = {
-  'CANCEL': onCancel(),
-  'CANCEL_CUSTOM': onCancel(selector)
+  'CANCEL': onCancel()
 };
 ```
-
-### Custom selectors
-
-`onCancel` effect receives an optional parameter:
-
-- selector: This function describes how we read the data from the `action`.  
-  `(action, state) => any`  
-  By default, is:  
-  `action => action.payload`
