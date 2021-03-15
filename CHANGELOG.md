@@ -6,7 +6,8 @@ All notable changes to this project will be documented in this file.
 - Modified some APIs:
 `completeState({a:1,b:2}, ['b'])` is now `completeState({description: {a: 1}, ignoredTargets: {b: 2})`
 `completeTypes(['LOGIN'], ['AUTH_INIT', 'LOGOUT'])` is now `completeTypes({primaryActions: ['LOGIN'], ignoredActions: ['AUTH_INIT', 'LOGOUT'])`
-- Introduced polling actions.
+- Introduced polling actions
+- Updated dependencies
 - Optimized building configuration
 
 ## [2.0.0] - 2018-09-14
