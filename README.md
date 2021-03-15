@@ -152,6 +152,7 @@ configureMergeState((state, newContent) => state.merge(newContent))
 
 ## Recipes
 
+- [Making HTTP requests by dispatching a redux action](./recipes/FETCHING.md)
 - [Invisible Reducer](./recipes/INVISIBLE.md)
 - [Polling](./recipes/POLLING.md)
 
