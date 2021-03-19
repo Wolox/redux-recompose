@@ -19,8 +19,8 @@ const selector =
   (action, state) => action.payload.customError || state.defaultError;
 
 const reducerDescription = {
-  'SUCCESS': onSuccess(),
-  'SUCCESS_CUSTOM': onSuccess(selector)
+  'RETRY': onRetry(),
+  'RETRY_CUSTOM': onRetry(selector)
 };
 ```
 

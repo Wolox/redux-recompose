@@ -65,7 +65,7 @@ If at any time the server responds with a `200`, `currentTranslationStatus` will
 If at any time the server responds with any other HTTP status, `currentTranslationStatusError` will hold the server response and `currentTranslationStatusIsRetrying` will be set to `false`. This also marks the polling as being over.
 
 Here's a diagram to help you further understand how the polling works
-![alt text](./polling.png "Logo Title Text 1")
+![polling flow diagram](./polling.png "polling flow diagram")
 
 ## Basic polling recipe with retries limit
 
