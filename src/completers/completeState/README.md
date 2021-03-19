@@ -42,6 +42,8 @@ const initialState = completeState({
 });
 
 /*
+this is the final content of initialState:
+
 initialState === {
   firstCompleteState: 123,
   firstCompleteStateLoading: false,

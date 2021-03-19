@@ -19,7 +19,8 @@ const completedActions = completeTypes({
   ]});
 
 /*
-[
+this is the final content of completedReducer:
+completedActions === [
   "FIRST_PRIMARY_ACTION",
   "FIRST_PRIMARY_ACTION_SUCCESS",
   "FIRST_PRIMARY_ACTION_FAILURE",
