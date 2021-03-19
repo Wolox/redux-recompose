@@ -1,7 +1,6 @@
 import Immutable from 'seamless-immutable';
 
 import createReducer from '../../creators/createReducer';
-import createModalActions from '../../creators/createModalActions';
 import onFailure from '../../effects/onFailure';
 
 import completeReducer from '.';
@@ -10,8 +9,6 @@ const initialState = {
   target: 1,
   targetLoading: false,
   targetError: null,
-  modalIsOpen: false,
-  modalContent: null,
   pollingTarget: 5,
   pollingTargetLoading: false,
   pollingTargetError: null,
@@ -80,19 +77,6 @@ describe('completeReducer', () => {
     setUp.state = reducer(setUp.state, { type: '@NAMESPACE/ANOTHER', target: 'target', payload: 'Also known as Ermac' });
     expect(setUp.state.targetError).toBe('Also known as Ermac');
     // Flawless victory
-  });
-  it('Completes modal actions', () => {
-    const reducerDescription = {
-      modalActions: ['@NAMESPACE/MODAL']
-    };
-    const reducer = createReducer(setUp.state, completeReducer(reducerDescription));
-    const modal = createModalActions({ type: '@NAMESPACE/MODAL', target: 'modalIsOpen', contentTarget: 'modalContent' });
-    setUp.state = reducer(setUp.state, modal.open('Title'));
-    expect(setUp.state.modalIsOpen).toBe(true);
-    expect(setUp.state.modalContent).toBe('Title');
-    setUp.state = reducer(setUp.state, modal.close());
-    expect(setUp.state.modalIsOpen).toBe(false);
-    expect(setUp.state.modalContent).toBe(null);
   });
   it('Completes polling successfully', () => {
     const reducerDescription = {

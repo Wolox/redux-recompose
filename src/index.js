@@ -9,7 +9,6 @@ import completeTypes from './completers/completeTypes';
 
 import createReducer from './creators/createReducer';
 import createTypes from './creators/createTypes';
-import createModalActions from './creators/createModalActions';
 import createThunkAction from './creators/createThunkAction';
 
 import onDelete from './effects/onDelete';
@@ -21,9 +20,7 @@ import onReadValue from './effects/onReadValue';
 import onSetValue from './effects/onSetValue';
 import onSpreadValue from './effects/onSpreadValue';
 import onSuccess from './effects/onSuccess';
-import onSubscribe from './effects/onSubscribe';
 import onToggle from './effects/onToggle';
-import onUnsubscribe from './effects/onUnsubscribe';
 import onAppend from './effects/onAppend';
 import onCycle from './effects/onCycle';
 import onConcatenate from './effects/onConcatenate';
@@ -57,7 +54,6 @@ exports.completeTypes = completeTypes;
 exports.createReducer = createReducer;
 exports.createTypes = createTypes;
 exports.createThunkAction = createThunkAction;
-exports.createModalActions = createModalActions;
 
 exports.onDelete = onDelete;
 exports.onDeleteByIndex = onDeleteByIndex;
@@ -68,9 +64,7 @@ exports.onReadValue = onReadValue;
 exports.onSetValue = onSetValue;
 exports.onSpreadValue = onSpreadValue;
 exports.onSuccess = onSuccess;
-exports.onSubscribe = onSubscribe;
 exports.onToggle = onToggle;
-exports.onUnsubscribe = onUnsubscribe;
 exports.onAppend = onAppend;
 exports.onCycle = onCycle;
 exports.onConcatenate = onConcatenate;
