@@ -1,21 +1,27 @@
-import { isStringArray } from '../../utils/typeUtils';
+import * as yup from 'yup';
 
-function completeTypes(types, ignoredActions = []) {
-  if (!isStringArray(types)) {
-    throw new Error('Types must be an array of strings');
-  }
-  if (!isStringArray(ignoredActions)) {
-    throw new Error('Exception cases from actions must be an array of strings');
-  }
+const customCompleter = (typesCompleters) => typesCompleters.flatMap(({ actions, completer }) => actions.flatMap(completer));
 
-  const completedTypes = [];
-  types.forEach(type => {
-    completedTypes.push(type);
-    completedTypes.push(`${type}_SUCCESS`);
-    completedTypes.push(`${type}_FAILURE`);
-  });
+const schema = yup.object().shape({
+  primaryActions: yup.array().of(yup.string().typeError('primaryActions should be an array of strings')).typeError('primaryActions should be an array'),
+  ignoredActions: yup.array().of(yup.string().typeError('ignoredActions should be an array of strings')).typeError('ignoredActions should be an array'),
+  pollingActions: yup.array().of(yup.string().typeError('pollingActions should be an array of strings')).typeError('pollingActions should be an array'),
+  customCompleters: yup.array().of(yup.object().shape({
+    completer: yup.mixed().test(value => typeof value === 'function').typeError('completer should be a function'),
+    actions: yup.array().of(yup.string().typeError('actions should be an array of strings')).typeError('actions should be an array')
+  }))
+}).typeError('reducerDescription should be an object');
 
-  return [...completedTypes, ...ignoredActions];
+function completeTypes(params) {
+  schema.validateSync(params);
+  const {
+    primaryActions = [], ignoredActions = [], customCompleters = [], pollingActions = []
+  } = params;
+
+  const primaryTypes = customCompleter([{ actions: primaryActions, completer: type => [type, `${type}_SUCCESS`, `${type}_FAILURE`] }]);
+  const pollingTypes = customCompleter([{ actions: pollingActions, completer: type => [type, `${type}_SUCCESS`, `${type}_FAILURE`, `${type}_RETRY`, `${type}_CANCEL`] }]);
+  const customCompletedTypes = customCompleter(customCompleters);
+  return [...primaryTypes, ...pollingTypes, ...customCompletedTypes, ...ignoredActions];
 }
 
 export default completeTypes;

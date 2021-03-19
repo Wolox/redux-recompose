@@ -1,4 +1,4 @@
-import configureMergeState, { mergeState } from './';
+import configureMergeState, { mergeState } from '.';
 
 describe('configureMergeState', () => {
   it('Should allow state configuration', () => {

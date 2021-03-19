@@ -78,20 +78,8 @@ of the state is being changed.
 - [onSpreadValue](./src/effects/onSpreadValue/)
 - [onCycle](./src/effects/onCycle/)
 - [onReplace](./src/effects/onReplace/)
-
-We are currently writing some other effects:
-
-```
-onReset
-onCycle
-onMap
-```
-
-And other utilities like
-
-```
-composeEffects
-```
+- [onRetry](./src/effects/onRetry/)
+- [onCancel](./src/effects/onCancel/)
 
 New effects are welcome ! Feel free to open an issue or even a PR.
 
@@ -103,15 +91,8 @@ There are a few creators that also ease writing Redux reducers and async actions
 - [createTypes](./src/creators/createTypes/)
 - [createThunkAction](./src/creators/createThunkAction/)
 
-We are currently working on these creators:
-
-```
-createMultiTargetedAction
-createPollingAction
-```
-
 Since state handling is decoupled from its state, we could create some more complex async actions, or even map an effect with an action type to create families of actions.  
-More crazy and useful ideas are welcome too !
+More crazy and useful ideas are welcome too!
 
 ## Completers
 
@@ -130,20 +111,6 @@ There are a few completers that can be used:
 - [completeState](./src/completers/completeState/)
 - [completeReducer](./src/completers/completeReducer/)
 - [completeTypes](./src/completers/completeTypes/)
-
-We are working to introduce other completers like:
-
-```
-completeFromProps: Helps to write a state from propTypes definition
-```
-
-And to introduce completers that support custom patterns:
-
-```js
-const initialStateDescription = { msg: '' };
-const initialState = completeCustomState(initialStateDescription, ['Info', 'Warn', 'Error']);
-// initialState.toEqual({ msg: '', msgInfo: '', msgWarn: '', msgError: '' });
-```
 
 ## Injectors
 
@@ -183,6 +150,12 @@ import { configureMergeState } from 'redux-recompose';
 configureMergeState((state, newContent) => state.merge(newContent))
 ```
 
+## Recipes
+
+- [Making HTTP requests by dispatching a redux action](./recipes/FETCHING.md)
+- [Invisible Reducer](./recipes/INVISIBLE.md)
+- [Polling](./recipes/POLLING.md)
+
 ## Thanks to
 
 This library was inspired by acdlite/recompose. Let's keep creating tools for ease development.
@@ -197,13 +170,7 @@ This library was inspired by acdlite/recompose. Let's keep creating tools for ea
 
 ## About
 
-This project was created by [Manuel Battan](https://github.com/mvbattan) and it was written by [Wolox](http://www.wolox.com.ar). It is mantained by:
-
-<a href="https://github.com/mvbattan"><img src="https://avatars3.githubusercontent.com/u/11986709?s=460&v=4" title="mvbattan" width="80" height="80"></a>
-<a href="https://github.com/jeymarsonwolox"><img src="https://avatars2.githubusercontent.com/u/44580968?s=460&v=4" title="jeymarsonwolox" width="80" height="80"></a>
-<a href="https://github.com/marianozicavo"><img src="https://avatars3.githubusercontent.com/u/7256996?s=460&v=4" title="marianozicavo" width="80" height="80"></a>
-<a href="https://github.com/santinucera"><img src="https://avatars0.githubusercontent.com/u/21241074?s=460&v=4" title="santinucera" width="80" height="80"></a>
-<a href="https://github.com/Anisospina"><img src="https://avatars3.githubusercontent.com/u/13072856?s=460&v=4" title="Anisospina" width="80" height="80"></a>
+This project was written by [Manuel Battan](https://github.com/mvbattan) and it is maintained by [Wolox](http://www.wolox.com.ar).
 
 ![Wolox](https://raw.githubusercontent.com/Wolox/press-kit/master/logos/logo_banner.png)
 

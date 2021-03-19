@@ -1,20 +1,50 @@
 ## completeTypes - Completer
 
-This completer helps to extends a group of actions including their `SUCCESS` and `FAILURE` cases. It also receives a second parameter that describes which ones are not extended.
+This completer can extend the list of possible action types, helping to reduce its code size or generate them programatically. `completeTypes` receives an object with:
 
-Examples:
+* `primaryActions`: The completer generates the `_SUCCESS` and `_FAILURE` actions.
+* `ignoredActions`: The completer doesn't generate any extra actions for these.
+* `pollingActions`: The completer generates the `_SUCCESS`, `_FAILURE`, `_RETRY` and `_CANCEL` actions.
+* `customCompleters`: You can specify what types to generate.
+
+### Example:
 ```js
-const arrTypes = ['AN_ACTION', 'OTHER_ACTION'];
-const completedTypes = completeTypes(arrTypes, ['ANOTHER_ACTION']);
+const completedActions = completeTypes({
+  primaryActions: ['FIRST_PRIMARY_ACTION', 'SECOND_PRIMARY_ACTION'],
+  ignoredActions: ['FIRST_IGNORED_ACTION', 'SECOND_IGNORED_ACTION'],
+  pollingActions: ['FIRST_POLLING_ACTION', 'SECOND_POLLING_ACTION'],
+  customCompleters: [
+      { completer: type => [type, `UPGRADED_${type}`], actions: ['FIRST_CUSTOM_ACTION', 'SECOND_CUSTOM_ACTION'] },
+      { completer: type => [`NEW_${type}`], actions: ['THIRD_CUSTOM_ACTION'] },
+  ]});
 
-completedTypes is like
-[
-  'AN_ACTION',
-  'AN_ACTION_SUCCESS',
-  'AN_ACTION_FAILURE',
-  'OTHER_ACTION',
-  'OTHER_ACTION_SUCCESS',
-  'OTHER_ACTION_FAILURE',
-  'ANOTHER_ACTION',
-];
+/*
+this is the final content of completedReducer:
+completedActions === [
+  "FIRST_PRIMARY_ACTION",
+  "FIRST_PRIMARY_ACTION_SUCCESS",
+  "FIRST_PRIMARY_ACTION_FAILURE",
+  "SECOND_PRIMARY_ACTION",
+  "SECOND_PRIMARY_ACTION_SUCCESS",
+  "SECOND_PRIMARY_ACTION_FAILURE",
+  "FIRST_POLLING_ACTION",
+  "FIRST_POLLING_ACTION_SUCCESS",
+  "FIRST_POLLING_ACTION_FAILURE",
+  "FIRST_POLLING_ACTION_RETRY",
+  "FIRST_POLLING_ACTION_CANCEL",
+  "SECOND_POLLING_ACTION",
+  "SECOND_POLLING_ACTION_SUCCESS",
+  "SECOND_POLLING_ACTION_FAILURE",
+  "SECOND_POLLING_ACTION_RETRY",
+  "SECOND_POLLING_ACTION_CANCEL",
+  "FIRST_CUSTOM_ACTION",
+  "UPGRADED_FIRST_CUSTOM_ACTION",
+  "SECOND_CUSTOM_ACTION",
+  "UPGRADED_SECOND_CUSTOM_ACTION",
+  "NEW_THIRD_CUSTOM_ACTION",
+  "FIRST_IGNORED_ACTION",
+  "SECOND_IGNORED_ACTION"
+*/
+
+const actions = createTypes(completedActions, '@@NAMESPACE')
 ```

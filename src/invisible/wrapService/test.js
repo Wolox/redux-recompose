@@ -1,4 +1,6 @@
-import { combineReducers, createStore, applyMiddleware, compose } from 'redux';
+import {
+  combineReducers, createStore, applyMiddleware, compose
+} from 'redux';
 
 import { thunk } from '../../utils/asyncActionsUtils';
 import withPostSuccess from '../../injections/withPostSuccess';
@@ -8,10 +10,10 @@ import wrapCombineReducers from '../wrapCombineReducers';
 import wrapService from '.';
 
 const MockService = {
-  fetchSomething: async () => new Promise(resolve => resolve({ ok: true, data: 30 })),
-  fetchSomethingForSelector: async () => new Promise(resolve => resolve({ ok: true, data: 40 })),
-  fetchFailure: async () => new Promise(resolve => resolve({ ok: false, problem: 'CLIENT_ERROR' })),
-  fetchFailureForSelector: async () => new Promise(resolve => resolve({ ok: false, error: 'NEW_CLIENT_ERROR' }))
+  fetchSomething: () => new Promise(resolve => resolve({ ok: true, data: 30 })),
+  fetchSomethingForSelector: () => new Promise(resolve => resolve({ ok: true, data: 40 })),
+  fetchFailure: () => new Promise(resolve => resolve({ ok: false, problem: 'CLIENT_ERROR' })),
+  fetchFailureForSelector: () => new Promise(resolve => resolve({ ok: false, error: 'NEW_CLIENT_ERROR' }))
 };
 
 const setUp = {
@@ -49,8 +51,7 @@ describe('wrapService', () => {
     });
   });
   it('Does allow custom injections', async () => {
-    MockService.fetchSomethingForSelector.injections =
-      [withPostSuccess((_, response) => expect(response).toEqual({ ok: true, data: 40 }))];
+    MockService.fetchSomethingForSelector.injections = [withPostSuccess((_, response) => expect(response).toEqual({ ok: true, data: 40 }))];
     const ServiceActions = wrapService(MockService, 'foo', { fetchSomethingForSelector: 'fetchSomething' });
     await setUp.store.dispatch(ServiceActions.fetchSomethingForSelector());
     expect(setUp.store.getState()).toEqual({

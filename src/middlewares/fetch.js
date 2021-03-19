@@ -4,6 +4,7 @@ import emptyThunkAction from '../injections/emptyThunkAction';
 import singleCallThunkAction from '../injections/singleCallThunkAction';
 import composeInjections from '../injections/composeInjections';
 import mergeInjections from '../injections/mergeInjections';
+import pollingAction from '../injections/pollingAction';
 
 const ensembleInjections = action => {
   let base;
@@ -11,20 +12,17 @@ const ensembleInjections = action => {
     base = externalBaseAction(action);
   } else if (!action.type) {
     base = singleCallThunkAction(action);
+  } else if (action.shouldRetry) {
+    base = pollingAction(action);
   } else {
     base = action.target ? baseThunkAction(action) : emptyThunkAction(action);
   }
   if (!action.injections) return base;
-  const injections = action.injections.constructor === Array
-    ? mergeInjections(action.injections) : action.injections;
+  const injections = mergeInjections(action.injections);
 
   return { ...base, ...injections };
 };
 
-const fetchMiddleware = ({ dispatch }) => next => action => (
-  action.service ?
-    dispatch(composeInjections(ensembleInjections(action))) :
-    next(action)
-);
+const fetchMiddleware = ({ dispatch }) => next => action => (action.service ? dispatch(composeInjections(ensembleInjections(action))) : next(action));
 
 export default fetchMiddleware;

@@ -14,7 +14,7 @@ Example:
       service: someService,
       payload: data,
       injections: [
-        withPostSuccess((dispatch, response, state) => {
+        withPostSuccess((dispatch, response, getState) => {
           /* insert here whatever logic
            * you want to execute after service call and SUCCCESSFUL pattern.
            * This is particularly userful to dispatch side efects or actions to different targets

@@ -1,8 +1,4 @@
-import mergeInjections from '../mergeInjections';
-
-function composeInjections(...injections) {
-  const injectionsDescription = mergeInjections(injections);
-
+function composeInjections(injections) {
   const {
     prebehavior = () => {},
     apiCall = () => {},
@@ -13,20 +9,20 @@ function composeInjections(...injections) {
     postFailure = () => {},
     failure = () => {},
     statusHandler = () => true
-  } = injectionsDescription;
+  } = injections;
 
   return async (dispatch, getState) => {
     prebehavior(dispatch);
     const response = await apiCall(getState);
     postBehavior(dispatch, response);
-    if (determination(response)) {
-      const shouldContinue = success(dispatch, response, getState());
-      if (shouldContinue) postSuccess(dispatch, response, getState());
+    if (determination(response, getState)) {
+      const shouldContinue = success(dispatch, response, getState);
+      if (shouldContinue) postSuccess(dispatch, response, getState);
     } else {
-      const shouldContinue = statusHandler(dispatch, response, getState());
+      const shouldContinue = statusHandler(dispatch, response, getState);
       if (shouldContinue) {
-        failure(dispatch, response, getState());
-        postFailure(dispatch, response, getState());
+        failure(dispatch, response, getState);
+        postFailure(dispatch, response, getState);
       }
     }
   };

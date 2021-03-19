@@ -4,14 +4,13 @@ import createTypes from '../../creators/createTypes';
 import withFlowDetermination from '.';
 
 const MockService = {
-  fetchSomething: async () => new Promise(resolve => resolve({ ok: true, data: 42 })),
-  fetchFailureNotFound: async () => new Promise(resolve =>
-    resolve({
-      ok: false,
-      problem: 'CLIENT_ERROR',
-      status: 404,
-      data: 39
-    }))
+  fetchSomething: () => new Promise(resolve => resolve({ ok: true, data: 42 })),
+  fetchFailureNotFound: () => new Promise(resolve => resolve({
+    ok: false,
+    problem: 'CLIENT_ERROR',
+    status: 404,
+    data: 39
+  }))
 };
 
 const actions = createTypes(['FETCH', 'FETCH_SUCCESS', 'FETCH_FAILURE', 'OTHER_ACTION'], '@TEST');
@@ -23,7 +22,7 @@ describe('withFlowDetermination', () => {
       type: actions.FETCH,
       target: 'aTarget',
       service: MockService.fetchSomething,
-      injections: withFlowDetermination(response => response.ok)
+      injections: [withFlowDetermination(response => response.ok)]
     });
 
     await store.dispatch({
@@ -37,7 +36,7 @@ describe('withFlowDetermination', () => {
       type: actions.FETCH,
       target: 'aTarget',
       service: MockService.fetchFailureNotFound,
-      injections: withFlowDetermination(response => response.status === 404)
+      injections: [withFlowDetermination(response => response.status === 404)]
     });
 
     const actionsDispatched = store.getActions();

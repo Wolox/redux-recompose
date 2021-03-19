@@ -4,8 +4,8 @@ import createTypes from '../../creators/createTypes';
 import withPostFailure from '.';
 
 const MockService = {
-  fetchSomething: async () => new Promise(resolve => resolve({ ok: true, data: 42 })),
-  fetchFailureNotFound: async () => new Promise(resolve => resolve({ ok: false, problem: 'CLIENT_ERROR', status: 404 }))
+  fetchSomething: () => new Promise(resolve => resolve({ ok: true, data: 42 })),
+  fetchFailureNotFound: () => new Promise(resolve => resolve({ ok: false, problem: 'CLIENT_ERROR', status: 404 }))
 };
 
 const actions = createTypes(['FETCH', 'FETCH_SUCCESS', 'FETCH_FAILURE', 'OTHER_ACTION'], '@TEST');
@@ -17,7 +17,7 @@ describe('withPostFailure', () => {
       type: actions.FETCH,
       target: 'aTarget',
       service: MockService.fetchFailureNotFound,
-      injections: withPostFailure(dispatch => dispatch({ type: actions.OTHER_ACTION }))
+      injections: [withPostFailure(dispatch => dispatch({ type: actions.OTHER_ACTION }))]
     });
 
     const actionsDispatched = store.getActions();
@@ -34,7 +34,7 @@ describe('withPostFailure', () => {
       type: actions.FETCH,
       target: 'aTarget',
       service: MockService.fetchSomething,
-      injections: withPostFailure(dispatch => dispatch({ type: actions.OTHER_ACTION }))
+      injections: [withPostFailure(dispatch => dispatch({ type: actions.OTHER_ACTION }))]
     });
 
     const actionsDispatched = store.getActions();
@@ -44,4 +44,3 @@ describe('withPostFailure', () => {
     ]);
   });
 });
-
