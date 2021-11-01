@@ -42,7 +42,7 @@
     "eslint-plugin-import": "^2.22.1",
     "husky": "^3.0.2",
     "jest": "^26.6.3",
-    "redux": "^3.7.2",
+    "redux": "^4.1.2",
     "redux-mock-store": "^1.5.4",
     "seamless-immutable": "^7.1.4"
   },
